@@ -15,7 +15,7 @@
 .tool-form {
   margin: 0 auto;
   width: 40em;
-  height: 95%;
+  height: 90%;
   color: white;
   overflow-y: auto;
 }
@@ -27,8 +27,8 @@
   display: -webkit-box;
   width: 100%;
   margin: 0;
-  bottom: -0.8em;
-  color: grey;
+  bottom: -3em;
+  color: lightgrey;
 }
 
 .form-block {
@@ -38,6 +38,7 @@
 .change-block {
   position: relative;
   display: 'block';
+  min-height: 2.5em;
   border-radius: 5px;
   border-left: 3px solid grey;
   border-right: 3px solid grey;
@@ -74,7 +75,7 @@
 }
 
 .field-label {
-  flex: 0 1 5em;
+  flex: 0 1 6.5em;
   text-align: right;
 }
 

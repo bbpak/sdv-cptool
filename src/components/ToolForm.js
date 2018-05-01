@@ -78,7 +78,11 @@ export default class ToolForm extends Component {
           </div>
         </Form>
         <span className="footer">
-          <Icon link name="github" />
+          <Icon
+            link
+            title="it's not on my github yet I just wanted to make you read this"
+            name="github"
+          />
         </span>
       </div>
     )

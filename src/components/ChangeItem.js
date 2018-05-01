@@ -83,7 +83,7 @@ export default class ChangeItem extends Component {
         <Icon
           link
           title="optional fields"
-          style={{ width: '101%', position: 'relative', top: '-0.5em' }}
+          style={{ width: '101.5%', position: 'relative', top: '-0.5em' }}
           onClick={this.handleShowOptional}
           name="ellipsis horizontal"
         />
