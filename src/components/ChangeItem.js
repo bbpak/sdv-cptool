@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Select, Icon } from 'semantic-ui-react';
+import { Form, Select, Icon, Input } from 'semantic-ui-react';
 import _ from 'lodash';
 
 export default class ChangeItem extends Component {
@@ -7,26 +7,59 @@ export default class ChangeItem extends Component {
   constructor() {
     super();
     this.state = {
-      isCollapsed: false
+      isCollapsed: false,
+      action: 'Load',
+      data: {}
     }
+  }
+
+  handleActionChange = (e, data) => {
+    this.setState({action: data.value});
+  }
+
+  handleDataChange = (data) => {
+    this.props.handleDataChange(data);
   }
 
   renderActions = () => {
     return (
-      <Form.Field style={this.state.isCollapsed ? {display: 'none'} : {display: 'block'}}>
+      <Form.Field>
         <label>Action</label>
         <Select
+          value={this.state.action}
           options={
-            _.map(_.keys(this.props.changesData), (action, i) => {
+            _.map(_.keys(this.props.contentData), (action, i) => {
               return {
                 key: i,
                 text: action,
-                value: action.toLowerCase()
+                value: action
               }
             })
           }
+          onChange={this.handleActionChange}
         />
       </Form.Field>
+    );
+  }
+
+  renderFields = () => {
+    const fields = this.props.contentData[this.state.action];
+
+    return (
+      <div>
+        {_.map(_.keys(fields), (field, i) => {
+          return (
+            field === 'Optional' ? null :
+            <Form.Field key={i}>
+              <label>{field}</label>
+              <Input 
+                type='text'
+                value={fields[field]} 
+              />
+            </Form.Field>)
+          })
+        }
+      </div>
     );
   }
 
@@ -40,7 +73,10 @@ export default class ChangeItem extends Component {
         <div style={{position: 'absolute', left: 0, right: 0, top: 0 }} onClick={this.handleCollapseClick}>
           <Icon style={{width: '100%'}} name={this.state.isCollapsed ? 'angle down' : 'angle up'} />
         </div>
-        {this.renderActions()}
+        <div style={this.state.isCollapsed ? {display: 'none'} : {display: 'block'}}>
+          {this.renderActions()}
+          {this.renderFields()}
+        </div>
       </div>
     );
   }

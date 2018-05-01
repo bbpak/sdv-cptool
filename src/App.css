@@ -9,7 +9,7 @@
 .tool-form {
   margin: 0 auto;
   width: 30%;
-  max-height: 95%;
+  height: 95%;
   color: white;
   overflow-y: auto;
 }
@@ -23,7 +23,7 @@
   display: 'block';
   border-radius: 2px;
   border-left: 2px solid lightgrey !important;
-  background-color: #333333;
+  background-color: #282828;
   padding: 0.5em 0.5em 0.5em 0.5em;
   margin: 1em 0 1em 0;
   cursor: pointer;

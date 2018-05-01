@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Input, Button, Segment } from 'semantic-ui-react';
 import ChangeItem from './ChangeItem'
+import { contentData } from '../data/contentChanges.js';
 import _ from 'lodash';
 
 export default class ToolForm extends Component {
@@ -8,45 +9,23 @@ export default class ToolForm extends Component {
   constructor() {
     super();
     this.state = {
-      changes: [{}], // How many change blocks to render
+      changesData: [{}], // How many change blocks to render
       format: '1.3',
-      action: 'Load'
-    }
-
-    // TODO: Instead of hardcoding this fetch it from docs
-    this.changesData = {
-      Load: {
-        Target: "",
-        FromFile: "",
-        LogName: "",
-        Enabled: "",
-        When: ""
-      },
-      EditImage: {
-        Target: "",
-        FromFile: "",
-        FromArea: {'X': 0, 'Y': 0, 'Width': 16, 'Height': 16},
-        ToArea: {'X': 0, 'Y': 0, 'Width': 16, 'Height': 16},
-        PatchMode: "",
-        LogName: "",
-        Enabled: "",
-        When: ""
-      },
-      EditData: {
-        Target: "",
-        Fields: {},
-        Entries: {},
-        LogName: "",
-        Enabled: "",
-        When: ""
-      }
     }
   }
 
-  handleAddItemClick = () => {
-    let changes = this.state.changes;
-    changes.push({});
-    this.setState({changes});
+  componentDidMount() {
+    console.log(this);
+  }
+
+  handleActionChange = (e, data) => {
+    this.setState({action: data.value})
+  }
+
+  handleDataChange = (data) => {
+    let changesData = this.state.changesData;
+    changesData.push(data)
+    this.setState({changesData});
   }
 
   render() {
@@ -55,25 +34,32 @@ export default class ToolForm extends Component {
         <Segment className="form-block form-container">
           <Form.Field>
             <label>Format</label>
-            <Input value={this.state.format} />
+            <Input value={this.state.format} type='text' />
           </Form.Field>
         </Segment>
         <Segment id='changes-container' className="form-block">
           <Form.Field>
             <label>Changes</label>
-            {_.map(this.state.changes, (changeItem, i) => {
-              return <ChangeItem key={i} changesData={this.changesData} />
+            {_.map(this.state.changesData, (changeItem, i) => {
+              return (
+                <ChangeItem 
+                  key={i} 
+                  contentData={contentData} 
+                  handleActionChange={this.handleActionChange}
+                />
+              )
             })}
             <Button 
               fluid
               icon='plus'
               size='mini' 
-              onClick={this.handleAddItemClick}  
+              color='grey'
+              onClick={this.handleDataChange}  
             />
           </Form.Field>
         </Segment>
         <div>
-          <Form.Button className="button-container">
+          <Form.Button color='grey' className="button-container">
             Generate content.json
           </Form.Button>
         </div>
