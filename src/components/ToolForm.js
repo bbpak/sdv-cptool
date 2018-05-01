@@ -31,10 +31,10 @@ export default class ToolForm extends Component {
   render() {
     return (
       <Form inverted className="tool-form">
-        <Segment className="form-block form-container">
-          <Form.Field>
+        <Segment className="form-block">
+          <Form.Field inline className='field-item'>
             <label>Format</label>
-            <Input value={this.state.format} type='text' />
+            <Input className='field-input' value={this.state.format} type='text' />
           </Form.Field>
         </Segment>
         <Segment id='changes-container' className="form-block">

@@ -73,13 +73,7 @@ export default class ChangeItem extends Component {
     return (
       <div className='change-block'>
         <div 
-          style={{
-            position: 'absolute', 
-            left: 0, 
-            right: 0, 
-            top: 0, 
-            cursor: 'pointer' 
-          }} 
+          className='collapse-bar'
           onClick={this.handleCollapseClick}
         >
           <Icon style={{width: '100%'}} name={this.state.isCollapsed ? 'angle down' : 'angle up'} />

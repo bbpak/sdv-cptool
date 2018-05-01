@@ -8,7 +8,7 @@
 
 .tool-form {
   margin: 0 auto;
-  width: 45em;
+  width: 40em;
   height: 95%;
   color: white;
   overflow-y: auto;
@@ -27,6 +27,14 @@
   background-color: #282828;
   padding: 1.5em 1em 1em 1em;
   margin: 1em 0 1em 0;
+}
+
+.collapse-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  cursor: pointer;
 }
 
 .button-container {
@@ -50,3 +58,4 @@
   flex: 0 1 5em;
   text-align: right;
 }
+
