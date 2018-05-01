@@ -35,6 +35,9 @@
   background-color: #3f3f46 !important;
 }
 
+.changes-container {
+}
+
 .change-block {
   position: relative;
   display: 'block';
