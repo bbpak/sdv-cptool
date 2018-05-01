@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input, Button, Segment } from 'semantic-ui-react'
+import { Form, Input, Button, Segment, Icon } from 'semantic-ui-react'
 import ChangeItem from './ChangeItem'
 import { contentData } from '../data/contentChanges.js'
 import _ from 'lodash'
@@ -8,48 +8,57 @@ export default class ToolForm extends Component {
   constructor() {
     super()
     this.state = {
-      changesData: [{}], // How many change blocks to render
+      changesData: [{ action: 'Load' }], // Array of change items
       format: '1.3'
     }
   }
 
   componentDidMount() {
-    console.log(this)
+    console.log('Made with 🤔 by Bouhm')
   }
 
-  handleActionChange = (e, data) => {
-    this.setState({ action: data.value })
-  }
-
-  handleDataChange = data => {
+  handleAddItem = () => {
     let changesData = this.state.changesData
-    changesData.push(data)
+    changesData.push({ action: 'Load' })
+    this.setState({ changesData })
+  }
+
+  handleRemoveItem = i => {
+    let changesData = this.state.changesData
+    _.pullAt(changesData, i)
+    this.setState({ changesData })
+  }
+
+  handleDataChange = (data, i) => {
+    let changesData = this.state.changesData
+    changesData[i] = data
     this.setState({ changesData })
   }
 
   render() {
+    const { changesData, format } = this.state
+
     return (
       <div className="form-container">
         <Form inverted className="tool-form">
           <Segment className="form-block">
             <Form.Field inline className="field-item">
               <label>Format</label>
-              <Input
-                className="field-input"
-                value={this.state.format}
-                type="text"
-              />
+              <Input className="field-input" value={format} type="text" />
             </Form.Field>
           </Segment>
           <Segment id="changes-container" className="form-block">
             <Form.Field>
               <label>Changes</label>
-              {_.map(this.state.changesData, (changeItem, i) => {
+              {_.map(changesData, (changeItem, i) => {
                 return (
                   <ChangeItem
                     key={i}
+                    index={i}
                     contentData={contentData}
-                    handleActionChange={this.handleActionChange}
+                    itemData={changesData[i]}
+                    handleDataChange={this.handleDataChange}
+                    handleRemoveItem={this.handleRemoveItem}
                   />
                 )
               })}
@@ -58,16 +67,19 @@ export default class ToolForm extends Component {
                 icon="plus"
                 size="mini"
                 color="grey"
-                onClick={this.handleDataChange}
+                onClick={this.handleAddItem}
               />
             </Form.Field>
           </Segment>
           <div>
-            <Form.Button color="grey" className="button-container">
-              Generate content.json
+            <Form.Button color="blue" className="button-container">
+              Export content.json
             </Form.Button>
           </div>
         </Form>
+        <span className="footer">
+          <Icon link name="github" />
+        </span>
       </div>
     )
   }

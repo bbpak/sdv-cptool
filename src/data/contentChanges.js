@@ -1,34 +1,35 @@
+// Data structure of content.json
 // TODO: Fetch from docs instead of hardcoding
 export const contentData = {
   Load: {
-    Target: "",
-    FromFile: "",
+    Target: '',
+    FromFile: '',
     Optional: {
-      LogName: "",
-      Enabled: "",
-      When: ""
+      LogName: '',
+      Enabled: '',
+      When: ''
     }
   },
   EditImage: {
-    Target: "",
-    FromFile: "",
+    Target: '',
+    FromFile: '',
     Optional: {
-      FromArea: {'X': 0, 'Y': 0, 'Width': 16, 'Height': 16},
-      ToArea: {'X': 0, 'Y': 0, 'Width': 16, 'Height': 16},
-      PatchMode: "",
-      LogName: "",
-      Enabled: "",
-      When: ""
+      FromArea: { X: 0, Y: 0, Width: 16, Height: 16 },
+      ToArea: { X: 0, Y: 0, Width: 16, Height: 16 },
+      PatchMode: '',
+      LogName: '',
+      Enabled: '',
+      When: ''
     }
   },
   EditData: {
-    Target: "",
+    Target: '',
     Optional: {
       Fields: {},
       Entries: {},
-      LogName: "",
-      Enabled: "",
-      When: ""
+      LogName: '',
+      Enabled: '',
+      When: ''
     }
   }
 }

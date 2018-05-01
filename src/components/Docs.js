@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Segment, Label } from 'semantic-ui-react'
 
+// Literally copied the html of the README from
+// Pathoschild's github and displaying it in an iframe
+// Tried to fetch it from URL but github was like no
 export default class Docs extends Component {
   state = { hidden: true }
 

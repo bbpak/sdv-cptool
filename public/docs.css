@@ -722,3 +722,8 @@ pre {
 .pl-c1 {
   color: lightskyblue !important;
 }
+
+small {
+  color: grey;
+  font-style: italic;
+}
