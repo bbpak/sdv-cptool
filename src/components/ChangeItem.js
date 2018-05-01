@@ -23,9 +23,10 @@ export default class ChangeItem extends Component {
 
   renderActions = () => {
     return (
-      <Form.Field>
-        <label>Action</label>
+      <Form.Field inline className='field-item'>
+        <label className='field-label'>Action</label>
         <Select
+          className='field-input'
           value={this.state.action}
           options={
             _.map(_.keys(this.props.contentData), (action, i) => {
@@ -50,9 +51,10 @@ export default class ChangeItem extends Component {
         {_.map(_.keys(fields), (field, i) => {
           return (
             field === 'Optional' ? null :
-            <Form.Field key={i}>
-              <label>{field}</label>
+            <Form.Field inline className='field-item' key={i}>
+              <label className='field-label'>{field}</label>
               <Input 
+                className='field-input'
                 type='text'
                 value={fields[field]} 
               />
@@ -67,10 +69,19 @@ export default class ChangeItem extends Component {
     this.setState({isCollapsed: !this.state.isCollapsed})
   }
 
-  render() {
+  render() {  
     return (
       <div className='change-block'>
-        <div style={{position: 'absolute', left: 0, right: 0, top: 0 }} onClick={this.handleCollapseClick}>
+        <div 
+          style={{
+            position: 'absolute', 
+            left: 0, 
+            right: 0, 
+            top: 0, 
+            cursor: 'pointer' 
+          }} 
+          onClick={this.handleCollapseClick}
+        >
           <Icon style={{width: '100%'}} name={this.state.isCollapsed ? 'angle down' : 'angle up'} />
         </div>
         <div style={this.state.isCollapsed ? {display: 'none'} : {display: 'block'}}>
