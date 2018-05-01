@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <link rel="stylesheet" type="text/css" href="./docs.css"></link>
+</head>
+
+<body>
+  <div id="readme" class="readme blob instapaper_body">
+    <article class="markdown-body entry-content" itemprop="text">
+      <h3>
+        <a id="user-content-overview" class="anchor" aria-hidden="true" href="#overview">
+          <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+          </svg>
+        </a>Overview</h3>
+      <p>A content pack is a folder with these files:</p>
+      <ul>
+        <li>a
+          <code>manifest.json</code> for SMAPI to read (see
+          <a target="_blank" href="https://stardewvalleywiki.com/Modding:Content_packs" rel="nofollow">content packs</a> on the wiki);</li>
+        <li>a
+          <code>content.json</code> which describes the changes you want to make;</li>
+        <li>and any images or files you want to use.</li>
+      </ul>
+      <p>The
+        <code>content.json</code> file has three main fields:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>field</th>
+            <th>purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>Format</code>
+            </td>
+            <td>The format version (just use
+              <code>1.3</code>).</td>
+          </tr>
+          <tr>
+            <td>
+              <code>Changes</code>
+            </td>
+            <td>The changes you want to make. Each entry is called a
+              <strong>patch</strong>, and describes a specific action to perform: replace this file, copy this image into the file,
+              etc. You can list any number of patches.</td>
+          </tr>
+          <tr>
+            <td>
+              <code>ConfigSchema</code>
+            </td>
+            <td>
+              <em>(optional)</em> Defines the
+              <code>config.json</code> format, to support more complex mods. See
+              <a href="#player-configuration">
+                <em>player configuration</em>
+              </a>.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Here's a quick example of each possible patch type (explanations below):</p>
+      <div class="highlight highlight-source-js">
+        <pre>{
+      <span class="pl-s"><span class="pl-pds">"</span>Format<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>1.3<span class="pl-pds">"</span></span>,
+      <span class="pl-s"><span class="pl-pds">"</span>Changes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+           <span class="pl-c"><span class="pl-c">//</span> replace an entire file</span>
+           {
+              <span class="pl-s"><span class="pl-pds">"</span>Action<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Load<span class="pl-pds">"</span></span>,
+              <span class="pl-s"><span class="pl-pds">"</span>Target<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Animals/Dinosaur<span class="pl-pds">"</span></span>,
+              <span class="pl-s"><span class="pl-pds">"</span>FromFile<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>assets/dinosaur.png<span class="pl-pds">"</span></span>
+           },
+    
+           <span class="pl-c"><span class="pl-c">//</span> edit part of an image</span>
+           {
+              <span class="pl-s"><span class="pl-pds">"</span>Action<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>EditImage<span class="pl-pds">"</span></span>,
+              <span class="pl-s"><span class="pl-pds">"</span>Target<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Maps/springobjects<span class="pl-pds">"</span></span>,
+              <span class="pl-s"><span class="pl-pds">"</span>FromFile<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>assets/fish-object.png<span class="pl-pds">"</span></span>,
+              <span class="pl-s"><span class="pl-pds">"</span>FromArea<span class="pl-pds">"</span></span><span class="pl-k">:</span> { <span class="pl-s"><span class="pl-pds">"</span>X<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">0</span>, <span class="pl-s"><span class="pl-pds">"</span>Y<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">0</span>, <span class="pl-s"><span class="pl-pds">"</span>Width<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">16</span>, <span class="pl-s"><span class="pl-pds">"</span>Height<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">16</span> }, <span class="pl-c"><span class="pl-c">//</span> optional, defaults to entire FromFile</span>
+              <span class="pl-s"><span class="pl-pds">"</span>ToArea<span class="pl-pds">"</span></span><span class="pl-k">:</span> { <span class="pl-s"><span class="pl-pds">"</span>X<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">256</span>, <span class="pl-s"><span class="pl-pds">"</span>Y<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">96</span>, <span class="pl-s"><span class="pl-pds">"</span>Width<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">16</span>, <span class="pl-s"><span class="pl-pds">"</span>Height<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">16</span> } <span class="pl-c"><span class="pl-c">//</span> optional, defaults to source size from top-left</span>
+           },
+    
+           <span class="pl-c"><span class="pl-c">//</span> edit fields for existing entries in a data file (zero-indexed)</span>
+           {
+              <span class="pl-s"><span class="pl-pds">"</span>Action<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>EditData<span class="pl-pds">"</span></span>,
+              <span class="pl-s"><span class="pl-pds">"</span>Target<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Data/ObjectInformation<span class="pl-pds">"</span></span>,
+              <span class="pl-s"><span class="pl-pds">"</span>Fields<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+                 <span class="pl-s"><span class="pl-pds">"</span>70<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+                    <span class="pl-c1">0</span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Jade<span class="pl-pds">"</span></span>,
+                    <span class="pl-c1">5</span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>A pale green ornamental stone.<span class="pl-pds">"</span></span>
+                 }
+              }
+           },
+    
+           <span class="pl-c"><span class="pl-c">//</span> add or replace entries in a data file</span>
+           {
+              <span class="pl-s"><span class="pl-pds">"</span>Action<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>EditData<span class="pl-pds">"</span></span>,
+              <span class="pl-s"><span class="pl-pds">"</span>Target<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Data/ObjectInformation<span class="pl-pds">"</span></span>,
+              <span class="pl-s"><span class="pl-pds">"</span>Entries<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+                 <span class="pl-s"><span class="pl-pds">"</span>70<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Jade/200/-300/Minerals -2/Jade/A pale green ornamental stone.<span class="pl-pds">"</span></span>,
+                 <span class="pl-s"><span class="pl-pds">"</span>72<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Diamond/750/-300/Minerals -2/Diamond/A rare and valuable gem.<span class="pl-pds">"</span></span>
+              }
+           }
+        ]
+    }</pre>
+      </div>
+      <h3>
+        <a id="user-content-common-fields" class="anchor" aria-hidden="true" href="#common-fields">
+          <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+          </svg>
+        </a>Common fields</h3>
+      <p>All patches support these common fields:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>field</th>
+            <th>purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>Action</code>
+            </td>
+            <td>The kind of change to make (
+              <code>Load</code>,
+              <code>EditImage</code>, or
+              <code>EditData</code>); explained in the next section.</td>
+          </tr>
+          <tr>
+            <td>
+              <code>Target</code>
+            </td>
+            <td>The game asset you want to patch. This is the file path inside your game's
+              <code>Content</code> folder, without the file extension or language. For example: use
+              <code>Animals/Dinosaur</code> to edit
+              <code>Content/Animals/Dinosaur.xnb</code>. Capitalisation doesn't matter.</td>
+          </tr>
+          <tr>
+            <td>
+              <code>LogName</code>
+            </td>
+            <td>
+              <em>(optional)</em> A name for this patch shown in log messages. This is very useful for understanding errors;
+              if not specified, will default to a name like
+              <code>entry #14 (EditImage Animals/Dinosaurs)</code>.</td>
+          </tr>
+          <tr>
+            <td>
+              <code>Enabled</code>
+            </td>
+            <td>
+              <em>(optional)</em> Whether to apply this patch. Default true.</td>
+          </tr>
+          <tr>
+            <td>
+              <code>When</code>
+            </td>
+            <td>
+              <em>(optional)</em> Only apply the patch if the given conditions match (see
+              <a href="#conditions">
+                <em>conditions</em>
+              </a>).</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>
+        <a id="user-content-supported-patches" class="anchor" aria-hidden="true" href="#supported-patches">
+          <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+          </svg>
+        </a>Supported patches</h3>
+      <ul>
+        <li>
+          <p>
+            <strong>Replace an entire file</strong> (
+            <code>"Action": "Load"</code>).
+            <br> When the game loads the file, it'll receive your file instead. This is useful for mods which change everything
+            (like pet replacement mods).</p>
+          <p>Avoid this if you don't need to change the whole file though — each file can only be replaced once, so your content
+            pack won't be compatible with other content packs that replace the same file. (It'll work fine with content packs
+            that only edit the file, though.)</p>
+          <table>
+            <thead>
+              <tr>
+                <th>field</th>
+                <th>purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>&nbsp;</td>
+                <td>See
+                  <em>common fields</em> above.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>FromFile</code>
+                </td>
+                <td>The relative file path in your content pack folder to load instead (like
+                  <code>assets/dinosaur.png</code>). This can be a
+                  <code>.png</code>,
+                  <code>.tbin</code>, or
+                  <code>.xnb</code> file. Capitalisation doesn't matter.</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <li>
+          <p>
+            <strong>Edit an image</strong> (
+            <code>"Action": "EditImage"</code>).
+            <br> Instead of replacing an entire spritesheet, you can replace just the part you need. For example, you can change
+            an item image by changing only its sprite in the spritesheet. Any number of content packs can edit the same file.</p>
+          <p>You can extend an image downwards by just patching past the bottom. Content Patcher will automatically expand the
+            image to fit.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>field</th>
+                <th>purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>&nbsp;</td>
+                <td>See
+                  <em>common fields</em> above.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>FromFile</code>
+                </td>
+                <td>The relative path to the image in your content pack folder to patch into the target (like
+                  <code>assets/dinosaur.png</code>). This can be a
+                  <code>.png</code> or
+                  <code>.xnb</code> file. Capitalisation doesn't matter.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>FromArea</code>
+                </td>
+                <td>
+                  <em>(optional)</em> The part of the source image to copy. Defaults to the whole source image. This is specified
+                  as an object with the X and Y pixel coordinates of the top-left corner, and the pixel width and height
+                  of the area.
+                  <a href="#example">See example</a>.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>ToArea</code>
+                </td>
+                <td>
+                  <em>(optional)</em> The part of the target image to replace. Defaults to the
+                  <code>FromArea</code> size starting from the top-left corner. This is specified as an object with the X and Y pixel coordinates
+                  of the top-left corner, and the pixel width and height of the area.
+                  <a href="#example">See example</a>.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>PatchMode</code>
+                </td>
+                <td>
+                  <em>(optional)</em> How to apply
+                  <code>FromArea</code> to
+                  <code>ToArea</code>. Defaults to
+                  <code>Replace</code>. Possible values:
+                  <ul>
+                    <li>
+                      <code>Replace</code>: replace the target area with your source image.</li>
+                    <li>
+                      <code>Overlay</code>: draw your source image over the target, so the original image shows through transparent pixels. Note
+                      that semi-transparent pixels will replace the underlying pixels, they won't be combined.</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <li>
+          <p>
+            <strong>Edit a data file</strong> (
+            <code>"Action": "EditData"</code>).
+            <br> Instead of replacing an entire data file, you can edit the individual entries or even fields you need.
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>field</th>
+                <th>purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>&nbsp;</td>
+                <td>See
+                  <em>common fields</em> above.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>Fields</code>
+                </td>
+                <td>
+                  <em>(optional)</em> The individual fields you want to change for existing entries.
+                  <a href="#example">See example</a>.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>Entries</code>
+                </td>
+                <td>
+                  <em>(optional)</em> The entries in the data file you want to add or replace. If you only want to change a few
+                  fields, use
+                  <code>Fields</code> instead for best compatibility with other mods.
+                  <a href="#example">See example</a>.
+                  <br>
+                  <strong>Caution:</strong> some XNB files have extra fields at the end for translations; when adding or replacing
+                  an entry for all locales, make sure you include the extra field(s) to avoid errors for non-English players.</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+      </ul>
+      <h2>
+        <a id="user-content-advanced-features" class="anchor" aria-hidden="true" href="#advanced-features">
+          <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+          </svg>
+        </a>Advanced features</h2>
+      <h3>
+        <a id="user-content-conditions" class="anchor" aria-hidden="true" href="#conditions">
+          <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+          </svg>
+        </a>Conditions</h3>
+      <p>You can make a patch conditional by adding a
+        <code>When</code> field. The patch will be applied when all conditions match, and removed when they no longer match. Conditions are
+        not case-sensitive, and you can specify multiple values as a comma-delimited list. You don't need to specify all
+        conditions.
+      </p>
+      <p>For example, this changes the house texture only in Spring or Summer.</p>
+      <div class="highlight highlight-source-js">
+        <pre>{
+        <span class="pl-s"><span class="pl-pds">"</span>Action<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>EditImage<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Target<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Building/houses<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>FromFile<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>assets/green_house.png<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>When<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>Season<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>spring, summer<span class="pl-pds">"</span></span>
+        }
+    }</pre>
+      </div>
+      <p>The possible conditions are:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>condition</th>
+            <th>description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <code>Day</code>
+            </td>
+            <td>The day of month. Possible values: any integer from 1 through 28.</td>
+          </tr>
+          <tr>
+            <td>
+              <code>DayOfWeek</code>
+            </td>
+            <td>The day of week. Possible values:
+              <code>monday</code>,
+              <code>tuesday</code>,
+              <code>wednesday</code>,
+              <code>thursday</code>,
+              <code>friday</code>,
+              <code>saturday</code>, and
+              <code>sunday</code>.</td>
+          </tr>
+          <tr>
+            <td>
+              <code>Language</code>
+            </td>
+            <td>The game's current language. Possible values:
+              <table>
+                <tbody>
+                  <tr>
+                    <th>code</th>
+                    <th>meaning</th>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>de</code>
+                    </td>
+                    <td>German</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>en</code>
+                    </td>
+                    <td>English</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>es</code>
+                    </td>
+                    <td>Spanish</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>ja</code>
+                    </td>
+                    <td>Japanese</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>ru</code>
+                    </td>
+                    <td>Russian</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>pt</code>
+                    </td>
+                    <td>Portuguese</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>zh</code>
+                    </td>
+                    <td>Chinese</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <code>Season</code>
+            </td>
+            <td>The season name. Possible values:
+              <code>spring</code>,
+              <code>summer</code>,
+              <code>fall</code>, and
+              <code>winter</code>.</td>
+          </tr>
+          <tr>
+            <td>
+              <code>Weather</code>
+            </td>
+            <td>The weather name. Possible values:
+              <code>sun</code>,
+              <code>rain</code>,
+              <code>snow</code>, and
+              <code>storm</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Special note about
+        <code>"Action": "Load"</code>:</p>
+      <ul>
+        <li>
+          <p>Each file can only be loaded by one patch. Content Patcher will allow multiple loaders, so long as their conditions
+            can never overlap. If they can overlap, it will refuse to add the second one. For example:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>loader A</th>
+                <th>loader B</th>
+                <th>result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>season: "Spring"</code>
+                </td>
+                <td>
+                  <code>season: "Summer"</code>
+                </td>
+                <td>both are loaded correctly (seasons never overlap).</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>day: 1</code>
+                </td>
+                <td>
+                  <code>dayOfWeek: "Tuesday"</code>
+                </td>
+                <td>both are loaded correctly (1st day of month is never Tuesday).</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>day: 1</code>
+                </td>
+                <td>
+                  <code>weather: "Sun"</code>
+                </td>
+                <td>error: sun could happen on the first of a month.</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+      </ul>
+      <h3>
+        <a id="user-content-player-configuration" class="anchor" aria-hidden="true" href="#player-configuration">
+          <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+          </svg>
+        </a>Player configuration</h3>
+      <p>You can let players configure your mod using a
+        <code>config.json</code> file. This requires a bit more upfront setup for the mod author, but once that's done it'll behave just like a SMAPI
+        <code>config.json</code> for players. Content Patcher will automatically create and load the file, and you can use the config values in
+        <a href="#conditions">the
+          <code>When</code> field</a>. Config fields are not case-sensitive, and can only contain string values.</p>
+      <p>For example: this
+        <code>content.json</code> defines a
+        <code>Material</code> config field and uses it to change which patch is applied. See below for more details.</p>
+      <div class="highlight highlight-source-js">
+        <pre>{
+        <span class="pl-s"><span class="pl-pds">"</span>Format<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>1.3<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>ConfigSchema<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>Material<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+                <span class="pl-s"><span class="pl-pds">"</span>AllowValues<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Wood, Metal<span class="pl-pds">"</span></span>
+            }
+        },
+        <span class="pl-s"><span class="pl-pds">"</span>Changes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>Action<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Load<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>Target<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>LooseSprites/Billboard<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>FromFile<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>assets/material_wood.png<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>When<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+                    <span class="pl-s"><span class="pl-pds">"</span>Material<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Wood<span class="pl-pds">"</span></span>
+                }
+            },
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>Action<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Load<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>Target<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>LooseSprites/Billboard<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>FromFile<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>assets/material_metal.png<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>When<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+                    <span class="pl-s"><span class="pl-pds">"</span>Material<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Metal<span class="pl-pds">"</span></span>
+                }
+            }
+        ]
+    }</pre>
+      </div>
+      <p>Here's how to do it:</p>
+      <ol>
+        <li>
+          <p>Add a
+            <code>ConfigSchema</code> section to the
+            <code>content.json</code> (like above), which defines your config fields and how to validate them. Available fields for each one:</p>
+          <table>
+            <thead>
+              <tr>
+                <th>field</th>
+                <th>meaning</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>AllowValues</code>
+                </td>
+                <td>Required. The values the player can provide, as a comma-delimited string.
+                  <br>
+                  <strong>Tip:</strong> for a boolean flag, use
+                  <code>"true, false"</code>.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>AllowBlank</code>
+                </td>
+                <td>
+                  <em>(optional)</em> Whether the field can be left blank. Behaviour:
+                  <ul>
+                    <li>If false (default): missing and blank fields are filled in with the default value.</li>
+                    <li>If true: missing fields are filled in with the default value; blank fields are left as-is.</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>AllowMultiple</code>
+                </td>
+                <td>
+                  <em>(optional)</em> Whether the player can specify multiple comma-delimited values. Default false.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>Default</code>
+                </td>
+                <td>
+                  <em>(optional)</em> The default values when the field is missing. Can contain multiple comma-delimited values
+                  if
+                  <code>AllowMultiple</code> is true. If not set, defaults to the first value in
+                  <code>AllowValues</code>.</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <li>
+          <p>Use the config fields as
+            <a href="#condition">
+              <code>When</code> conditions</a>. The field names and values are not case-sensitive.
+          </p>
+        </li>
+      </ol>
+      <p>That's it! Content Patcher will automatically create the
+        <code>config.json</code> when you run the game.</p>
+      <h3>
+        <a id="user-content-tokens" class="anchor" aria-hidden="true" href="#tokens">
+          <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+          </svg>
+        </a>Tokens</h3>
+      <p>You can use
+        <a href="#condition">conditions</a> and
+        <a href="#player-configuration">config values</a> in the
+        <code>FromFile</code>,
+        <code>Target</code>, and
+        <code>Enabled</code> fields in
+        <code>content.json</code>. Just put the name of the condition or config field in two curly brackets, and Content Patcher will automatically
+        fill in the value.</p>
+      <p>For example, this gives the farmhouse a different appearance in each season:</p>
+      <div class="highlight highlight-source-js">
+        <pre>{
+        <span class="pl-s"><span class="pl-pds">"</span>Format<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>1.3<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Changes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>Action<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>EditImage<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>Target<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Buildings/houses<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>FromFile<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>assets/{{season}}.png<span class="pl-pds">"</span></span> <span class="pl-c"><span class="pl-c">//</span> assets/spring.png, assets/summer.png, etc</span>
+            }
+        ]
+    }</pre>
+      </div>
+      <p>You can use multiple tokens and conditions for more dynamic changes:</p>
+      <div class="highlight highlight-source-js">
+        <pre>{
+        <span class="pl-s"><span class="pl-pds">"</span>Format<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>1.3<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>Changes<span class="pl-pds">"</span></span><span class="pl-k">:</span> [
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>Action<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>EditImage<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>Target<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Buildings/houses<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>FromFile<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>assets/{{season}}_{{weather}}.png<span class="pl-pds">"</span></span>, <span class="pl-c"><span class="pl-c">//</span> assets/spring_rain.png, etc</span>
+                <span class="pl-s"><span class="pl-pds">"</span>When<span class="pl-pds">"</span></span><span class="pl-k">:</span> {
+                    <span class="pl-s"><span class="pl-pds">"</span>Weather<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>sun, rain<span class="pl-pds">"</span></span>
+                }
+            }
+        ]
+    }</pre>
+      </div>
+      <p>Tokens are subject to some restrictions:</p>
+      <ul>
+        <li>
+          <code>Enabled</code>:
+          <ul>
+            <li>Max one token per field.</li>
+            <li>Config fields can't have
+              <code>"AllowMultiple": true</code>.</li>
+            <li>Config fields must have
+              <code>"AllowValues": "true, false"</code>.</li>
+          </ul>
+        </li>
+        <li>
+          <code>FromFile</code>:
+          <ul>
+            <li>Config fields can't have
+              <code>"AllowMultiple": true</code>.</li>
+            <li>All possible files must exist, subject to any conditions you set. In the first example above, you'll need four
+              files (one per season). If you add a
+              <code>"Season": "spring, summer"</code> condition, you'll only need two files.</li>
+          </ul>
+        </li>
+        <li>
+          <code>Target</code>:
+          <ul>
+            <li>Config fields can't have
+              <code>"AllowMultiple": true</code>.</li>
+          </ul>
+        </li>
+      </ul>
+      <h2>
+        <a id="user-content-releasing-a-content-pack" class="anchor" aria-hidden="true" href="#releasing-a-content-pack">
+          <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+          </svg>
+        </a>Releasing a content pack</h2>
+      <p>See
+        <a href="https://stardewvalleywiki.com/Modding:Content_packs" rel="nofollow">content packs</a> on the wiki for general info. Suggestions:</p>
+      <ol>
+        <li>Add specific install steps in your mod description to help players:
+          <pre><code>[size=5]Install[/size]
+    [list=1]
+    [*][url=https://smapi.io]Install the latest version of SMAPI[/url].
+    [*][url=https://www.nexusmods.com/stardewvalley/mods/1915]Install Content Patcher[/url].
+    [*]Download this mod and unzip it into [font=Courier New]Stardew Valley/Mods[/font].
+    [*]Run the game using SMAPI.
+    [/list]
+    </code></pre>
+        </li>
+        <li>When editing the Nexus page, add Content Patcher under 'Requirements'. Besides reminding players to install it first,
+          it'll also add your content pack to the list on the Content Patcher page.</li>
+        <li>Including
+          <code>config.json</code> (if created) in your release download is not recommended. That will cause players to lose their settings every
+          time they update. Instead leave it out and it'll generate when the game is launched, just like a SMAPI mod's
+          <code>content.json</code>.</li>
+      </ol>
+      <h2>
+        <a id="user-content-troubleshooting" class="anchor" aria-hidden="true" href="#troubleshooting">
+          <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+          </svg>
+        </a>Troubleshooting</h2>
+      <h3>
+        <a id="user-content-patch-commands" class="anchor" aria-hidden="true" href="#patch-commands">
+          <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+          </svg>
+        </a>Patch commands</h3>
+      <p>Content Patcher adds two patch commands for testing and troubleshooting.</p>
+      <ul>
+        <li>
+          <p>
+            <code>patch summary</code> lists all the loaded patches, their current values, and (if applicable) the reasons they weren't applied.</p>
+          <p>Example output:</p>
+          <pre><code>Current conditions:
+       Day: 5
+       DayOfWeek: friday
+       Language: en
+       Season: spring
+       Weather: sun
+    
+    Patches by content pack ([X] means applied):
+       Sample Content Pack:
+          [X] Palm Trees | Load TerrainFeatures/tree_palm
+          [X] Bushes | Load TileSheets/bushes
+          [ ] Maple Trees | Load TerrainFeatures/tree2_{{season}} | failed conditions: Season (summer, fall, winter)
+          [ ] Oak Trees | Load TerrainFeatures/tree1_{{season}} | failed conditions: Season (summer, fall, winter)
+          [X] World Map | EditImage LooseSprites/map
+    </code></pre>
+        </li>
+        <li>
+          <p>
+            <code>patch update</code> immediately updates Content Patcher's condition context and rechecks all patches. This is mainly useful if you
+            change conditions through the console (like the date), and want to update patches without going to bed.</p>
+        </li>
+      </ul>
+      <h3>
+        <a id="user-content-debug-mode" class="anchor" aria-hidden="true" href="#debug-mode">
+          <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+          </svg>
+        </a>Debug mode</h3>
+      <p>Content Patcher has a 'debug mode' which lets you view loaded textures directly in-game with any current changes. To
+        enable it, open the mod's
+        <code>config.json</code> file in a text editor and enable
+        <code>EnableDebugFeatures</code>.</p>
+      <p>Once enabled, press
+        <code>F3</code> to display textures and left/right
+        <code>CTRL</code> to cycle textures. Close and reopen the debug UI to refresh the texture list.</p>
+      <blockquote>
+        <p>
+          <a target="_blank" href="https://github.com/Pathoschild/StardewMods/blob/stable/ContentPatcher/docs/screenshots/debug-mode.png"></a>
+          <img src="https://github.com/Pathoschild/StardewMods/raw/stable/ContentPatcher/docs/screenshots/debug-mode.png" alt="" style="max-width:100%;">
+          </a>
+        </p>
+      </blockquote>
+      <h3>
+        <a id="user-content-verbose-log" class="anchor" aria-hidden="true" href="#verbose-log">
+          <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+          </svg>
+        </a>Verbose log</h3>
+      <p>Content Patcher doesn't log much info. You can change that by opening the mod's
+        <code>config.json</code> file in a text editor and enable
+        <code>VerboseLog</code>.
+        <strong>This may significantly slow down loading, and should normally be left disabled unless you need it.</strong>
+      </p>
+      <p>Once enabled, it will log significantly more information at three points:</p>
+      <ol>
+        <li>when loading patches (e.g. whether each patch was enabled and which files were preloaded);</li>
+        <li>when SMAPI checks if Content Patcher can load/edit an asset;</li>
+        <li>and when the context changes (anytime the conditions change: different day, season, weather, etc).</li>
+      </ol>
+      <p>If your changes aren't appearing in game, make sure you set a
+        <code>LogName</code> (see
+        <a href="#common-fields">common fields</a>) and then search the SMAPI log file for that name. Particular questions to ask:</p>
+      <ul>
+        <li>Did Content Patcher load the patch?
+          <br>
+          <em>If it doesn't appear, check that your
+            <code>content.json</code> is correct. If it says 'skipped', check your
+            <code>Enabled</code> value or
+            <code>config.json</code>.</em>
+        </li>
+        <li>When the context is updated, is the box ticked next to the patch name?
+          <br>
+          <em>If not, checked your
+            <code>When</code> field.</em>
+        </li>
+        <li>When SMAPI checks if it can load/edit the asset name, is the box ticked?
+          <br>
+          <em>If not, check your
+            <code>When</code> and
+            <code>Target</code> fields.</em>
+        </li>
+      </ul>
+    </article>
+  </div>
+</body>
+
+</html>
