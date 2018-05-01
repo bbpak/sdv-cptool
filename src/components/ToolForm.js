@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Icon, Select, Segment } from 'semantic-ui-react';
+import { Form, Input, Button, Segment } from 'semantic-ui-react';
+import ChangeItem from './ChangeItem'
 import _ from 'lodash';
 
 export default class ToolForm extends Component {
@@ -42,34 +43,6 @@ export default class ToolForm extends Component {
     }
   }
 
-  renderActions = () => {
-    return (
-      <Form.Field>
-        <label>Action</label>
-        <Select
-          
-          options={
-            _.map(_.keys(this.changesData), (action, i) => {
-              return {
-                key: i,
-                text: action,
-                value: action.toLowerCase()
-              }
-            })
-          }
-        />
-      </Form.Field>
-    );
-  }
-
-  renderChangeItem = (changeItem, i) => {
-    return (
-      <div key={i} className='change-block'>
-        {this.renderActions()}
-      </div>
-    );
-  }
-
   handleAddItemClick = () => {
     let changes = this.state.changes;
     changes.push({});
@@ -79,7 +52,7 @@ export default class ToolForm extends Component {
   render() {
     return (
       <Form inverted className="tool-form">
-        <Segment className="form-block">
+        <Segment className="form-block form-container">
           <Form.Field>
             <label>Format</label>
             <Input value={this.state.format} />
@@ -89,18 +62,21 @@ export default class ToolForm extends Component {
           <Form.Field>
             <label>Changes</label>
             {_.map(this.state.changes, (changeItem, i) => {
-              return this.renderChangeItem(changeItem, i)
+              return <ChangeItem key={i} changesData={this.changesData} />
             })}
             <Button 
               fluid
-              icon
+              icon='plus'
               size='mini' 
               onClick={this.handleAddItemClick}  
-            >
-              <Icon name='plus' />
-            </Button>
+            />
           </Form.Field>
         </Segment>
+        <div>
+          <Form.Button className="button-container">
+            Generate content.json
+          </Form.Button>
+        </div>
       </Form>
     );
   }
