@@ -1,5 +1,5 @@
 {
-  "name": "content-pack-tool",
+  "name": "sdv-cptool",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

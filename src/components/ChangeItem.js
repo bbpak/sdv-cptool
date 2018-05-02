@@ -54,7 +54,7 @@ export default class ChangeItem extends Component {
   // Options for the selected action
   renderFields = () => {
     const { contentData } = this.props
-    const { data, showOptional } = this.state
+    const { data } = this.state
     const fields = contentData[data.action]
 
     return (
@@ -77,13 +77,15 @@ export default class ChangeItem extends Component {
     )
   }
 
+  // Iterate contentData objects and render inputs according to type
+  // TODO: Use recursion instead of nested loops
   renderOptionalFields = (fields, field, i) => {
     return (
       <div key={i}>
         <Icon
           link
           title="optional fields"
-          style={{ width: '101.5%', position: 'relative', top: '-0.5em' }}
+          style={{ width: '101.25%', position: 'relative', top: '-0.5em' }}
           onClick={this.handleShowOptional}
           name="ellipsis horizontal"
         />
@@ -92,17 +94,81 @@ export default class ChangeItem extends Component {
             this.state.showOptional ? { diplay: 'block' } : { display: 'none' }
           }
         >
+          {/* Iterate Optional Fields */}
           {_.map(_.keys(fields[field]), (optField, j) => {
-            return (
-              <Form.Field inline className="field-item" key={i + j}>
-                <label className="field-label">{optField}</label>
-                <Input
-                  className="field-input"
-                  type="text"
-                  value={fields[field][optField]}
-                />
-              </Form.Field>
-            )
+            let obj = fields[field]
+
+            // Selection for arrays
+            if (Array.isArray(obj[optField])) {
+              return (
+                <Form.Field inline className="field-item" key={i}>
+                  <label className="field-label">{optField}</label>
+                  <Select
+                    className="field-input"
+                    options={_.map(obj[optField], (option, i) => {
+                      return {
+                        key: i,
+                        text: option,
+                        value: option
+                      }
+                    })}
+                    onChange={this.handleDataChange}
+                  />
+                </Form.Field>
+              )
+              // Objects with more keys/values
+            } else if (typeof obj[optField] === 'object') {
+              let width = Math.floor(16 / _.keys(obj[optField]).length)
+
+              return _.keys(obj[optField]).length > 1 ? (
+                <Form.Field
+                  style={{ padding: 0 }}
+                  className="field-item"
+                  key={j}
+                >
+                  <label
+                    style={{ paddingRight: '1em' }}
+                    className="field-label"
+                  >
+                    {optField}
+                  </label>
+                  <Form.Group key={j} className="field-group">
+                    {_.map(_.keys(obj[optField]), (objKey, k) => {
+                      return (
+                        <Form.Field inline width={width} key={k}>
+                          <label className="field-label">{objKey}</label>
+                          <Input
+                            className="field-input"
+                            type="text"
+                            value={obj[optField][objKey]}
+                          />
+                        </Form.Field>
+                      )
+                    })}
+                  </Form.Group>
+                </Form.Field>
+              ) : (
+                <Form.Field inline className="field-item" key={j}>
+                  <label className="field-label">{optField}</label>
+                  <Input
+                    className="field-input"
+                    type="text"
+                    value={obj[optField]}
+                  />
+                </Form.Field>
+              )
+            } else {
+              return (
+                <Form.Field inline className="field-item" key={j}>
+                  <label className="field-label">{optField}</label>
+                  <Input
+                    className="field-input"
+                    type="text"
+                    value={obj[optField].value}
+                  />
+                </Form.Field>
+              )
+            }
           })}
         </div>
       </div>

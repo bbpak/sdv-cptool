@@ -14,7 +14,7 @@
 
 .tool-form {
   margin: 0 auto;
-  width: 40em;
+  width: 45em;
   height: 90%;
   color: white;
   overflow-y: auto;
@@ -65,12 +65,19 @@
   bottom: 0;
 }
 
+.field-group {
+  display: flex;
+  justify-content: space-around;
+  max-width: 453.36px;
+  width: 100%;
+}
+
 .field-item {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 !important;
-  padding: 0 0 1em 0 !important;
+  padding: 0 0 1em 0;
 }
 
 .field-input {

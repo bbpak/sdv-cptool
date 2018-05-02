@@ -1,4 +1,5 @@
 // Data structure of content.json
+// Should probably use interface to enforce types
 // TODO: Fetch from docs instead of hardcoding
 export const contentData = {
   Load: {
@@ -16,7 +17,7 @@ export const contentData = {
     Optional: {
       FromArea: { X: 0, Y: 0, Width: 16, Height: 16 },
       ToArea: { X: 0, Y: 0, Width: 16, Height: 16 },
-      PatchMode: '',
+      PatchMode: ['Replace', 'Overlay'],
       LogName: '',
       Enabled: '',
       When: ''

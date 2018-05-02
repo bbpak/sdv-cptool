@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Input, Button, Segment, Icon } from 'semantic-ui-react'
 import ChangeItem from './ChangeItem'
-import { contentData } from '../data/contentChanges.js'
+import { contentData } from '../data/contentData.js'
 import _ from 'lodash'
 
 export default class ToolForm extends Component {
