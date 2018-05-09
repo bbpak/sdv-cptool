@@ -7,6 +7,13 @@
   justify-content: flex-end;
 }
 
+.dropbox {
+  width: 50%;
+  height: 50%;
+  margin: 0 auto;
+  border: 3px dashed white;
+}
+
 .form-container {
   margin-top: 1em;
   flex: 1 1 auto;

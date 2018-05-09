@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
-import ToolForm from './components/ToolForm'
-import Docs from './components/Docs'
+import DropBox from './components/DropBox'
 import './App.css'
 
 class App extends Component {
   render() {
     return (
       <div className="app">
-        <ToolForm />
-        <Docs />
+        <DropBox />
       </div>
     )
   }
