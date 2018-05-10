@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Segment, Label } from 'semantic-ui-react'
 
 // Literally copied the html of the README from
 // Pathoschild's github and displaying it in an iframe
@@ -17,10 +16,10 @@ export default class Docs extends Component {
         style={this.state.hidden ? { flex: 0 } : { flex: '0 1 50%' }}
         className="docs-container"
       >
-        <Segment className="docs">
-          <Label onClick={this.handleLabelClick} as="a" color="blue" ribbon>
+        <div className="docs">
+          <label onClick={this.handleLabelClick} as="a" color="blue" ribbon>
             Docs
-          </Label>
+          </label>
           <iframe
             style={
               this.state.hidden ? { display: 'none' } : { display: 'block' }
@@ -31,7 +30,7 @@ export default class Docs extends Component {
             width="100%"
             height="100%"
           />
-        </Segment>
+        </div>
       </div>
     )
   }
