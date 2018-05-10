@@ -43,7 +43,9 @@ export default class DropBox extends Component {
               return this.traverseDirectory(ientry, false);
             })));
 
-            this.dirObj[entry.name] = newEntries;
+            if (!isRoot)
+              this.dirObj[entry.name] = newEntries;
+
             // Try calling readEntries() again for the same dir, according to spec
             readEntries();
           }
@@ -77,7 +79,11 @@ export default class DropBox extends Component {
       const item = data[i];
       const entry = item.webkitGetAsEntry();
       this.traverseDirectory(entry, true)
-        .then(result => {console.log(this.dirObj); this.setState({directoryData: result})});
+        .then(() => {
+          var directoryData = {[entry.name]: this.dirObj}
+          this.setState({ directoryData })
+          console.log(this.state.directoryData)
+        });
     }
 
     // Pass event to removeDragData for cleanup

@@ -17,7 +17,7 @@ export default class Docs extends Component {
         className="docs-container"
       >
         <div className="docs">
-          <label onClick={this.handleLabelClick} as="a" color="blue" ribbon>
+          <label onClick={this.handleLabelClick}>
             Docs
           </label>
           <iframe
