@@ -6,15 +6,19 @@ export default class ContentEditor extends Component {
   constructor() {
     super()
     this.state = {
+      data: null
     }
+  }
+
+  handleFileDrop = (data) => {
+    this.setState( {data} )
   }
 
   render() {
     return (
       <div className="content-editor">
-        <div className="content-form">
-
-          <DropBox />
+        <div className='content-form'>
+          <DropBox onDrop={this.handleFileDrop} />
         </div>
       </div>
     )

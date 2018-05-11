@@ -5,12 +5,11 @@ export default class DropBox extends Component {
   constructor() {
     super()
     this.state = {
-      directoryData: null 
     }
-    this.dirObj = {};
   }
 
-  traverseDirectory = (entry, isRoot) => {
+  // I took this from stackoverflow
+  traverseDirectory = (entry) => {
     const reader = entry.createReader();
     // Resolved when the entire directory is traversed
     return new Promise((resolve, reject) => {
@@ -22,30 +21,15 @@ export default class DropBox extends Component {
             // Done iterating this particular directory
             resolve(Promise.all(iterationAttempts));
           } else {
-            var newEntries;
-
-            if (isRoot)
-              newEntries = {};
-            else 
-              newEntries = [];
-
             // Add a list of promises for each directory entry.  If the entry is itself
             // a directory, then that promise won't resolve until it is fully traversed.
-            iterationAttempts.push(Promise.all(entries.map((ientry) => {
-              // Files
-              if (ientry.isFile) {
-                newEntries.push(ientry.name)
-                return ientry;
-              }
+            iterationAttempts.push(Promise.all(_.map(entries, iEntry => {
+                if (iEntry.isFile)
+                  return iEntry;   
 
-              newEntries[ientry.name] = ientry
-              // Directories         
-              return this.traverseDirectory(ientry, false);
-            })));
-
-            if (!isRoot)
-              this.dirObj[entry.name] = newEntries;
-
+                return this.traverseDirectory(iEntry)
+              })
+            ));
             // Try calling readEntries() again for the same dir, according to spec
             readEntries();
           }
@@ -69,6 +53,10 @@ export default class DropBox extends Component {
 
   handleDragOver = (e) => {
     e.preventDefault();
+
+    var outline = document.getElementsById("drop-outline")
+    if (outline)
+      outline.classList.add('drop-outline-dragover')
   }
 
   handleFileDrop = (e) => {
@@ -78,11 +66,9 @@ export default class DropBox extends Component {
     for (let i = 0; i < data.length; i += 1) {
       const item = data[i];
       const entry = item.webkitGetAsEntry();
-      this.traverseDirectory(entry, true)
-        .then(() => {
-          var directoryData = {[entry.name]: this.dirObj}
-          this.setState({ directoryData })
-          console.log(this.state.directoryData)
+      this.traverseDirectory(entry)
+        .then(result => {
+          this.props.onDrop(result)
         });
     }
 
@@ -92,7 +78,8 @@ export default class DropBox extends Component {
 
   render() {
     return (
-      <div className="dropbox" onDrop={this.handleFileDrop} onDragOver={this.handleDragOver}>
+      <div id="dropbox" className={`dropbox ${!this.state.data && 'drop-outline'}`} onDrop={this.handleFileDrop} onDragOver={this.handleDragOver}>
+        <div className="drop-upload" />
       </div>
     )
   }
