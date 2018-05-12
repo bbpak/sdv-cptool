@@ -4,8 +4,8 @@ import _ from 'lodash'
 export default class DropBox extends Component {
   constructor() {
     super()
-    this.state = {
-    }
+    this.data = []
+    this.validFileTypes = ['png', 'tbin', 'xnb']
   }
 
   // I took this from stackoverflow
@@ -24,8 +24,12 @@ export default class DropBox extends Component {
             // Add a list of promises for each directory entry.  If the entry is itself
             // a directory, then that promise won't resolve until it is fully traversed.
             iterationAttempts.push(Promise.all(_.map(entries, iEntry => {
-                if (iEntry.isFile)
-                  return iEntry;   
+                if (iEntry.isFile) {
+                  if (this.validFileTypes.includes(iEntry.name.split('.').pop())) 
+                    this.data.push(iEntry.fullPath)
+                
+                  return
+                }
 
                 return this.traverseDirectory(iEntry)
               })
@@ -69,9 +73,7 @@ export default class DropBox extends Component {
       const item = data[i];
       const entry = item.webkitGetAsEntry();
       this.traverseDirectory(entry)
-        .then(result => {
-          this.props.onDrop(result)
-        });
+        .then(() => { this.props.onDrop(this.data)});
     }
 
     // Pass event to removeDragData for cleanup
@@ -80,7 +82,7 @@ export default class DropBox extends Component {
 
   render() {
     return (
-      <div id="dropbox" className={`dropbox ${!this.state.data && 'drop-outline'}`} onDrop={this.handleFileDrop} onDragOver={this.handleDragOver}>
+      <div id="dropbox" className='dropbox drop-outline' onDrop={this.handleFileDrop} onDragOver={this.handleDragOver}>
         <div className="drop-upload" />
       </div>
     )

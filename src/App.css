@@ -25,23 +25,42 @@
     padding: 0.5em;
   }
 
+    input {
+      display: inline-block;
+      color: white;
+      width: calc(100% - 10em);
+      background-color: transparent;
+      border: none;
+      outline: none;
+    }
+
     .form-block {
+      box-sizing: border-box;
+      max-width: inherit;
     }
 
     .line {
+      box-sizing: border-box;
+      position: relative;
       vertical-align: middle;
+      padding: 0 1em 0 1em;
       height: 1.5em;
       line-height: 1.5em;
-      width: 100%;
+      max-width: inherit;
     }
 
     .line:hover {
-      background-color: dimgrey;
+      background-color: #303030;
     }
 
     .field-label {
+      display: inline-block;
       text-align: right;
       width: 5em;
+    }
+    
+    .field-input {
+      display: inline-block;
     }
 
   .drop-outline {
@@ -94,3 +113,21 @@
   iframe {
     border-radius: 5px;
   }
+
+.scrollbar {
+  display: block;
+  overflow-y: auto;
+}
+
+/* Demonstrate a "mostly customized" scrollbar
+ * (won't be visible otherwise if width/height is specified) */
+.scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #1e1e1e; /* or add it to the track */
+}
+
+/* Add a thumb */
+.scrollbar::-webkit-scrollbar-thumb {
+    background: #303030;
+}

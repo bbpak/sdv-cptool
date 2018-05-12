@@ -9,15 +9,9 @@ export default class FormBlock extends Component {
   }
 
   render() {
-    const { field, value } = this.props
-    let item;
-
-    if (item === "Format") 
-      item = <input type="text" />
-
     return (
-      <div className="form-block line">
-        <div className="field-label">{field}</div>  
+      <div className="form-block">
+        {this.props.children}
       </div>
     )
   }
