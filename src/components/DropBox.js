@@ -54,9 +54,11 @@ export default class DropBox extends Component {
   handleDragOver = (e) => {
     e.preventDefault();
 
+    /*
     var outline = document.getElementsById("drop-outline")
     if (outline)
       outline.classList.add('drop-outline-dragover')
+    */
   }
 
   handleFileDrop = (e) => {

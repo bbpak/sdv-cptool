@@ -25,10 +25,24 @@
     padding: 0.5em;
   }
 
-  .line {
-    height: 1em;
-    border: 1px solid grey;
-  }
+    .form-block {
+    }
+
+    .line {
+      vertical-align: middle;
+      height: 1.5em;
+      line-height: 1.5em;
+      width: 100%;
+    }
+
+    .line:hover {
+      background-color: dimgrey;
+    }
+
+    .field-label {
+      text-align: right;
+      width: 5em;
+    }
 
   .drop-outline {
     margin: 2em;

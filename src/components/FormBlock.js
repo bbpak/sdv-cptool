@@ -4,14 +4,20 @@ export default class FormBlock extends Component {
   constructor() {
     super()
     this.state = {
-      isCollapsed = false
+      isCollapsed: false
     }
   }
 
   render() {
-    const {}
+    const { field, value } = this.props
+    let item;
+
+    if (item === "Format") 
+      item = <input type="text" />
+
     return (
-      <div className="form-block">
+      <div className="form-block line">
+        <div className="field-label">{field}</div>  
       </div>
     )
   }
