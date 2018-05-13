@@ -60,24 +60,28 @@ export default class DropBox extends Component {
     });
   }
 
-  removeDragData = (e) => {
+  removeDragData = e => {
     if (e.dataTransfer.items) {
       // Use DataTransferItemList interface to remove the drag data
-      e.dataTransfer.items.clear();
+      e.dataTransfer.items.clear()
     } else {
       // Use DataTransfer interface to remove the drag data
-      e.dataTransfer.clearData();
+      e.dataTransfer.clearData()
     }
   }
 
-  handleDragOver = (e) => {
-    e.preventDefault();
+  handleDragOver = e => {
+    e.preventDefault()
 
-    /*
-    var outline = document.getElementsById("drop-outline")
-    if (outline)
-      outline.classList.add('drop-outline-dragover')
-    */
+    let dropbox = document.querySelector(".drop-outline")
+    dropbox.classList.add('drop-outline-dragover')
+  }
+
+  handleDragLeave = e => {
+    e.preventDefault()
+
+    let dropbox = document.querySelector(".drop-outline")
+    dropbox.classList.remove('drop-outline-dragover')
   }
 
   handleFileDrop = (e) => {
@@ -97,9 +101,13 @@ export default class DropBox extends Component {
 
   render() {
     return (
-      <div id="dropbox" className='dropbox drop-outline' onDrop={this.handleFileDrop} onDragOver={this.handleDragOver}>
-        <div className="drop-upload" onClick={this.handleFileUpload} />
-      </div>
+      <div 
+        className='dropbox drop-outline'  
+        onClick={this.handleFileUpload} 
+        onDrop={this.handleFileDrop} 
+        onDragOver={this.handleDragOver} 
+        onDragLeave={this.handleDragLeave} 
+      />
     )
   }
 }

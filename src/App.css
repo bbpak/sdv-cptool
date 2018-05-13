@@ -104,29 +104,24 @@
     right: 0;
     left: 0;
     border: 0.5em dashed #555555;
+    background-image: url('./assets/shippingbin_closed.png');
+    background-repeat: no-repeat;
+    background-position: center center;
   }
 
-  .drop-outline.dragover {
-    background-color: #262627;
-    border: 0.5em dashed #565656;
-  }
-
-  .drop-upload:hover {
+  .drop-outline:hover {
+    cursor: pointer;
     background-image: url('./assets/shippingbin_open.png');
     background-repeat: no-repeat;
     background-position: center center;
   }
 
-  .drop-upload {
-    position: relative;
-    top: calc(50% - 142.5px);
-    background-image: url('./assets/shippingbin_closed.png');
+  .drop-outline-dragover {
+    background-color: #262627;
+    border: 0.5em dashed #606060;
+    background-image: url('./assets/shippingbin_open.png');
     background-repeat: no-repeat;
     background-position: center center;
-    margin: auto;
-    width: 225px;
-    height: 285px;
-    cursor: pointer;
   }
 
 .docs-container {
