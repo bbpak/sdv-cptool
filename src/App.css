@@ -26,7 +26,7 @@
     position: relative;
     margin: 0 auto;
     width: 50%;
-    min-width: 30em;
+    min-width: 50em;
     height: 95vh;
     background-color: #1e1e1e;
     padding: 1em 0.5em 1em 0.5em;
@@ -36,14 +36,14 @@
     border-radius: 3px;
   }
   
-    .line, .form-block {
+    .line, .form-block  {
       box-sizing: border-box;
       position: relative;
       vertical-align: middle;
       padding: 0 1em 0 1em;
       height: 1.5em;
       line-height: 1.5em;
-      max-width: inherit;
+      width: inherit;
     }
 
     .line:hover {
@@ -51,15 +51,37 @@
     }
 
     .line:focus-within {
-      background-color: #282828;
+      background-color:  #262626;
       border: none;
       border-left: 1px solid #454545;
       outline: none;
     }
 
     .form-block {
-      box-sizing: border-box;
-      max-width: inherit;
+      height: auto;
+    }
+
+    .divider {
+      position: relative;
+      height: 0.9em;
+      padding: 0;
+      left: 1em;
+    }
+
+    .block-border {
+      display: inline;
+      max-width: 1em;
+      margin: 0;
+      border-left: 1px solid #454545;
+    }
+
+    .block-divider {
+      position: relative;
+      display: inline-block;
+      padding: 0 1em 0 1em;
+      height: inherit;
+      width: calc(100% - 4em);
+      background-color: #121212;
     }
 
     pre {
@@ -76,9 +98,8 @@
       display: inline-block;
       color: white;
       height: 1.25em;
-      max-width: inherit;
-      background-color: #151515;
-      border: 1px solid #101010;
+      background-color: #333333;
+      border: 1px solid #222222;
       border-radius: 2px;
       outline: none;
       margin-left: 0.5em;
@@ -144,6 +165,7 @@
 .scrollbar {
   display: block;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Demonstrate a "mostly customized" scrollbar
@@ -156,5 +178,5 @@
 
 /* Add a thumb */
 .scrollbar::-webkit-scrollbar-thumb {
-    background: #303030;
+  background: #303030;
 }

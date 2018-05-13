@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 
 export default class FormBlock extends Component {
   constructor() {
@@ -9,9 +10,11 @@ export default class FormBlock extends Component {
   }
 
   render() {
+    const {style, children} = this.props
+
     return (
-      <div className="form-block">
-        {this.props.children}
+      <div style={style} className="form-block">
+        {children}
       </div>
     )
   }

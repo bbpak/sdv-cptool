@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 export default class FormBlock extends Component {
   render() {
-    const { field, value, form, options, style } = this.props
+    const { field, defaultValue, form, options, style, title, children } = this.props
     let item 
 
     if (form === "select") {
@@ -16,13 +16,14 @@ export default class FormBlock extends Component {
       )
     }
     else if (form === "text") {
-      item = <input className="field-input" type="text" value={value} />
+      item = <input className="field-input" type="text" defaultValue={defaultValue} />
     }
     
     return (
-      <pre className="line" style={style} tabIndex='0'>
+      <pre title={title} className="line" style={style} tabIndex='0'>
         <div className="field-label">{field}</div>
         {item}
+        {children}
       </pre>
     )
   }

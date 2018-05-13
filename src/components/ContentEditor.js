@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import FormBlock from './FormBlock'
 import FormField from './FormField'
 import DropBox from './DropBox'
+import Divider from './Divider'
 import { fileTypeData } from '../data/contentData'
 import _ from 'lodash'
 
@@ -64,15 +65,60 @@ export default class ContentEditor extends Component {
       return 'EditImage'
   }
 
-  renderForm() {
+  // Fields that are dependent on the Action
+  renderActionFields = (value, name, fullPath, i) => {
+    let fields;
+
+    if (value === 'Load')
+      fields = (
+        <div>
+          <FormField field="FromFile" />
+        </div>
+      )
+    else if (value === 'EditImage')
+      fields = (
+        <div>
+          <FormField field="FromFile" />
+          <FormField field="FromArea" />
+          <FormField field="ToArea" />
+          <FormField field="PatchMode" />
+        </div>
+      ) 
+    else if (value === 'EditData')
+      fields = (
+        <div>
+          <FormField field="Fields" />
+          <FormField field="Entries" />
+        </div>
+      )
+    
+    return (
+      <FormBlock key={i}>
+        <FormField
+          field="Action"
+          value={value}
+          name={name} 
+          fullPath={fullPath} 
+        />
+        <FormField field="Target" />
+        {fields}
+        <FormField field="LogName" />
+        <FormField field="Enabled" />
+        <FormField field="When" />
+      </FormBlock>
+    )
+    
+  }
+
+  renderForm = () => {
     const { importData } = this.state
     const lineStyle = {borderLeft: 0}
-    const innerLineStyle = {}
 
     return (
       <div>
-        <FormField style={lineStyle} field="Format" form="text" value="1.3"/>
-        <FormField style={lineStyle} field="ConfigSchema" />
+        <FormField style={lineStyle} field="Format" defaultValue="1.3" form="text" />
+        <Divider borderStyle={{border: 'none'}} dividerStyle={{width: 'calc(100% - 3em)'}} />
+        {/*<FormField title="This one's a bit more complex not sure how to simplify it" field="ConfigSchema" />*/}
         <FormField style={lineStyle} field="Changes" />
          
         {_.map(importData, (item, i) => { 
@@ -86,16 +132,10 @@ export default class ContentEditor extends Component {
           const value = this.getValueForFile(type, name, parent)
 
           return (
-            <FormBlock>
-              <FormField
-                key={i} 
-                field="Action"
-                value={value}
-                name={name} 
-                fullPath={item} 
-                style={innerLineStyle}
-              />
-            </FormBlock>
+            <div>
+              {this.renderActionFields(value, name, fullPath, i)}
+              <Divider dividerStyle={{left: '1em', width: 'calc(100% - 5em)'}} />
+            </div>
           )
         })}
       </div>
