@@ -62,13 +62,13 @@ export default class ContentEditor extends Component {
 
   renderForm() {
     const { importData } = this.state
-    const lineStyle = {borderTop: '1  px solid #454545'}
-    const innerLineStyle = {paddingLeft: '2em'}
+    const lineStyle = {borderLeft: 0}
+    const innerLineStyle = {}
 
     return (
       <div>
         <FormField style={lineStyle} field="Format" form="text" value="1.3"/>
-        {/*<FormField style={lineStyle} field="ConfigSchema" />*/}
+        <FormField style={lineStyle} field="ConfigSchema" />
         <FormField style={lineStyle} field="Changes" />
          
         {_.map(importData, (item, i) => { 

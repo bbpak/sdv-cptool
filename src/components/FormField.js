@@ -24,10 +24,10 @@ export default class FormBlock extends Component {
     }
     
     return (
-      <div className="line" style={style}>
+      <pre className="line" style={style} tabIndex='0'>
         <div className="field-label">{`${field}:`}</div>
         {item}
-      </div>
+      </pre>
     )
   }
 }
