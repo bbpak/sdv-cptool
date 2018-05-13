@@ -8,7 +8,24 @@ export default class DropBox extends Component {
     this.validFileTypes = ['png', 'tbin', 'xnb']
   }
 
-  // I took this from stackoverflow
+  componentDidMount() {
+    this.fileSelector = this.buildFileSelector();
+  }
+
+  // File upload dialogue (instead of DnD)
+  buildFileSelector = () => {
+    const fileSelector = document.createElement('input');
+    fileSelector.setAttribute('type', 'file');
+    fileSelector.setAttribute('multiple', 'multiple');
+    return fileSelector;
+  }
+
+  handleFileUpload = e => {
+    e.preventDefault()
+    this.fileSelector.click()
+  }
+
+  // https://stackoverflow.com/questions/18815197/javascript-file-dropping-and-reading-directories-asynchronous-recursion
   traverseDirectory = (entry) => {
     const reader = entry.createReader();
     // Resolved when the entire directory is traversed
@@ -44,8 +61,6 @@ export default class DropBox extends Component {
   }
 
   removeDragData = (e) => {
-    console.log('Removing drag data')
-
     if (e.dataTransfer.items) {
       // Use DataTransferItemList interface to remove the drag data
       e.dataTransfer.items.clear();
@@ -83,7 +98,7 @@ export default class DropBox extends Component {
   render() {
     return (
       <div id="dropbox" className='dropbox drop-outline' onDrop={this.handleFileDrop} onDragOver={this.handleDragOver}>
-        <div className="drop-upload" />
+        <div className="drop-upload" onClick={this.handleFileUpload} />
       </div>
     )
   }

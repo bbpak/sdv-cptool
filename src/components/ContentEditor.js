@@ -18,6 +18,10 @@ export default class ContentEditor extends Component {
     }
   }
 
+  componentDidMount() {
+    console.log("Made with by 🤔 Bouhm")
+  }
+
   handleFileDrop = (importData) => {
     this.setState( {importData} )
   }

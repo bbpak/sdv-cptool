@@ -2,17 +2,13 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 
 export default class FormBlock extends Component {
-  constructor() {
-    super()
-  }
-
   render() {
     const { field, value, form, options, style } = this.props
     let item 
 
     if (form === "select") {
       item = (
-        <select className="field-input" name={`${field}:`}>
+        <select className="field-input" name={field}>
           {_.map(options, option => {
             return <option>{option}</option>
           })}
@@ -25,7 +21,7 @@ export default class FormBlock extends Component {
     
     return (
       <pre className="line" style={style} tabIndex='0'>
-        <div className="field-label">{`${field}:`}</div>
+        <div className="field-label">{field}</div>
         {item}
       </pre>
     )
