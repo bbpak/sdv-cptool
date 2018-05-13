@@ -46,8 +46,8 @@
       width: inherit;
     }
 
-    .form-block-min:hover, .line:hover {
-      background-color: #222222;
+    .line:hover {
+      background-color: #212121;
     }
 
     .line:focus-within {
@@ -71,7 +71,7 @@
 
     .collapsible {
       position: absolute;
-      top: 0;
+      bottom: 0;
       right: 0.5em;
       z-index: 2;
       cursor: pointer;
@@ -90,7 +90,7 @@
       padding: 0 1em 0 1em;
       height: inherit;
       width: calc(100% - 4em);
-      background-color: #161616;
+      background-color: #181818;
     }
 
     pre {
@@ -107,12 +107,12 @@
       box-sizing: border-box;
       margin: 0;
       display: inline-block;
-      color: lemonchiffon;
+      color: white;
       height: 1.5em;
       line-height: 1.5em;
       background-color: #333333;
-      border: 1px solid #191919;
-      border-radius: 2px;
+      border: 1px solid #202020;
+      border-radius: 3px;
       outline: none;
       margin-left: 0.5em;
       padding-left: 3px;
@@ -207,7 +207,10 @@
 }
 
 .loader > h1 {
-  margin-top: 35%;
+  position: fixed;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: 'Pangolin', cursive;
 }
 
@@ -217,9 +220,9 @@
   overflow-x: hidden;
 }
 .scrollbar::-webkit-scrollbar {
-  width: 5px;
-  height: 8px;
-  background-color: #161616; /* or add it to the track */
+  width: 8px;
+  height: 10px;
+  background-color: #181818; /* or add it to the track */
 }
 
 .scrollbar::-webkit-scrollbar-thumb {

@@ -21,33 +21,39 @@ export default class ContentEditor extends Component {
 
   componentDidMount() {
     console.log("Made with by 🤔 Bouhm")
+
+    // Firefox still doesn't support custom scrollbar css :(
+    if (!window.chrome || !window.chrome.webstore)
+      console.log("Please use Chrome for optimal 𝒜 𝐸 𝒮 𝒯 𝐻 𝐸 𝒯 𝐼 𝒞 𝒮")
   }
 
   handleFileDrop = (importData) => {
     this.setState( {importData} )
   }
 
-  getValueForFile = (type, name, parent) => {  
+  getActionForFile = (type, name, parent) => {  
     let value
 
     // Handle specific cases
-    if (type === 'xnb') {
-      if (!isNaN(name))
-        value = this.getOptionForType('tbin')
-      else
+    if (!isNaN(name))
+      value = this.getOptionForType('tbin')
+    else
+    {
+      if (type === 'xnb') 
+        _.map(_.keys(fileTypeData.files), nameStr => {
+          if (name.toLowerCase().includes(nameStr)) {
+            value = this.getOptionForType(fileTypeData.files[nameStr])
+            return
+          }
+        })
+      else {
         value = this.getOptionForType(type)
+      }
     }
-    else {
-      _.map(_.keys(fileTypeData.files), nameStr => {
-        if (name.includes(nameStr)) {
-          value = this.getOptionForType(fileTypeData.files[nameStr])
-          return
-        }
-      })
-      if (!value)
-        value = this.getOptionForType(_.get(fileTypeData.directories, parent))
-    }
-  
+    // Guess based on matching parent folder
+    if (!value)
+      value = this.getOptionForType(_.get(fileTypeData.directories, parent))
+      
     return value
   }
 
@@ -96,7 +102,7 @@ export default class ContentEditor extends Component {
       <FormBlock>
         <FormField
           field="Action"
-          defaultValue={value}
+          value={value}
           name={name} 
           fullPath={fullPath} 
         />
@@ -116,7 +122,7 @@ export default class ContentEditor extends Component {
 
     return (
       <div>
-        <FormField style={lineStyle} field="Format" defaultValue="1.3" />
+        <FormField style={lineStyle} field="Format" value="1.3" />
         <Divider borderStyle={{border: 'none'}} dividerStyle={{width: 'calc(100% - 3em)'}} />
         {/*<FormField title="This one's a bit more complex not sure how to simplify it" field="ConfigSchema" />*/}
         <FormField style={lineStyle} field="Changes" />
@@ -129,7 +135,7 @@ export default class ContentEditor extends Component {
           const type = file.pop()
           const name = file.pop()
           const parent = paths.pop()
-          const value = this.getValueForFile(type, name, parent)
+          const value = this.getActionForFile(type, name, parent)
 
           return (
             <div key={i}>
@@ -145,9 +151,9 @@ export default class ContentEditor extends Component {
   render() {
     return (
       <div className="content-editor">
-        <div className='content-form scrollbar'>
+        <form className='content-form scrollbar'>
           {this.state.importData ? this.renderForm() : <DropBox onDrop={this.handleFileDrop} />}
-        </div>
+        </form>
       </div>
     )
   }
