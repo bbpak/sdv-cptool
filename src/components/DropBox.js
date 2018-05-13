@@ -1,28 +1,24 @@
 import React, { Component } from 'react'
+import Loader from './Loader'
 import _ from 'lodash'
 
 export default class DropBox extends Component {
   constructor() {
     super()
+    this.state = { isLoading: false }
     this.data = []
     this.validFileTypes = ['png', 'tbin', 'xnb']
   }
 
-  componentDidMount() {
-    this.fileSelector = this.buildFileSelector();
+  componentWillUnmount() {
+
   }
 
-  // File upload dialogue (instead of DnD)
-  buildFileSelector = () => {
-    const fileSelector = document.createElement('input');
-    fileSelector.setAttribute('type', 'file');
-    fileSelector.setAttribute('multiple', 'multiple');
-    return fileSelector;
-  }
-
-  handleFileUpload = e => {
-    e.preventDefault()
-    this.fileSelector.click()
+  handleFileUpload = () => {
+    const fileSelector = document.getElementById("upload")
+    fileSelector.setAttribute("webkitdirectory", "webkitdirectory")
+    fileSelector.setAttribute("directory", "directory")
+    fileSelector.click()
   }
 
   // https://stackoverflow.com/questions/18815197/javascript-file-dropping-and-reading-directories-asynchronous-recursion
@@ -86,16 +82,23 @@ export default class DropBox extends Component {
 
   handleFileDrop = (e) => {
     e.preventDefault()
+    if (!e.dataTransfer) return
 
+    this.setState({isLoading: true})
+    let result;
     const data = e.dataTransfer.items;
     for (let i = 0; i < data.length; i += 1) {
       const item = data[i];
       const entry = item.webkitGetAsEntry();
       this.traverseDirectory(entry)
-        .then(() => { this.props.onDrop(this.data)});
+        .then(r => { 
+          result = r
+          this.props.onDrop(this.data)
+        });
     }
 
     // Pass event to removeDragData for cleanup
+    result && this.setState({isLoading: false})
     this.removeDragData(e)
   }
 
@@ -107,7 +110,17 @@ export default class DropBox extends Component {
         onDrop={this.handleFileDrop} 
         onDragOver={this.handleDragOver} 
         onDragLeave={this.handleDragLeave} 
-      />
+      >
+        {this.state.isLoading && <Loader />}
+        <input 
+          id="upload" 
+          type="file" 
+          style={{display: 'none'}}
+          onChange={this.handleFileDrop} 
+          onClick={this.handleFileUpload} 
+          multiple
+        />
+      </div>
     )
   }
 }

@@ -1,29 +1,67 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 
-export default class FormBlock extends Component {
-  render() {
-    const { field, defaultValue, form, options, style, title, children } = this.props
-    let item 
+export default class FormField extends Component {
 
-    if (form === "select") {
-      item = (
-        <select className="field-input" name={field}>
-          {_.map(options, option => {
-            return <option>{option}</option>
-          })}
-        </select>
-      )
+  getInputForField = () => {
+    const { field, defaultValue } = this.props
+    let input;
+
+    switch(field) {
+      case 'Action':
+        input = (
+          <select className="field-input" defaultValue={defaultValue}>
+            <option>Load</option>
+            <option>EditImage</option>
+            <option>EditData</option>
+          </select>
+        );
+        break;
+      case 'PathMode':
+        input = (
+          <select className="field-input" defaultValue={defaultValue}>
+            <option>Replace</option>
+            <option>Overlay</option>
+          </select>
+        );
+        break;
+      case 'Target':
+      case 'FromFile':
+      case 'LogName':
+        input = (
+          <input className="field-input" defaultValue={defaultValue} type="text"/>
+        );
+        break;
     }
-    else if (form === "text") {
-      item = <input className="field-input" type="text" defaultValue={defaultValue} />
-    }
-    
+
+    return input
+  }
+
+  render() {
+    const { 
+      field, 
+      defaultValue, 
+      options, 
+      style, 
+      title, 
+      children,
+      label 
+    } = this.props
+
+    let input = this.getInputForField()
+
     return (
       <pre title={title} className="line" style={style} tabIndex='0'>
-        <div className="field-label">{field}</div>
-        {item}
-        {children}
+        {label 
+          ? 
+            <div style={{color: 'yellowgreen', fontWeight: 'bold', fontStyle: 'italic'}} className="field-label">{label}</div>
+          :
+          <div>
+            <div className="field-label">{field}</div>
+            {input}
+            {children}
+          </div>
+        }
       </pre>
     )
   }

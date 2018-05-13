@@ -38,7 +38,7 @@ export default class ContentEditor extends Component {
         value = this.getOptionForType(type)
     }
     else {
-      _.map(fileTypeData.files, nameStr => {
+      _.map(_.keys(fileTypeData.files), nameStr => {
         if (name.includes(nameStr)) {
           value = this.getOptionForType(fileTypeData.files[nameStr])
           return
@@ -66,7 +66,7 @@ export default class ContentEditor extends Component {
   }
 
   // Fields that are dependent on the Action
-  renderActionFields = (value, name, fullPath, i) => {
+  renderActionFields = (value, name, fullPath) => {
     let fields;
 
     if (value === 'Load')
@@ -93,10 +93,10 @@ export default class ContentEditor extends Component {
       )
     
     return (
-      <FormBlock key={i}>
+      <FormBlock>
         <FormField
           field="Action"
-          value={value}
+          defaultValue={value}
           name={name} 
           fullPath={fullPath} 
         />
@@ -116,7 +116,7 @@ export default class ContentEditor extends Component {
 
     return (
       <div>
-        <FormField style={lineStyle} field="Format" defaultValue="1.3" form="text" />
+        <FormField style={lineStyle} field="Format" defaultValue="1.3" />
         <Divider borderStyle={{border: 'none'}} dividerStyle={{width: 'calc(100% - 3em)'}} />
         {/*<FormField title="This one's a bit more complex not sure how to simplify it" field="ConfigSchema" />*/}
         <FormField style={lineStyle} field="Changes" />
@@ -132,8 +132,8 @@ export default class ContentEditor extends Component {
           const value = this.getValueForFile(type, name, parent)
 
           return (
-            <div>
-              {this.renderActionFields(value, name, fullPath, i)}
+            <div key={i}>
+              {this.renderActionFields(value, name, fullPath)}
               <Divider dividerStyle={{left: '1em', width: 'calc(100% - 5em)'}} />
             </div>
           )

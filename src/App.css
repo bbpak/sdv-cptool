@@ -33,7 +33,7 @@
     -moz-box-shadow:    inset 0 0 10px #101010;
     -webkit-box-shadow: inset 0 0 10px #101010;
     box-shadow:         inset 0 0 10px #101010;
-    border-radius: 3px;
+    border-radius: 5px;
   }
   
     .line, .form-block  {
@@ -46,7 +46,7 @@
       width: inherit;
     }
 
-    .line:hover {
+    .form-block-min:hover, .line:hover {
       background-color: #222222;
     }
 
@@ -63,9 +63,18 @@
 
     .divider {
       position: relative;
-      height: 0.9em;
+      height: 0.75em;
+      line-height: 0.75em;
       padding: 0;
       left: 1em;
+    }
+
+    .collapsible {
+      position: absolute;
+      top: 0;
+      right: 0.5em;
+      z-index: 2;
+      cursor: pointer;
     }
 
     .block-border {
@@ -81,7 +90,7 @@
       padding: 0 1em 0 1em;
       height: inherit;
       width: calc(100% - 4em);
-      background-color: #121212;
+      background-color: #161616;
     }
 
     pre {
@@ -94,16 +103,23 @@
       border-left: 1px solid #707070;
     }
 
-    input {
+    input[type], select {
+      box-sizing: border-box;
+      margin: 0;
       display: inline-block;
-      color: white;
-      height: 1.25em;
+      color: lemonchiffon;
+      height: 1.5em;
+      line-height: 1.5em;
       background-color: #333333;
-      border: 1px solid #222222;
+      border: 1px solid #191919;
       border-radius: 2px;
       outline: none;
       margin-left: 0.5em;
       padding-left: 3px;
+    }
+
+    .inner-input {
+      color: greenyellow;
     }
 
     .field-label {
@@ -117,18 +133,18 @@
       display: inline-block;
     }
 
-  .drop-outline {
-    margin: 2em;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    border: 0.5em dashed #555555;
-    background-image: url('./assets/shippingbin_closed.png');
-    background-repeat: no-repeat;
-    background-position: center center;
-  }
+.drop-outline {
+  margin: 2em;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border: 0.5em dashed #555555;
+  background-image: url('./assets/shippingbin_closed.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+}
 
   .drop-outline:hover {
     cursor: pointer;
@@ -162,21 +178,40 @@
     border-radius: 5px;
   }
 
+.loader {
+  position: fixed;
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  background-image: url('./assets/junimo.gif');
+  background-repeat: no-repeat;
+  background-size: 10%;
+  background-position: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; 
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 10;
+  text-align: center;
+}
+
+.loader > h1 {
+  margin-top: 35%;
+  font-family: 'Pangolin', cursive;
+}
+
 .scrollbar {
   display: block;
   overflow-y: auto;
   overflow-x: hidden;
 }
-
-/* Demonstrate a "mostly customized" scrollbar
- * (won't be visible otherwise if width/height is specified) */
 .scrollbar::-webkit-scrollbar {
   width: 5px;
   height: 8px;
   background-color: #1e1e1e; /* or add it to the track */
 }
 
-/* Add a thumb */
 .scrollbar::-webkit-scrollbar-thumb {
   background: #303030;
 }
