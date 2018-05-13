@@ -133,6 +133,16 @@
       display: inline-block;
     }
 
+    .inner-field {
+      padding-left: 0.5em;
+      display: inline;
+      color: #71A7FF;
+    }
+
+    .inner-field > input {
+      max-width: 6em;
+    }
+
 .drop-outline {
   margin: 2em;
   position: absolute;
@@ -209,7 +219,7 @@
 .scrollbar::-webkit-scrollbar {
   width: 5px;
   height: 8px;
-  background-color: #1e1e1e; /* or add it to the track */
+  background-color: #161616; /* or add it to the track */
 }
 
 .scrollbar::-webkit-scrollbar-thumb {

@@ -17,7 +17,7 @@ export default class FormField extends Component {
           </select>
         );
         break;
-      case 'PathMode':
+      case 'PatchMode':
         input = (
           <select className="field-input" defaultValue={defaultValue}>
             <option>Replace</option>
@@ -25,9 +25,40 @@ export default class FormField extends Component {
           </select>
         );
         break;
+      case 'Enabled':
+        input = (
+          <select className="field-input" defaultValue={defaultValue}>
+            <option>true</option>
+            <option>false</option>
+          </select>
+        );
+        break;
+      case 'FromArea':
+        input = (
+          <div style={{paddingLeft: '0.2em', display: 'inline'}}>
+            <span className="inner-field">X<input className="field-input" defaultValue={defaultValue} type="text"/></span>
+            <span className="inner-field">Y<input className="field-input" defaultValue={defaultValue} type="text"/></span>
+            <span className="inner-field">Width<input className="field-input" defaultValue={defaultValue} type="text"/></span>
+            <span className="inner-field">Height<input className="field-input" defaultValue={defaultValue} type="text"/></span>
+          </div>
+        );
+        break;
+      case 'ToArea':
+        input = (
+          <div style={{paddingLeft: '1.3em', display: 'inline'}}>
+            <span className="inner-field">X<input className="field-input" defaultValue={defaultValue} type="text"/></span>
+            <span className="inner-field">Y<input className="field-input" defaultValue={defaultValue} type="text"/></span>
+            <span className="inner-field">Width<input className="field-input" defaultValue={defaultValue} type="text"/></span>
+            <span className="inner-field">Height<input className="field-input" defaultValue={defaultValue} type="text"/></span>
+          </div>
+        );
+        break;
       case 'Target':
       case 'FromFile':
       case 'LogName':
+      case 'Fields':
+      case 'When':
+      case 'Format':
         input = (
           <input className="field-input" defaultValue={defaultValue} type="text"/>
         );
@@ -44,7 +75,6 @@ export default class FormField extends Component {
       options, 
       style, 
       title, 
-      children,
       label 
     } = this.props
 
@@ -59,7 +89,6 @@ export default class FormField extends Component {
           <div>
             <div className="field-label">{field}</div>
             {input}
-            {children}
           </div>
         }
       </pre>

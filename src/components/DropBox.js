@@ -85,20 +85,20 @@ export default class DropBox extends Component {
     if (!e.dataTransfer) return
 
     this.setState({isLoading: true})
-    let result;
+    let res;
     const data = e.dataTransfer.items;
     for (let i = 0; i < data.length; i += 1) {
       const item = data[i];
       const entry = item.webkitGetAsEntry();
       this.traverseDirectory(entry)
-        .then(r => { 
-          result = r
+        .then(result => { 
+          res = result
           this.props.onDrop(this.data)
         });
     }
 
     // Pass event to removeDragData for cleanup
-    result && this.setState({isLoading: false})
+    res && this.setState({isLoading: false})
     this.removeDragData(e)
   }
 
