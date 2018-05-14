@@ -33,7 +33,7 @@ class ContentEditor extends Component {
       data.Changes.push(DataManager.getDataForFile(file))
     })
 
-    this.setState({ contentData: data })
+    this.setState({ contentData: data, hasProcessedFiles: true })
   }
 
   renderForm = () => {

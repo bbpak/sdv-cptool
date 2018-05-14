@@ -88,28 +88,23 @@ export default class DropBox extends Component {
     e.preventDefault()
     if (!e.dataTransfer) return
 
-    this.setState({ isLoading: true })
-    let res
     const data = e.dataTransfer.items
-    for (let i = 0; i < data.length; i += 1) {
-      const entry = data[i].webkitGetAsEntry()
-
-      try {
-        this.traverseDirectory(entry).then(result => {
-          res = result
-          this.props.onDrop(this.filesData)
-        })
-      } catch (err) {
-        alert(
-          `Invalid file '${entry.name}'. Only .xnb, .png, or .tbin are allowed.`
-        )
-        this.setState({ isLoading: false })
-        return
-      }
+    if (data.length > 1) {
+      alert('You must drop a single folder.')
+      return
     }
 
+    let hasLoaded
+    this.setState({ isLoading: !hasLoaded })
+    const entry = data[0].webkitGetAsEntry()
+
+    this.traverseDirectory(entry).then(() => {
+      hasLoaded = true
+      this.props.onDrop(this.filesData)
+    })
+
+    this.setState({ isLoading: !hasLoaded })
     // Pass event to removeDragData for cleanup
-    res && this.setState({ isLoading: false })
     this.removeDragData(e)
   }
 
