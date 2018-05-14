@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
-import FormBlock from './FormBlock'
-import FormField from './FormField'
-import DropBox from './DropBox'
-import Divider from './misc/Divider'
-import withStore from './hocs/withStore'
-import { fileTypeData } from '../data/contentData'
 import _ from 'lodash'
-
+import Divider from './misc/Divider'
+import DropBox from './DropBox'
+import FormBlock from './form/FormBlock'
+import FormField from './form/FormField'
+import DataManager from '../data/DataManager'
+import withStore from './hocs/withStore'
 class ContentEditor extends Component {
   constructor() {
     super()
     this.state = {
-      importData: null, // Data of dropped directory
-      exportData: {
+      hasProcessedFiles: false,
+      contentData: {
         Format: '1.3',
-        ConfigSchema: {},
+        ConfigSchema: null,
         Changes: []
       }
     }
@@ -28,56 +27,17 @@ class ContentEditor extends Component {
       console.log('Please use Chrome for optimal 𝒜 𝐸 𝒮 𝒯 𝐻 𝐸 𝒯 𝐼 𝒞 𝒮')
   }
 
-  handleFileDrop = importData => {
-    this.setState({ importData })
-  }
+  handleFilesDrop = filesData => {
+    let data = this.state.contentData
+    _.map(filesData, file => {
+      data.Changes.push(DataManager.getDataForFile(file))
+    })
 
-  // Fields that are dependent on the Action
-  renderActionFields = (value, name, fullPath) => {
-    let fields
-
-    if (value === 'Load')
-      fields = (
-        <div>
-          <FormField field="FromFile" />
-        </div>
-      )
-    else if (value === 'EditImage')
-      fields = (
-        <div>
-          <FormField field="FromFile" />
-          <FormField field="FromArea" />
-          <FormField field="ToArea" />
-          <FormField field="PatchMode" />
-        </div>
-      )
-    else if (value === 'EditData')
-      fields = (
-        <div>
-          <FormField field="Fields" />
-          <FormField field="Entries" />
-        </div>
-      )
-
-    return (
-      <FormBlock>
-        <FormField
-          field="Action"
-          value={value}
-          name={name}
-          fullPath={fullPath}
-        />
-        <FormField field="Target" />
-        {fields}
-        <FormField field="LogName" />
-        <FormField field="Enabled" />
-        <FormField field="When" />
-      </FormBlock>
-    )
+    this.setState({ contentData: data })
   }
 
   renderForm = () => {
-    const { importData } = this.state
+    const { contentData } = this.state
     const lineStyle = { borderLeft: 0 }
 
     return (
@@ -87,28 +47,8 @@ class ContentEditor extends Component {
           borderStyle={{ border: 'none' }}
           dividerStyle={{ width: 'calc(100% - 3em)' }}
         />
-        {/*<FormField title="This one's a bit more complex not sure how to simplify it" field="ConfigSchema" />*/}
+        {/*<FormField field="ConfigSchema" />*/}
         <FormField style={lineStyle} field="Changes" />
-
-        {_.map(importData, (item, i) => {
-          const fullPath = item
-          const paths = fullPath.split('/')
-          const file = paths.pop().split('.')
-
-          const type = file.pop()
-          const name = file.pop()
-          const parent = paths.pop()
-          const value = this.getActionForFile(type, name, parent)
-
-          return (
-            <div key={i}>
-              {this.renderActionFields(value, name, fullPath)}
-              <Divider
-                dividerStyle={{ left: '1em', width: 'calc(100% - 5em)' }}
-              />
-            </div>
-          )
-        })}
       </div>
     )
   }
@@ -117,10 +57,10 @@ class ContentEditor extends Component {
     return (
       <div className="content-editor">
         <form className="content-form scrollbar">
-          {this.state.importData ? (
+          {this.state.hasProcessedFiles ? (
             this.renderForm()
           ) : (
-            <DropBox onDrop={this.handleFileDrop} />
+            <DropBox onDrop={this.handleFilesDrop} />
           )}
         </form>
       </div>

@@ -11,7 +11,6 @@ const withStore = WrappedComponent => {
     }
 
     componentDidMount() {
-      console.log(this)
       const { field, value } = this.props
       this.handleDataChange(field, value)
     }

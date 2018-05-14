@@ -5,10 +5,10 @@
 // Guess the filetype when .xnb files are provided
 // Old .xnb mods will most likely provide a 'Content'
 // root directory matching filepaths of the vanilla content
-export const fileTypeData = {
+export const inferredFileTypes = {
   // Assume filetypes based on names
   files: {
-    tiles: 'png', 
+    tiles: 'png',
     sheet: 'png',
     forestevent: 'tbin',
     guspicnic: 'tbin',
@@ -27,7 +27,7 @@ export const fileTypeData = {
     building: 'png',
     characters: 'png',
     data: 'data',
-    dialogue: 'data', 
+    dialogue: 'data',
     events: 'data',
     farmer: 'png',
     festivals: 'data',
@@ -36,7 +36,7 @@ export const fileTypeData = {
     loosesprites: 'png',
     monsters: 'png',
     portraits: 'png',
-    maps: 'tbin',   
+    maps: 'tbin',
     mines: 'tbin',
     minigames: 'png',
     schedules: 'data',
@@ -46,3 +46,7 @@ export const fileTypeData = {
     tv: 'data'
   }
 }
+
+export const validFileTypes = ['xnb', 'tbin', 'png']
+
+export const gameContentData = {}

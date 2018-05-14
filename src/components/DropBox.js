@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import Loader from './misc/Loader'
+import { validFileTypes } from '../data/dataConstants'
 import _ from 'lodash'
 
 export default class DropBox extends Component {
   constructor() {
     super()
     this.state = { isLoading: false }
-    this.data = []
-    this.validFileTypes = ['png', 'tbin', 'xnb']
+    this.filesData = []
   }
 
   componentWillUnmount() {}
@@ -39,12 +39,8 @@ export default class DropBox extends Component {
                 Promise.all(
                   _.map(entries, iEntry => {
                     if (iEntry.isFile) {
-                      if (
-                        this.validFileTypes.includes(
-                          iEntry.name.split('.').pop()
-                        )
-                      )
-                        this.data.push(iEntry.fullPath)
+                      if (validFileTypes.includes(iEntry.name.split('.').pop()))
+                        this.filesData.push(iEntry)
 
                       return
                     }
@@ -96,12 +92,12 @@ export default class DropBox extends Component {
     let res
     const data = e.dataTransfer.items
     for (let i = 0; i < data.length; i += 1) {
-      const item = data[i]
-      const entry = item.webkitGetAsEntry()
+      const entry = data[i].webkitGetAsEntry()
+
       try {
         this.traverseDirectory(entry).then(result => {
           res = result
-          this.props.onDrop(this.data)
+          this.props.onDrop(this.filesData)
         })
       } catch (err) {
         alert(

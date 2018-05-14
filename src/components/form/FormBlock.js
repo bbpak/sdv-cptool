@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import FormField from './FormField'
-import withStore from './hocs/withStore'
+import withStore from '../hocs/withStore'
 import _ from 'lodash'
 
 class FormBlock extends Component {
