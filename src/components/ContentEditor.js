@@ -2,17 +2,18 @@ import React, { Component } from 'react'
 import FormBlock from './FormBlock'
 import FormField from './FormField'
 import DropBox from './DropBox'
-import Divider from './Divider'
+import Divider from './misc/Divider'
+import withStore from './hocs/withStore'
 import { fileTypeData } from '../data/contentData'
 import _ from 'lodash'
 
-export default class ContentEditor extends Component {
+class ContentEditor extends Component {
   constructor() {
     super()
     this.state = {
       importData: null, // Data of dropped directory
       exportData: {
-        Format: "1.3",
+        Format: '1.3',
         ConfigSchema: {},
         Changes: []
       }
@@ -20,60 +21,20 @@ export default class ContentEditor extends Component {
   }
 
   componentDidMount() {
-    console.log("Made with by 🤔 Bouhm")
+    console.log('Made with by 🤔 Bouhm')
 
     // Firefox still doesn't support custom scrollbar css :(
     if (!window.chrome || !window.chrome.webstore)
-      console.log("Please use Chrome for optimal 𝒜 𝐸 𝒮 𝒯 𝐻 𝐸 𝒯 𝐼 𝒞 𝒮")
+      console.log('Please use Chrome for optimal 𝒜 𝐸 𝒮 𝒯 𝐻 𝐸 𝒯 𝐼 𝒞 𝒮')
   }
 
-  handleFileDrop = (importData) => {
-    this.setState( {importData} )
-  }
-
-  getActionForFile = (type, name, parent) => {  
-    let value
-
-    // Handle specific cases
-    if (!isNaN(name))
-      value = this.getOptionForType('tbin')
-    else
-    {
-      if (type === 'xnb') 
-        _.map(_.keys(fileTypeData.files), nameStr => {
-          if (name.toLowerCase().includes(nameStr)) {
-            value = this.getOptionForType(fileTypeData.files[nameStr])
-            return
-          }
-        })
-      else {
-        value = this.getOptionForType(type)
-      }
-    }
-    // Guess based on matching parent folder
-    if (!value)
-      value = this.getOptionForType(_.get(fileTypeData.directories, parent))
-      
-    return value
-  }
-
-  getOptionForType = type => {
-    // Tile map
-    if (type === 'tbin') 
-      return 'Load'
-    // Image
-    if (type === 'png')
-      return 'EditImage'
-    // Probably a packed yaml file
-    if (type === 'xnb')
-      return 'EditData'
-    else
-      return 'EditImage'
+  handleFileDrop = importData => {
+    this.setState({ importData })
   }
 
   // Fields that are dependent on the Action
   renderActionFields = (value, name, fullPath) => {
-    let fields;
+    let fields
 
     if (value === 'Load')
       fields = (
@@ -89,7 +50,7 @@ export default class ContentEditor extends Component {
           <FormField field="ToArea" />
           <FormField field="PatchMode" />
         </div>
-      ) 
+      )
     else if (value === 'EditData')
       fields = (
         <div>
@@ -97,14 +58,14 @@ export default class ContentEditor extends Component {
           <FormField field="Entries" />
         </div>
       )
-    
+
     return (
       <FormBlock>
         <FormField
           field="Action"
           value={value}
-          name={name} 
-          fullPath={fullPath} 
+          name={name}
+          fullPath={fullPath}
         />
         <FormField field="Target" />
         {fields}
@@ -113,22 +74,24 @@ export default class ContentEditor extends Component {
         <FormField field="When" />
       </FormBlock>
     )
-    
   }
 
   renderForm = () => {
     const { importData } = this.state
-    const lineStyle = {borderLeft: 0}
+    const lineStyle = { borderLeft: 0 }
 
     return (
       <div>
         <FormField style={lineStyle} field="Format" value="1.3" />
-        <Divider borderStyle={{border: 'none'}} dividerStyle={{width: 'calc(100% - 3em)'}} />
+        <Divider
+          borderStyle={{ border: 'none' }}
+          dividerStyle={{ width: 'calc(100% - 3em)' }}
+        />
         {/*<FormField title="This one's a bit more complex not sure how to simplify it" field="ConfigSchema" />*/}
         <FormField style={lineStyle} field="Changes" />
-         
-        {_.map(importData, (item, i) => { 
-          const fullPath = item;
+
+        {_.map(importData, (item, i) => {
+          const fullPath = item
           const paths = fullPath.split('/')
           const file = paths.pop().split('.')
 
@@ -140,7 +103,9 @@ export default class ContentEditor extends Component {
           return (
             <div key={i}>
               {this.renderActionFields(value, name, fullPath)}
-              <Divider dividerStyle={{left: '1em', width: 'calc(100% - 5em)'}} />
+              <Divider
+                dividerStyle={{ left: '1em', width: 'calc(100% - 5em)' }}
+              />
             </div>
           )
         })}
@@ -151,10 +116,17 @@ export default class ContentEditor extends Component {
   render() {
     return (
       <div className="content-editor">
-        <form className='content-form scrollbar'>
-          {this.state.importData ? this.renderForm() : <DropBox onDrop={this.handleFileDrop} />}
+        <form className="content-form scrollbar">
+          {this.state.importData ? (
+            this.renderForm()
+          ) : (
+            <DropBox onDrop={this.handleFileDrop} />
+          )}
         </form>
       </div>
     )
   }
 }
+
+const WrappedComponent = withStore(ContentEditor)
+export default WrappedComponent

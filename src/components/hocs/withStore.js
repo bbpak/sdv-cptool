@@ -1,26 +1,42 @@
+import React from 'react'
+import _ from 'lodash'
 
-import React from 'react';
-
-const withSubscription = (WrappedComponent) => {
+const withStore = WrappedComponent => {
   class FormHOC extends React.Component {
     constructor(props) {
-      super(props);
+      super(props)
       this.state = {
+        blockData: {}
       }
     }
 
-    handleChange() {
-      this.setState({
-        data: selectData(DataSource, this.props)
-      });
+    componentDidMount() {
+      console.log(this)
+      const { field, value } = this.props
+      this.handleDataChange(field, value)
+    }
+
+    handleDataChange = (field, data) => {
+      let newData = this.state.blockData
+      newData[field] = data
+      this.setState({ blockData: newData })
+    }
+
+    getDataForField = field => {
+      return this.state.blockData[field]
     }
 
     render() {
-      return <WrappedComponent data={this.state.data} {...this.props} />;
+      return (
+        <WrappedComponent
+          handleDataChange={this.handleDataChange}
+          getDataForField={this.getDataForField}
+          {...this.props}
+        />
+      )
     }
   }
 
   return FormHOC
 }
-
 export default withStore
