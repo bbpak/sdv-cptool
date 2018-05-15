@@ -4,18 +4,15 @@ import Divider from './misc/Divider'
 import DropBox from './DropBox'
 import FormBlock from './form/FormBlock'
 import FormField from './form/FormField'
-import DataManager from '../data/DataManager'
+import DataConverter from '../data/DataConverter'
+import { defaultData } from '../data/dataConstants'
 import withStore from './hocs/withStore'
+
 class ContentEditor extends Component {
   constructor() {
     super()
     this.state = {
-      hasProcessedFiles: false,
-      contentData: {
-        Format: '1.3',
-        ConfigSchema: null,
-        Changes: []
-      }
+      hasProcessedFiles: false
     }
   }
 
@@ -28,27 +25,66 @@ class ContentEditor extends Component {
   }
 
   handleFilesDrop = filesData => {
-    let data = this.state.contentData
+    let data = defaultData
     _.map(filesData, file => {
-      data.Changes.push(DataManager.getDataForFile(file))
+      data.Changes.push(DataConverter.getDataForFile(file))
     })
+    this.props.updateContentData(data)
+    this.setState({ hasProcessedFiles: true })
+  }
 
-    this.setState({ contentData: data, hasProcessedFiles: true })
+  // Block representing each object in Changes
+  handleBlockDataChange = (blockData, i) => {
+    const { contentData, updateContentData } = this.props
+    let newData = contentData
+    newData.Changes[i] = blockData
+    updateContentData(newData)
+  }
+
+  exportData = () => {
+    const data = _.omitBy(this.props.contentData, _.isNull);
+
+    var file = new Blob([JSON.stringify(data, null, "\t")], {type: 'text'});
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, 'content.json');
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = 'content.json';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
   }
 
   renderForm = () => {
-    const { contentData } = this.state
+    const { contentData } = this.props
     const lineStyle = { borderLeft: 0 }
 
     return (
       <div>
-        <FormField style={lineStyle} field="Format" value="1.3" />
+        <div style={{position: 'absolute', top: 0, right: 0}} onClick={this.exportData}>Debug Export</div>
+        <FormField style={lineStyle} field="Format" fieldData="1.3" />
         <Divider
           borderStyle={{ border: 'none' }}
           dividerStyle={{ width: 'calc(100% - 3em)' }}
         />
         {/*<FormField field="ConfigSchema" />*/}
         <FormField style={lineStyle} field="Changes" />
+        {_.map(contentData.Changes, (blockData, i) => {
+          return (
+            <div key={i}>
+              <FormBlock index={i} blockData={blockData} handleBlockDataChange={this.handleBlockDataChange} />
+              <Divider 
+                dividerStyle={{ left: '1em', width: 'calc(100% - 5em)' }} 
+              />
+            </div>
+          )
+        })}
       </div>
     )
   }

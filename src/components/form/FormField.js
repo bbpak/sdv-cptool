@@ -1,23 +1,23 @@
 import React, { Component } from 'react'
-import withStore from '../hocs/withStore'
 import _ from 'lodash'
 
-class FormField extends Component {
+export default class FormField extends Component {
   constructor(props) {
     super()
     this.state = {
-      value: props.value
+      value: props.fieldData
     }
   }
 
   handleInputChange = e => {
-    const { field, value, handleDataChange } = this.props
+    const { blockData, field, handleFieldDataChange } = this.props
     this.setState({ value: e.target.value })
-    handleDataChange(field, e.target.value)
+    handleFieldDataChange(field, e.target.value)
   }
 
   getInputForField = () => {
-    const { field, value } = this.props
+    const { field } = this.props
+    const { value } = this.state
     let input
 
     switch (field) {
@@ -25,7 +25,7 @@ class FormField extends Component {
         input = (
           <select
             className="field-input"
-            value={this.state.value}
+            value={value}
             onChange={this.handleInputChange}
           >
             <option>Load</option>
@@ -38,7 +38,7 @@ class FormField extends Component {
         input = (
           <select
             className="field-input"
-            value={this.state.value}
+            value={value}
             onChange={this.handleInputChange}
           >
             <option>Replace</option>
@@ -50,7 +50,7 @@ class FormField extends Component {
         input = (
           <select
             className="field-input"
-            value={this.state.value}
+            value={value}
             onChange={this.handleInputChange}
           >
             <option>true</option>
@@ -64,7 +64,7 @@ class FormField extends Component {
             <span className="inner-field">
               X<input
                 className="field-input"
-                value={this.state.value}
+                value={value}
                 type="text"
                 onChange={this.handleInputChange}
               />
@@ -72,7 +72,7 @@ class FormField extends Component {
             <span className="inner-field">
               Y<input
                 className="field-input"
-                value={this.state.value}
+                value={value}
                 type="text"
                 onChange={this.handleInputChange}
               />
@@ -80,7 +80,7 @@ class FormField extends Component {
             <span className="inner-field">
               Width<input
                 className="field-input"
-                value={this.state.value}
+                value={value}
                 type="text"
                 onChange={this.handleInputChange}
               />
@@ -88,7 +88,7 @@ class FormField extends Component {
             <span className="inner-field">
               Height<input
                 className="field-input"
-                value={this.state.value}
+                value={value}
                 type="text"
                 onChange={this.handleInputChange}
               />
@@ -102,7 +102,7 @@ class FormField extends Component {
             <span className="inner-field">
               X<input
                 className="field-input"
-                value={this.state.value}
+                value={value}
                 type="text"
                 onChange={this.handleInputChange}
               />
@@ -110,7 +110,7 @@ class FormField extends Component {
             <span className="inner-field">
               Y<input
                 className="field-input"
-                value={this.state.value}
+                value={value}
                 type="text"
                 onChange={this.handleInputChange}
               />
@@ -118,7 +118,7 @@ class FormField extends Component {
             <span className="inner-field">
               Width<input
                 className="field-input"
-                value={this.state.value}
+                value={value}
                 type="text"
                 onChange={this.handleInputChange}
               />
@@ -126,7 +126,7 @@ class FormField extends Component {
             <span className="inner-field">
               Height<input
                 className="field-input"
-                value={this.state.value}
+                value={value}
                 type="text"
                 onChange={this.handleInputChange}
               />
@@ -144,10 +144,12 @@ class FormField extends Component {
           <input
             className="field-input"
             type="text"
-            value={this.state.value}
+            value={value}
             onChange={this.handleInputChange}
           />
         )
+        break
+      default:
         break
     }
 
@@ -155,7 +157,7 @@ class FormField extends Component {
   }
 
   render() {
-    const { field, value, options, style, title, label } = this.props
+    const { title, style, field } = this.props
     let input = this.getInputForField()
 
     return (
@@ -166,5 +168,3 @@ class FormField extends Component {
     )
   }
 }
-const WrappedComponent = withStore(FormField)
-export default WrappedComponent

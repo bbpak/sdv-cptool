@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import FormField from './FormField'
 import withStore from '../hocs/withStore'
+import { optionalFields } from '../../data/dataConstants'
 import _ from 'lodash'
 
 class FormBlock extends Component {
@@ -15,9 +16,15 @@ class FormBlock extends Component {
     this.setState({ isCollapsed: !this.state.isCollapsed })
   }
 
+  handleFieldDataChange = (field, data) => {
+    const { blockData, handleBlockDataChange } = this.props
+      let newData = blockData
+      newData[field] = data
+      handleBlockDataChange(newData)
+  }
+
   render() {
-    const { style, children, title, getDataForField } = this.props
-    const file = _.first(children).props.name
+    const { style, title, blockData } = this.props
 
     return (
       <div style={style} className="form-block">
@@ -30,7 +37,7 @@ class FormBlock extends Component {
             }}
             className="field-label"
           >
-            {`${getDataForField('Action')}: ${file}`}
+            {`${blockData['Action']}: ${blockData['Target']}`}
           </div>
         </pre>
         <i
@@ -39,7 +46,10 @@ class FormBlock extends Component {
         >
           {this.state.isCollapsed ? 'expand_more' : 'expand_less'}
         </i>
-        {!this.state.isCollapsed && children}
+        {!this.state.isCollapsed && _.map(_.keys(blockData), (field, i) => {
+          if (_.includes(optionalFields, field)) return
+          return <FormField key={i} field={field} fieldData={blockData[field]} handleFieldDataChange={this.handleFieldDataChange} />
+        })}
       </div>
     )
   }

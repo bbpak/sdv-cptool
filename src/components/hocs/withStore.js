@@ -6,30 +6,25 @@ const withStore = WrappedComponent => {
     constructor(props) {
       super(props)
       this.state = {
-        blockData: {}
+        contentData: null
       }
     }
 
-    componentDidMount() {
-      const { field, value } = this.props
-      this.handleDataChange(field, value)
-    }
-
-    handleDataChange = (field, data) => {
+    handleBlockDataChange = (field, data) => {
       let newData = this.state.blockData
       newData[field] = data
-      this.setState({ blockData: newData })
+      this.setState({ contentData: newData })
     }
 
-    getDataForField = field => {
-      return this.state.blockData[field]
+    updateContentData = contentData => {
+      this.setState({ contentData })
     }
 
     render() {
       return (
         <WrappedComponent
-          handleDataChange={this.handleDataChange}
-          getDataForField={this.getDataForField}
+          contentData={this.state.contentData}
+          updateContentData={this.updateContentData}
           {...this.props}
         />
       )

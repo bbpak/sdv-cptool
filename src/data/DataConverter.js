@@ -1,7 +1,7 @@
 import { inferredFileTypes } from './dataConstants'
 import _ from 'lodash'
 
-const DataManager = {
+const DataConverter = {
   _getActionFromFileType(type) {
     // Tile map
     if (type === 'tbin') return 'Load'
@@ -40,34 +40,38 @@ const DataManager = {
   getDataForFile(file) {
     const type = this._inferTypeFromFileName(file.name)
     const action = this._getActionFromFileType(type)
+    let filePath = file.fullPath
+    filePath = filePath.substr(1)
+    let pathParts = filePath.split('/')
+    const target = filePath.replace(`${pathParts[0]}/`, '')
 
     // Start with common fields
     let dataForAction = {
       Action: action,
-      Target: file.fullPath,
-      LogName: null,
-      Enabled: null,
-      When: null
+      Target: target,
+      //LogName: null,
+      //Enabled: null,
+      //When: null
     }
 
     switch (action) {
       case 'Load':
         _.assign(dataForAction, {
-          FromFile: file.fullPath
+          FromFile: filePath
         })
         break
       case 'EditImage':
         _.assign(dataForAction, {
-          FromFile: file.fullPath,
-          FromArea: null,
-          ToArea: null,
-          PatchMode: null
+          FromFile: filePath,
+          //FromArea: null,
+          //ToArea: null,
+          //PatchMode: null
         })
         break
       case 'EditData':
         _.assign(dataForAction, {
-          Fields: null,
-          Entries: null
+          //Fields: null,
+          //Entries: null
         })
         break
       default:
@@ -76,21 +80,6 @@ const DataManager = {
 
     return dataForAction
   },
-
-  // http://stackoverflow.com/questions/10420352/converting-file-size-in-bytes-to-human-readable
-  toReadableFileSize(bytes, si) {
-    var thresh = si ? 1000 : 1024
-    if (bytes < thresh) return bytes + ' B'
-    var units = si
-      ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-      : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
-    var u = -1
-    do {
-      bytes /= thresh
-      ++u
-    } while (bytes >= thresh)
-    return bytes.toFixed(1) + ' ' + units[u]
-  }
 }
 
-export default DataManager
+export default DataConverter

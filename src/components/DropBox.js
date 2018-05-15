@@ -89,7 +89,8 @@ export default class DropBox extends Component {
     if (!e.dataTransfer) return
 
     const data = e.dataTransfer.items
-    if (data.length > 1) {
+
+    if (!data[0].webkitGetAsEntry().isDirectory) {
       alert('You must drop a single folder.')
       return
     }
@@ -117,7 +118,7 @@ export default class DropBox extends Component {
         onDragOver={this.handleDragOver}
         onDragLeave={this.handleDragLeave}
       >
-        {this.state.isLoading && <Loader />}
+        {this.state.isLoading && <Loader messages={["Scanning files...", "Dispatching junimos...", "Loading editor..."]} />}
         <input
           id="upload"
           type="file"
