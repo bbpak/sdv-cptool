@@ -12,25 +12,14 @@ export default class Docs extends Component {
 
   render() {
     return (
-      <div
-        style={this.state.hidden ? { flex: 0 } : { flex: '0 1 50%' }}
-        className="docs-container"
-      >
-        <div className="docs">
-          <label onClick={this.handleLabelClick}>
-            Docs
-          </label>
-          <iframe
-            style={
-              this.state.hidden ? { display: 'none' } : { display: 'block' }
-            }
-            title="docs"
-            src="./docs.html"
-            frameBorder="0"
-            width="100%"
-            height="100%"
-          />
-        </div>
+      <div className="docs">
+        <iframe
+          title="docs"
+          src="./docs.html"
+          frameBorder="0"
+          width="100%"
+          height="100%"
+        />
       </div>
     )
   }

@@ -1,7 +1,7 @@
 import { inferredFileTypes } from './dataConstants'
 import _ from 'lodash'
 
-const DataConverter = {
+const DataParser = {
   _getActionFromFileType(type) {
     // Tile map
     if (type === 'tbin') return 'Load'
@@ -36,7 +36,8 @@ const DataConverter = {
 
     return type
   },
-
+  
+  // Generate content.json data from directory
   getDataForFile(file) {
     const type = this._inferTypeFromFileName(file.name)
     const action = this._getActionFromFileType(type)
@@ -49,9 +50,9 @@ const DataConverter = {
     let dataForAction = {
       Action: action,
       Target: target,
-      //LogName: null,
-      //Enabled: null,
-      //When: null
+      LogName: null,
+      Enabled: null,
+      When: null
     }
 
     switch (action) {
@@ -63,15 +64,15 @@ const DataConverter = {
       case 'EditImage':
         _.assign(dataForAction, {
           FromFile: filePath,
-          //FromArea: null,
-          //ToArea: null,
-          //PatchMode: null
+          FromArea: null,
+          ToArea: null,
+          PatchMode: null
         })
         break
       case 'EditData':
         _.assign(dataForAction, {
-          //Fields: null,
-          //Entries: null
+          Fields: null,
+          Entries: null
         })
         break
       default:
@@ -82,4 +83,4 @@ const DataConverter = {
   },
 }
 
-export default DataConverter
+export default DataParser

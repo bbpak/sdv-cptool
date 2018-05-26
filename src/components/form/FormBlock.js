@@ -31,13 +31,12 @@ class FormBlock extends Component {
         <pre title={title} className="line" style={style} tabIndex="0">
           <div
             style={{
-              color: 'yellowgreen',
               fontWeight: 'bold',
               fontStyle: 'italic'
             }}
             className="field-label"
           >
-            {`${blockData['Action']}: ${blockData['Target']}`}
+            <span style={{color: 'yellowgreen'}}>{`${blockData['Action']}: `}</span><span style={{color: '#AC80FF'}}>{`${blockData['Target']}`}</span>
           </div>
         </pre>
         <i

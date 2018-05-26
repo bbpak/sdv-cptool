@@ -173,10 +173,39 @@ select {
   background-position: center center;
 }
 
-.docs-container {
+.tabs-container {
   display: block;
   flex: 0 50% auto;
   width: auto;
+  height: 100vh;
+  background-color: #3f3f46 !important;
+}
+
+.tab {
+  font-family: 'Pangolin', cursive;
+	position: relative;
+	width: 50%;
+	font-size: 1.25em;
+  font-weight: bold;
+  right: -35px;
+	padding: 6px 30px 6px 35px;
+	margin: 30px 20px 10px -55px;
+	color: #555;
+	background-color: #999;
+	text-shadow: 0px 1px 2px #bbb;
+}
+
+.tab:before
+{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 0px;
+	top: 100%;
+	border-width: 5px 10px;
+	border-style: solid;
+	border-color: #666 #666 transparent transparent;
 }
 
 .docs {

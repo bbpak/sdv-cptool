@@ -4,7 +4,7 @@ import Divider from './misc/Divider'
 import DropBox from './DropBox'
 import FormBlock from './form/FormBlock'
 import FormField from './form/FormField'
-import DataConverter from '../data/DataConverter'
+import DataParser from '../data/DataParser'
 import { defaultData } from '../data/dataConstants'
 import withStore from './hocs/withStore'
 
@@ -17,7 +17,7 @@ class ContentEditor extends Component {
   }
 
   componentDidMount() {
-    console.log('Made with by 🤔 Bouhm')
+    console.log('Made with 🤔 by Bouhm')
 
     // Firefox still doesn't support custom scrollbar css :(
     if (!window.chrome || !window.chrome.webstore)
@@ -27,7 +27,7 @@ class ContentEditor extends Component {
   handleFilesDrop = filesData => {
     let data = defaultData
     _.map(filesData, file => {
-      data.Changes.push(DataConverter.getDataForFile(file))
+      data.Changes.push(DataParser.getDataForFile(file))
     })
     this.props.updateContentData(data)
     this.setState({ hasProcessedFiles: true })
@@ -41,33 +41,12 @@ class ContentEditor extends Component {
     updateContentData(newData)
   }
 
-  exportData = () => {
-    const data = _.omitBy(this.props.contentData, _.isNull);
-
-    var file = new Blob([JSON.stringify(data, null, "\t")], {type: 'text'});
-    if (window.navigator.msSaveOrOpenBlob) // IE10+
-        window.navigator.msSaveOrOpenBlob(file, 'content.json');
-    else { // Others
-        var a = document.createElement("a"),
-                url = URL.createObjectURL(file);
-        a.href = url;
-        a.download = 'content.json';
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function() {
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);  
-        }, 0); 
-    }
-  }
-
   renderForm = () => {
     const { contentData } = this.props
     const lineStyle = { borderLeft: 0 }
 
     return (
       <div>
-        <div style={{position: 'absolute', top: 0, right: 0}} onClick={this.exportData}>Debug Export</div>
         <FormField style={lineStyle} field="Format" fieldData="1.3" />
         <Divider
           borderStyle={{ border: 'none' }}
