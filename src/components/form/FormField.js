@@ -145,7 +145,7 @@ export default class FormField extends Component {
             className="field-input"
             type="text"
             value={value}
-            spellcheck="false"
+            spellCheck="false"
             onChange={this.handleInputChange}
           />
         )

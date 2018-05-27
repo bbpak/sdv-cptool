@@ -37,14 +37,12 @@ class ContentEditor extends Component {
   handleBlockDataChange = (blockData, i) => {
     const { contentData, updateContentData } = this.props
     let newData = contentData
-    if (!blockData)
-      newData.Changes[i] = blockData
-    else
-      newData.Changes.splice(i, 1)
+    if (blockData) newData.Changes[i] = blockData
+    else newData.Changes.splice(i, 1)
 
     updateContentData(newData)
   }
-  
+
   handleAddBlock = () => {
     const { contentData, updateContentData } = this.props
     let newData = contentData
@@ -82,20 +80,24 @@ class ContentEditor extends Component {
         {_.map(contentData.Changes, (blockData, i) => {
           return (
             <div key={i}>
-              <FormBlock index={i} blockData={blockData} handleBlockDataChange={this.handleBlockDataChange} />
-              <Divider 
-                dividerStyle={{ left: '1em', width: 'calc(100% - 5em)' }} 
+              <FormBlock
+                index={i}
+                blockData={blockData}
+                handleBlockDataChange={this.handleBlockDataChange}
+              />
+              <Divider
+                dividerStyle={{ left: '1em', width: 'calc(100% - 5em)' }}
               />
             </div>
           )
         })}
-        <div className="form-block" style={{cursor: 'pointer'}} onClick={this.handleAddBlock}>
+        <div
+          className="form-block"
+          style={{ cursor: 'pointer' }}
+          onClick={this.handleAddBlock}
+        >
           <pre className="line">
-              <i
-              className="material-icons field-label add"
-            >
-              {'add'}
-            </i>
+            <i className="material-icons field-label add">{'add'}</i>
           </pre>
         </div>
       </div>

@@ -24,7 +24,7 @@ class FormBlock extends Component {
   }
 
   handleRemoveBlock = () => {
-    const {index, handleBlockDataChange} = this.props
+    const { index, handleBlockDataChange } = this.props
     handleBlockDataChange(null, index)
   }
 
@@ -35,31 +35,30 @@ class FormBlock extends Component {
       <div style={style} className="form-block">
         <pre title={title} className="line" style={style} tabIndex="0">
           <div
-            style={{
-              fontWeight: 'bold',
-              fontStyle: 'italic'
-            }}
-            className="field-label"
+            className="field-label collapsible"
+            onClick={this.handleCollapseToggle}
           >
-            <span style={{color: 'yellowgreen'}}>{`${blockData['Action']}: `}</span><span style={{color: '#AC80FF'}}>{`${blockData['Target']}`}</span>
+            <span style={{ color: 'yellowgreen' }}>{`${
+              blockData['Action']
+            }: `}</span>
+            <span style={{ color: '#AC80FF' }}>{`${blockData['Target']}`}</span>
           </div>
         </pre>
-        <i
-          className="material-icons remove"
-          onClick={this.handleRemoveBlock}
-        >
+        <i className="material-icons remove" onClick={this.handleRemoveBlock}>
           {'clear'}
         </i>
-        <i
-          className="material-icons collapsible"
-          onClick={this.handleCollapseToggle}
-        >
-          {this.state.isCollapsed ? 'expand_more' : 'expand_less'}
-        </i>
-        {!this.state.isCollapsed && _.map(_.keys(blockData), (field, i) => {
-          if (_.includes(optionalFields, field)) return
-          return <FormField key={i} field={field} fieldData={blockData[field]} handleFieldDataChange={this.handleFieldDataChange} />
-        })}
+        {!this.state.isCollapsed &&
+          _.map(_.keys(blockData), (field, i) => {
+            if (_.includes(optionalFields, field)) return
+            return (
+              <FormField
+                key={i}
+                field={field}
+                fieldData={blockData[field]}
+                handleFieldDataChange={this.handleFieldDataChange}
+              />
+            )
+          })}
       </div>
     )
   }

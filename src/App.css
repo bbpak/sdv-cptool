@@ -71,10 +71,9 @@
 }
 
 .collapsible {
-  position: absolute;
-  bottom: 0;
-  right: 0.5em;
-  z-index: 2;
+  font-weight: bold;
+  font-style: italic;
+  width: 100%;
   cursor: pointer;
 }
 
@@ -147,7 +146,7 @@ select {
 
 .remove {
   position: absolute;
-  top: 0;
+  top: 0.25em;
   right: 1em;
   z-index: 2;
   cursor: pointer;
@@ -207,33 +206,32 @@ select {
 .tab {
   font-family: 'Pangolin', cursive;
   cursor: pointer;
-	position: relative;
-	font-size: 1.25em;
+  position: relative;
+  font-size: 1.25em;
   font-weight: bold;
   right: -35px;
-	padding: 6px 30px 6px 35px;
-	margin: 0px 20px 15px -55px;
-	color: #eee;
-	background-color: #777;
-	text-shadow: 0px 1px 2px #333;
+  padding: 6px 30px 6px 35px;
+  margin: 0px 20px 15px -55px;
+  color: #eee;
+  background-color: #777;
+  text-shadow: 0px 1px 2px #333;
 }
 
-
-.tab-active, .tab:hover {
+.tab-active,
+.tab:hover {
   background-color: #999;
 }
 
-.tab:before
-{
-	content: ' ';
-	position: absolute;
-	width: 0;
-	height: 0;
-	left: 0px;
-	top: 100%;
-	border-width: 5px 10px;
-	border-style: solid;
-	border-color: #555 #555 transparent transparent;
+.tab:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 0px;
+  top: 100%;
+  border-width: 5px 10px;
+  border-style: solid;
+  border-color: #555 #555 transparent transparent;
 }
 
 .docs {
