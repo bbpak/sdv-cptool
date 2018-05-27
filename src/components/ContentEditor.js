@@ -37,7 +37,32 @@ class ContentEditor extends Component {
   handleBlockDataChange = (blockData, i) => {
     const { contentData, updateContentData } = this.props
     let newData = contentData
-    newData.Changes[i] = blockData
+    if (!blockData)
+      newData.Changes[i] = blockData
+    else
+      newData.Changes.splice(i, 1)
+
+    updateContentData(newData)
+  }
+  
+  handleAddBlock = () => {
+    const { contentData, updateContentData } = this.props
+    let newData = contentData
+
+    // Use EditImage by default
+    const newBlock = {
+      Action: 'EditImage',
+      Target: '',
+      FromFile: '',
+      LogName: null,
+      Enabled: null,
+      When: null,
+      FromArea: null,
+      ToArea: null,
+      PatchMode: null
+    }
+
+    newData.Changes.push(newBlock)
     updateContentData(newData)
   }
 
@@ -64,6 +89,15 @@ class ContentEditor extends Component {
             </div>
           )
         })}
+        <div className="form-block" style={{cursor: 'pointer'}} onClick={this.handleAddBlock}>
+          <pre className="line">
+              <i
+              className="material-icons field-label add"
+            >
+              {'add'}
+            </i>
+          </pre>
+        </div>
       </div>
     )
   }

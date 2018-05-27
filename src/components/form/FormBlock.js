@@ -18,9 +18,14 @@ class FormBlock extends Component {
 
   handleFieldDataChange = (field, data) => {
     const { blockData, handleBlockDataChange } = this.props
-      let newData = blockData
-      newData[field] = data
-      handleBlockDataChange(newData)
+    let newData = blockData
+    newData[field] = data
+    handleBlockDataChange(newData)
+  }
+
+  handleRemoveBlock = () => {
+    const {index, handleBlockDataChange} = this.props
+    handleBlockDataChange(null, index)
   }
 
   render() {
@@ -39,6 +44,12 @@ class FormBlock extends Component {
             <span style={{color: 'yellowgreen'}}>{`${blockData['Action']}: `}</span><span style={{color: '#AC80FF'}}>{`${blockData['Target']}`}</span>
           </div>
         </pre>
+        <i
+          className="material-icons remove"
+          onClick={this.handleRemoveBlock}
+        >
+          {'clear'}
+        </i>
         <i
           className="material-icons collapsible"
           onClick={this.handleCollapseToggle}
