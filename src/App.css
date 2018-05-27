@@ -183,16 +183,21 @@ select {
 
 .tab {
   font-family: 'Pangolin', cursive;
+  cursor: pointer;
 	position: relative;
-	width: 50%;
 	font-size: 1.25em;
   font-weight: bold;
   right: -35px;
 	padding: 6px 30px 6px 35px;
-	margin: 30px 20px 10px -55px;
-	color: #555;
-	background-color: #999;
+	margin: 0px 20px 15px -55px;
+	color: #454545;
+	background-color: #777;
 	text-shadow: 0px 1px 2px #bbb;
+}
+
+
+.tab-active, .tab:hover {
+  background-color: #999;
 }
 
 .tab:before
@@ -205,7 +210,7 @@ select {
 	top: 100%;
 	border-width: 5px 10px;
 	border-style: solid;
-	border-color: #666 #666 transparent transparent;
+	border-color: #555 #555 transparent transparent;
 }
 
 .docs {
