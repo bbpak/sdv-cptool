@@ -48,7 +48,7 @@
 }
 
 .line:hover {
-  background-color: #212121;
+  background-color: #232323;
 }
 
 .line:focus-within {
@@ -109,6 +109,7 @@ select {
   margin: 0;
   display: inline-block;
   color: white;
+  width: 20em;
   height: 1.5em;
   line-height: 1.5em;
   background-color: #333333;
@@ -128,6 +129,7 @@ select {
   display: inline-block;
   padding-left: 1em;
   border-left: 1px solid #454545;
+  width: 4.5em;
 }
 
 .field-input {
@@ -141,7 +143,7 @@ select {
 }
 
 .inner-field > input {
-  max-width: 6em;
+  width: 6em;
 }
 
 .remove {

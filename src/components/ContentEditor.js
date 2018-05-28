@@ -22,6 +22,19 @@ class ContentEditor extends Component {
     // Firefox still doesn't support custom scrollbar css :(
     if (!window.chrome || !window.chrome.webstore)
       console.log('Please use Chrome for optimal 𝒜 𝐸 𝒮 𝒯 𝐻 𝐸 𝒯 𝐼 𝒞 𝒮')
+
+    document.addEventListener("keydown", this.handleKeyPress)
+  }
+
+  handleKeyPress = event => {
+    switch( event.keyCode ) {
+      case 27:
+          this.handleFilesDrop({})
+          document.removeEventListener("keydown", this.handleKeyPress)
+          break;
+      default: 
+          break;
+    }
   }
 
   handleFilesDrop = filesData => {

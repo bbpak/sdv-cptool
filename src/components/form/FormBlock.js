@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import FormField from './FormField'
+import Dropdown from '../Dropdown'
 import withStore from '../hocs/withStore'
-import { optionalFields } from '../../data/dataConstants'
+import { hiddenFields } from '../../data/dataConstants'
 import _ from 'lodash'
 
 class FormBlock extends Component {
@@ -47,9 +48,10 @@ class FormBlock extends Component {
         <i className="material-icons remove" onClick={this.handleRemoveBlock}>
           {'clear'}
         </i>
+        <Dropdown className="more" icon="more_horiz" />
         {!this.state.isCollapsed &&
           _.map(_.keys(blockData), (field, i) => {
-            if (_.includes(optionalFields, field)) return
+            if (_.includes(hiddenFields, field)) return
             return (
               <FormField
                 key={i}

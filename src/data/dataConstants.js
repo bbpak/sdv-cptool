@@ -51,6 +51,6 @@ export const validFileTypes = ['xnb', 'tbin', 'png']
 
 export const defaultData = {Format: "1.3", ConfigSchema: null, Changes: []}
 
-export const optionalFields = ['LogName', 'Enabled', 'When', 'FromArea', 'ToArea', 'PatchMode', 'Fields', 'Entries']
+export const hiddenFields = ['LogName', 'Enabled', 'When', 'PatchMode', 'Fields', 'Entries']
 
 
