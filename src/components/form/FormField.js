@@ -11,16 +11,14 @@ export default class FormField extends Component {
 
   handleInputChange = e => {
     const { blockData, field, handleFieldDataChange } = this.props
-    let newValue; 
+    let newValue
 
     if (e.target.type === 'number') {
-      const re = /^[0-9\b]+$/;
-      if (!re.test(e.target.value))
-        return
-    } 
+      const re = /^[0-9\b]+$/
+      if (!re.test(e.target.value)) return
+    }
 
-    if (e.target.name) 
-      newValue = {[e.target.name]: e.target.value}
+    if (e.target.name) newValue = { [e.target.name]: e.target.value }
 
     this.setState({ value: e.target.value })
     handleFieldDataChange(field, newValue)
@@ -114,7 +112,7 @@ export default class FormField extends Component {
       case 'ToArea':
         input = (
           <div style={{ display: 'inline' }}>
-              <span className="inner-field">
+            <span className="inner-field">
               X<input
                 className="field-input"
                 value={value}

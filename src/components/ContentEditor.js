@@ -23,17 +23,17 @@ class ContentEditor extends Component {
     if (!window.chrome || !window.chrome.webstore)
       console.log('Please use Chrome for optimal 𝒜 𝐸 𝒮 𝒯 𝐻 𝐸 𝒯 𝐼 𝒞 𝒮')
 
-    document.addEventListener("keydown", this.handleKeyPress)
+    document.addEventListener('keydown', this.handleKeyPress)
   }
 
   handleKeyPress = event => {
-    switch( event.keyCode ) {
+    switch (event.keyCode) {
       case 27:
-          this.handleFilesDrop({})
-          document.removeEventListener("keydown", this.handleKeyPress)
-          break;
-      default: 
-          break;
+        this.handleFilesDrop({})
+        document.removeEventListener('keydown', this.handleKeyPress)
+        break
+      default:
+        break
     }
   }
 
@@ -65,12 +65,12 @@ class ContentEditor extends Component {
       Action: 'EditImage',
       Target: '',
       FromFile: '',
-      FromArea: null,
-      ToArea: null,
-      PatchMode: null,
-      When: null,
-      LogName: null,
-      Enabled: null,
+      FromArea: undefined,
+      ToArea: undefined,
+      PatchMode: undefined,
+      When: undefined,
+      LogName: undefined,
+      Enabled: undefined
     }
 
     newData.Changes.push(newBlock)
@@ -99,7 +99,7 @@ class ContentEditor extends Component {
                 handleBlockDataChange={this.handleBlockDataChange}
               />
               <Divider
-                dividerStyle={{ left: '1em', width: 'calc(100% - 5em)' }}
+                dividerStyle={{ left: '1em', width: 'calc(100% - 4.5em)' }}
               />
             </div>
           )
@@ -110,7 +110,9 @@ class ContentEditor extends Component {
           onClick={this.handleAddBlock}
         >
           <pre className="line">
-            <i title="new block" className="material-icons field-label add">{'add'}</i>
+            <i title="new block" className="material-icons field-label add">
+              {'add'}&emsp;&emsp;
+            </i>
           </pre>
         </div>
       </div>

@@ -36,7 +36,7 @@ const DataParser = {
 
     return type
   },
-  
+
   // Generate content.json data from directory
   getDataForFile(file) {
     const type = this._inferTypeFromFileName(file.name)
@@ -49,7 +49,7 @@ const DataParser = {
     // Start with common fields
     let dataForAction = {
       Action: action,
-      Target: target,
+      Target: target
     }
 
     switch (action) {
@@ -61,22 +61,35 @@ const DataParser = {
       case 'EditImage':
         _.assign(dataForAction, {
           FromFile: filePath,
-          FromArea: {"X":null,"Y":null,"Width":null,"Height":null},
-          ToArea: {"X":null,"Y":null,"Width":null,"Height":null},
-          PatchMode: null
+          FromArea: {
+            X: undefined,
+            Y: undefined,
+            Width: undefined,
+            Height: undefined
+          },
+          ToArea: {
+            X: undefined,
+            Y: undefined,
+            Width: undefined,
+            Height: undefined
+          },
+          PatchMode: undefined
         })
         break
       case 'EditData':
         _.assign(dataForAction, {
-          Fields: null,
-          Entries: {}
+          Fields: undefined,
+          Entries: undefined
         })
         break
       default:
         break
     }
 
-    dataForAction = { ...dataForAction, ...{When: null, LogName: null, Enabled: null, }}
+    dataForAction = {
+      ...dataForAction,
+      ...{ When: undefined, LogName: undefined, Enabled: undefined }
+    }
 
     return dataForAction
   }
