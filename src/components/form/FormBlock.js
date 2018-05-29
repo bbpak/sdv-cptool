@@ -9,12 +9,17 @@ class FormBlock extends Component {
   constructor() {
     super()
     this.state = {
-      isCollapsed: false
+      isCollapsed: false,
+      showOptionals: false
     }
   }
 
-  handleCollapseToggle = () => {
+  handleToggleCollapse = () => {
     this.setState({ isCollapsed: !this.state.isCollapsed })
+  }
+
+  handleToggleOptionals = () => {
+    this.setState({ showOptionals: !this.state.showOptionals })
   }
 
   handleFieldDataChange = (field, data) => {
@@ -31,13 +36,13 @@ class FormBlock extends Component {
 
   render() {
     const { style, title, blockData } = this.props
+    const { isCollapsed, showOptionals } = this.state
 
     return (
       <div style={style} className="form-block">
-        <pre title={title} className="line" style={style} tabIndex="0">
+        <pre title={title} className="line  collapsible" style={style} tabIndex="0" onClick={this.handleToggleCollapse}>
           <div
-            className="field-label collapsible"
-            onClick={this.handleCollapseToggle}
+            className="field-label"
           >
             <span style={{ color: 'yellowgreen' }}>{`${
               blockData['Action']
@@ -45,13 +50,17 @@ class FormBlock extends Component {
             <span style={{ color: '#AC80FF' }}>{`${blockData['Target']}`}</span>
           </div>
         </pre>
-        <i className="material-icons remove" onClick={this.handleRemoveBlock}>
+        <i title="remove block" className="material-icons remove" onClick={this.handleRemoveBlock}>
           {'clear'}
         </i>
-        <Dropdown className="more" icon="more_horiz" />
-        {!this.state.isCollapsed &&
+        {!isCollapsed &&(
+        <i title="toggle optional fields" className="material-icons more" onClick={this.handleToggleOptionals}>
+          {'more_horiz'}
+        </i>
+        )}
+        {!isCollapsed &&
           _.map(_.keys(blockData), (field, i) => {
-            if (_.includes(hiddenFields, field)) return
+            if (_.includes(hiddenFields, field) && !showOptionals) return
             return (
               <FormField
                 key={i}

@@ -65,12 +65,12 @@ class ContentEditor extends Component {
       Action: 'EditImage',
       Target: '',
       FromFile: '',
-      LogName: null,
-      Enabled: null,
-      When: null,
       FromArea: null,
       ToArea: null,
-      PatchMode: null
+      PatchMode: null,
+      When: null,
+      LogName: null,
+      Enabled: null,
     }
 
     newData.Changes.push(newBlock)
@@ -110,7 +110,7 @@ class ContentEditor extends Component {
           onClick={this.handleAddBlock}
         >
           <pre className="line">
-            <i className="material-icons field-label add">{'add'}</i>
+            <i title="new block" className="material-icons field-label add">{'add'}</i>
           </pre>
         </div>
       </div>

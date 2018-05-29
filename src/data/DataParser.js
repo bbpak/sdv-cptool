@@ -50,9 +50,6 @@ const DataParser = {
     let dataForAction = {
       Action: action,
       Target: target,
-      LogName: null,
-      Enabled: null,
-      When: null
     }
 
     switch (action) {
@@ -79,8 +76,10 @@ const DataParser = {
         break
     }
 
+    dataForAction = { ...dataForAction, ...{When: null, LogName: null, Enabled: null, }}
+
     return dataForAction
-  },
+  }
 }
 
 export default DataParser

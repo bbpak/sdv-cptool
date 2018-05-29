@@ -60,7 +60,7 @@ export default class FormField extends Component {
         break
       case 'FromArea':
         input = (
-          <div style={{ paddingLeft: '0.2em', display: 'inline' }}>
+          <div style={{ display: 'inline' }}>
             <span className="inner-field">
               X<input
                 className="field-input"
@@ -98,7 +98,7 @@ export default class FormField extends Component {
         break
       case 'ToArea':
         input = (
-          <div style={{ paddingLeft: '1.35em', display: 'inline' }}>
+          <div style={{ display: 'inline' }}>
             <span className="inner-field">
               X<input
                 className="field-input"
