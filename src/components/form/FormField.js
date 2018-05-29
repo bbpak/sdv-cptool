@@ -11,8 +11,19 @@ export default class FormField extends Component {
 
   handleInputChange = e => {
     const { blockData, field, handleFieldDataChange } = this.props
+    let newValue; 
+
+    if (e.target.type === 'number') {
+      const re = /^[0-9\b]+$/;
+      if (!re.test(e.target.value))
+        return
+    } 
+
+    if (e.target.name) 
+      newValue = {[e.target.name]: e.target.value}
+
     this.setState({ value: e.target.value })
-    handleFieldDataChange(field, e.target.value)
+    handleFieldDataChange(field, newValue)
   }
 
   getInputForField = () => {
@@ -65,7 +76,8 @@ export default class FormField extends Component {
               X<input
                 className="field-input"
                 value={value}
-                type="text"
+                type="number"
+                name="X"
                 onChange={this.handleInputChange}
               />
             </span>
@@ -73,7 +85,8 @@ export default class FormField extends Component {
               Y<input
                 className="field-input"
                 value={value}
-                type="text"
+                type="number"
+                name="Y"
                 onChange={this.handleInputChange}
               />
             </span>
@@ -81,7 +94,8 @@ export default class FormField extends Component {
               Width<input
                 className="field-input"
                 value={value}
-                type="text"
+                type="number"
+                name="Width"
                 onChange={this.handleInputChange}
               />
             </span>
@@ -89,7 +103,8 @@ export default class FormField extends Component {
               Height<input
                 className="field-input"
                 value={value}
-                type="text"
+                type="number"
+                name="Height"
                 onChange={this.handleInputChange}
               />
             </span>
@@ -99,11 +114,12 @@ export default class FormField extends Component {
       case 'ToArea':
         input = (
           <div style={{ display: 'inline' }}>
-            <span className="inner-field">
+              <span className="inner-field">
               X<input
                 className="field-input"
                 value={value}
-                type="text"
+                type="number"
+                name="X"
                 onChange={this.handleInputChange}
               />
             </span>
@@ -111,7 +127,8 @@ export default class FormField extends Component {
               Y<input
                 className="field-input"
                 value={value}
-                type="text"
+                type="number"
+                name="Y"
                 onChange={this.handleInputChange}
               />
             </span>
@@ -119,7 +136,8 @@ export default class FormField extends Component {
               Width<input
                 className="field-input"
                 value={value}
-                type="text"
+                type="number"
+                name="Width"
                 onChange={this.handleInputChange}
               />
             </span>
@@ -127,7 +145,8 @@ export default class FormField extends Component {
               Height<input
                 className="field-input"
                 value={value}
-                type="text"
+                type="number"
+                name="Height"
                 onChange={this.handleInputChange}
               />
             </span>

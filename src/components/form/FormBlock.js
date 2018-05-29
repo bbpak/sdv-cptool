@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import FormField from './FormField'
 import Dropdown from '../Dropdown'
 import withStore from '../hocs/withStore'
-import { hiddenFields } from '../../data/dataConstants'
+import { optionalFields } from '../../data/dataConstants'
 import _ from 'lodash'
 
 class FormBlock extends Component {
@@ -10,7 +10,8 @@ class FormBlock extends Component {
     super()
     this.state = {
       isCollapsed: false,
-      showOptionals: false
+      showOptionals: false,
+      hiddenFields: optionalFields
     }
   }
 
@@ -22,11 +23,26 @@ class FormBlock extends Component {
     this.setState({ showOptionals: !this.state.showOptionals })
   }
 
-  handleFieldDataChange = (field, data) => {
+  handleFieldDataChange = (field, value) => {
     const { blockData, handleBlockDataChange } = this.props
+    const { hiddenFields } = this.state
     let newData = blockData
-    newData[field] = data
+    newData[field] = value
     handleBlockDataChange(newData)
+
+    if (_.includes(optionalFields, field)) {
+      let newHiddenFields = this.state.hiddenFields
+
+      if (value === undefined || value === null || value === "" || _.isEmpty(value)) {
+        newHiddenFields.push(field)
+      }
+      else {
+        newHiddenFields.splice(_.indexOf(field), 1)
+      }
+
+      this.setState({hiddenFields: newHiddenFields})
+    }
+;
   }
 
   handleRemoveBlock = () => {
@@ -36,7 +52,7 @@ class FormBlock extends Component {
 
   render() {
     const { style, title, blockData } = this.props
-    const { isCollapsed, showOptionals } = this.state
+    const { isCollapsed, showOptionals, hiddenFields } = this.state
 
     return (
       <div style={style} className="form-block">

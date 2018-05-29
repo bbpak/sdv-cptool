@@ -61,15 +61,15 @@ const DataParser = {
       case 'EditImage':
         _.assign(dataForAction, {
           FromFile: filePath,
-          FromArea: null,
-          ToArea: null,
+          FromArea: {"X":null,"Y":null,"Width":null,"Height":null},
+          ToArea: {"X":null,"Y":null,"Width":null,"Height":null},
           PatchMode: null
         })
         break
       case 'EditData':
         _.assign(dataForAction, {
           Fields: null,
-          Entries: null
+          Entries: {}
         })
         break
       default:
