@@ -72,6 +72,7 @@ export default class FormField extends Component {
         )
         break
       case 'FromArea':
+      case 'ToArea':
         input = (
           <div style={{ display: 'inline' }}>
             <span className="inner-field">
@@ -105,48 +106,6 @@ export default class FormField extends Component {
               Height<input
                 className="field-input"
                 value={value.Height}
-                type="number"
-                name="Height"
-                onChange={this.handleInputChange}
-              />
-            </span>
-          </div>
-        )
-        break
-      case 'ToArea':
-        input = (
-          <div style={{ display: 'inline' }}>
-            <span className="inner-field">
-              X<input
-                className="field-input"
-                value={value}
-                type="number"
-                name="X"
-                onChange={this.handleInputChange}
-              />
-            </span>
-            <span className="inner-field">
-              Y<input
-                className="field-input"
-                value={value}
-                type="number"
-                name="Y"
-                onChange={this.handleInputChange}
-              />
-            </span>
-            <span className="inner-field">
-              Width<input
-                className="field-input"
-                value={value}
-                type="number"
-                name="Width"
-                onChange={this.handleInputChange}
-              />
-            </span>
-            <span className="inner-field">
-              Height<input
-                className="field-input"
-                value={value}
                 type="number"
                 name="Height"
                 onChange={this.handleInputChange}

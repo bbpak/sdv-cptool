@@ -49,11 +49,7 @@ export const inferredFileTypes = {
   }
 }
 
-export const getDefaultsForAction = (
-  action,
-  target = undefined,
-  fromFile = undefined
-) => {
+export const getDefaultsForAction = (action, target = '', fromFile = '') => {
   // Common fields
   let dataForAction = {
     Action: action,
@@ -71,24 +67,24 @@ export const getDefaultsForAction = (
       _.assign(dataForAction, {
         FromFile: fromFile,
         FromArea: {
-          X: undefined,
-          Y: undefined,
-          Width: undefined,
-          Height: undefined
+          X: '',
+          Y: '',
+          Width: '',
+          Height: ''
         },
         ToArea: {
-          X: undefined,
-          Y: undefined,
-          Width: undefined,
-          Height: undefined
+          X: '',
+          Y: '',
+          Width: '',
+          Height: ''
         },
-        PatchMode: undefined
+        PatchMode: ''
       })
       break
     case 'EditData':
       _.assign(dataForAction, {
-        Fields: undefined,
-        Entries: undefined
+        Fields: '',
+        Entries: ''
       })
       break
     default:
@@ -98,7 +94,7 @@ export const getDefaultsForAction = (
   // Common optional fields
   dataForAction = {
     ...dataForAction,
-    ...{ When: undefined, LogName: undefined, Enabled: undefined }
+    ...{ When: '', LogName: '', Enabled: '' }
   }
 
   return dataForAction
@@ -115,7 +111,6 @@ export const optionalFields = [
   'When',
   'LogName',
   'Enabled',
-  'When',
   'Fields',
   'Entries'
 ]
