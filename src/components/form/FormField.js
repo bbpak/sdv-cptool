@@ -1,27 +1,31 @@
 import React, { Component } from 'react'
-import _ from 'lodash'
 
 export default class FormField extends Component {
   constructor(props) {
     super()
     this.state = {
-      value: props.fieldData
+      value: props.value || ''
     }
   }
 
   handleInputChange = e => {
-    const { blockData, field, handleFieldDataChange } = this.props
+    const { field, value, handleValueChange } = this.props
     let newValue
 
+    // Only allow numbers for number input
     if (e.target.type === 'number') {
       const re = /^[0-9\b]+$/
       if (!re.test(e.target.value)) return
     }
 
-    if (e.target.name) newValue = { [e.target.name]: e.target.value }
+    // Handle object values
+    if (e.target.name) {
+      newValue = value
+      newValue[e.target.name] = e.target.value
+    } else newValue = e.target.value
 
-    this.setState({ value: e.target.value })
-    handleFieldDataChange(field, newValue)
+    this.setState({ value: newValue })
+    handleValueChange(field, newValue)
   }
 
   getInputForField = () => {
@@ -73,7 +77,7 @@ export default class FormField extends Component {
             <span className="inner-field">
               X<input
                 className="field-input"
-                value={value}
+                value={value.X}
                 type="number"
                 name="X"
                 onChange={this.handleInputChange}
@@ -82,7 +86,7 @@ export default class FormField extends Component {
             <span className="inner-field">
               Y<input
                 className="field-input"
-                value={value}
+                value={value.Y}
                 type="number"
                 name="Y"
                 onChange={this.handleInputChange}
@@ -91,7 +95,7 @@ export default class FormField extends Component {
             <span className="inner-field">
               Width<input
                 className="field-input"
-                value={value}
+                value={value.Width}
                 type="number"
                 name="Width"
                 onChange={this.handleInputChange}
@@ -100,7 +104,7 @@ export default class FormField extends Component {
             <span className="inner-field">
               Height<input
                 className="field-input"
-                value={value}
+                value={value.Height}
                 type="number"
                 name="Height"
                 onChange={this.handleInputChange}

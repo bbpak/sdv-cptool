@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 // Hardcoded stuff because
 // 1. Dictionary look-ups are fast
 // 2. Content is unlikely to change
@@ -47,10 +49,73 @@ export const inferredFileTypes = {
   }
 }
 
+export const getDefaultsForAction = (
+  action,
+  target = undefined,
+  fromFile = undefined
+) => {
+  // Common fields
+  let dataForAction = {
+    Action: action,
+    Target: target
+  }
+
+  // Action-specific fields
+  switch (action) {
+    case 'Load':
+      _.assign(dataForAction, {
+        FromFile: fromFile
+      })
+      break
+    case 'EditImage':
+      _.assign(dataForAction, {
+        FromFile: fromFile,
+        FromArea: {
+          X: undefined,
+          Y: undefined,
+          Width: undefined,
+          Height: undefined
+        },
+        ToArea: {
+          X: undefined,
+          Y: undefined,
+          Width: undefined,
+          Height: undefined
+        },
+        PatchMode: undefined
+      })
+      break
+    case 'EditData':
+      _.assign(dataForAction, {
+        Fields: undefined,
+        Entries: undefined
+      })
+      break
+    default:
+      break
+  }
+
+  // Common optional fields
+  dataForAction = {
+    ...dataForAction,
+    ...{ When: undefined, LogName: undefined, Enabled: undefined }
+  }
+
+  return dataForAction
+}
+
 export const validFileTypes = ['xnb', 'tbin', 'png']
 
-export const defaultData = {Format: "1.3", ConfigSchema: null, Changes: []}
+export const defaultData = { Format: '1.3', ConfigSchema: null, Changes: [] }
 
-export const optionalFields = ['FromArea', 'ToArea', 'PatchMode', 'When', 'LogName', 'Enabled', 'When',  'Fields', 'Entries']
-
-
+export const optionalFields = [
+  'FromArea',
+  'ToArea',
+  'PatchMode',
+  'When',
+  'LogName',
+  'Enabled',
+  'When',
+  'Fields',
+  'Entries'
+]

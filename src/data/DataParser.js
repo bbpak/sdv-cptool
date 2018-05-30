@@ -1,4 +1,4 @@
-import { inferredFileTypes } from './dataConstants'
+import { inferredFileTypes, getDefaultsForAction } from './dataConstants'
 import _ from 'lodash'
 
 const DataParser = {
@@ -46,50 +46,7 @@ const DataParser = {
     let pathParts = filePath.split('/')
     const target = filePath.replace(`${pathParts[0]}/`, '')
 
-    // Start with common fields
-    let dataForAction = {
-      Action: action,
-      Target: target
-    }
-
-    switch (action) {
-      case 'Load':
-        _.assign(dataForAction, {
-          FromFile: filePath
-        })
-        break
-      case 'EditImage':
-        _.assign(dataForAction, {
-          FromFile: filePath,
-          FromArea: {
-            X: undefined,
-            Y: undefined,
-            Width: undefined,
-            Height: undefined
-          },
-          ToArea: {
-            X: undefined,
-            Y: undefined,
-            Width: undefined,
-            Height: undefined
-          },
-          PatchMode: undefined
-        })
-        break
-      case 'EditData':
-        _.assign(dataForAction, {
-          Fields: undefined,
-          Entries: undefined
-        })
-        break
-      default:
-        break
-    }
-
-    dataForAction = {
-      ...dataForAction,
-      ...{ When: undefined, LogName: undefined, Enabled: undefined }
-    }
+    let dataForAction = getDefaultsForAction(action, target, filePath)
 
     return dataForAction
   }

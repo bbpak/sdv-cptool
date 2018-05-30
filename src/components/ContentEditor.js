@@ -5,7 +5,7 @@ import DropBox from './DropBox'
 import FormBlock from './form/FormBlock'
 import FormField from './form/FormField'
 import DataParser from '../data/DataParser'
-import { defaultData } from '../data/dataConstants'
+import { defaultData, getDefaultsForAction } from '../data/dataConstants'
 import withStore from './hocs/withStore'
 
 class ContentEditor extends Component {
@@ -61,17 +61,7 @@ class ContentEditor extends Component {
     let newData = contentData
 
     // Use EditImage by default
-    const newBlock = {
-      Action: 'EditImage',
-      Target: '',
-      FromFile: '',
-      FromArea: undefined,
-      ToArea: undefined,
-      PatchMode: undefined,
-      When: undefined,
-      LogName: undefined,
-      Enabled: undefined
-    }
+    const newBlock = getDefaultsForAction('EditImage')
 
     newData.Changes.push(newBlock)
     updateContentData(newData)
@@ -83,7 +73,7 @@ class ContentEditor extends Component {
 
     return (
       <div>
-        <FormField style={lineStyle} field="Format" fieldData="1.3" />
+        <FormField style={lineStyle} field="Format" value="1.3" />
         <Divider
           borderStyle={{ border: 'none' }}
           dividerStyle={{ width: 'calc(100% - 3em)' }}

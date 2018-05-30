@@ -1,5 +1,4 @@
 import React from 'react'
-import _ from 'lodash'
 
 const withStore = WrappedComponent => {
   class FormHOC extends React.Component {
@@ -8,12 +7,6 @@ const withStore = WrappedComponent => {
       this.state = {
         contentData: null
       }
-    }
-
-    handleBlockDataChange = (field, data) => {
-      let newData = this.state.blockData
-      newData[field] = data
-      this.setState({ contentData: newData })
     }
 
     updateContentData = contentData => {
