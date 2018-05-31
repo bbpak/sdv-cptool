@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
 
 export default class FormField extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ export default class FormField extends Component {
     let newValue
 
     // Only allow numbers for number input
-    if (e.target.type === 'number') {
+    if (e.target.type === 'number' && e.target.value.length > 0) {
       const re = /^[0-9\b]+$/
       if (!re.test(e.target.value)) return
     }

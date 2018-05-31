@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 import FormField from './FormField'
-import withStore from '../hocs/withStore'
 import { optionalFields, getDefaultsForAction } from '../../data/dataConstants'
 import _ from 'lodash'
 
-class FormBlock extends Component {
-  constructor() {
-    super()
+export default class FormBlock extends Component {
+  constructor(props) {
+    super(props)
     this.state = {
       isCollapsed: false,
-      showOptionals: false,
-      hiddenFields: optionalFields
+      showOptionals: false
     }
   }
 
@@ -24,7 +22,6 @@ class FormBlock extends Component {
 
   handleValueChange = (field, value) => {
     const { blockData, handleBlockDataChange, index } = this.props
-    const { hiddenFields } = this.state
     let newData
 
     if (field === 'Action') {
@@ -34,24 +31,6 @@ class FormBlock extends Component {
       newData[field] = value
     }
     handleBlockDataChange(newData, index)
-
-    // Unhide optional field if value is defined
-    if (_.includes(optionalFields, field)) {
-      let newHiddenFields = hiddenFields
-
-      if (
-        value === undefined ||
-        value === null ||
-        value === '' ||
-        _.isEmpty(value)
-      ) {
-        newHiddenFields.push(field)
-      } else {
-        newHiddenFields.splice(_.indexOf(field), 1)
-      }
-
-      this.setState({ hiddenFields: newHiddenFields })
-    }
   }
 
   handleRemoveBlock = () => {
@@ -59,15 +38,25 @@ class FormBlock extends Component {
     handleBlockDataChange(null, index)
   }
 
+  _isEmpty = val => {
+    if (typeof val !== 'object') {
+      return val === undefined || val === null || val === ''
+    }
+
+    return Object.keys(val).every(x => {
+      return val[x] === '' || val[x] === null || val[x] === undefined
+    })
+  }
+
   render() {
     const { style, title, blockData } = this.props
-    const { isCollapsed, showOptionals, hiddenFields } = this.state
+    const { isCollapsed, showOptionals } = this.state
 
     return (
       <div style={style} className="form-block">
         <pre
           title={title}
-          className="line  collapsible"
+          className="line collapsible"
           style={style}
           tabIndex="0"
           onClick={this.handleToggleCollapse}
@@ -99,7 +88,12 @@ class FormBlock extends Component {
         )}
         {!isCollapsed &&
           _.map(_.keys(blockData), (field, i) => {
-            if (_.includes(hiddenFields, field) && !showOptionals) return
+            if (
+              _.includes(optionalFields, field) &&
+              this._isEmpty(blockData[field]) &&
+              !showOptionals
+            )
+              return
             return (
               <FormField
                 key={i}
@@ -113,5 +107,3 @@ class FormBlock extends Component {
     )
   }
 }
-const WrappedComponent = withStore(FormBlock)
-export default WrappedComponent
