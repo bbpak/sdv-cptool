@@ -261,10 +261,6 @@ select {
   border-color: #555 #555 transparent transparent;
 }
 
-.tab-content {
-  overflow-y: auto;
-}
-
 .button {
   cursor: pointer;
   text-align: center;
@@ -333,5 +329,5 @@ iframe {
 }
 
 .about {
-  padding: 0.5em;
+  padding: 1em;
 }
