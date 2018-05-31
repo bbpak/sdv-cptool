@@ -261,6 +261,25 @@ select {
   border-color: #555 #555 transparent transparent;
 }
 
+.tab-content {
+  overflow-y: auto;
+}
+
+.button {
+  cursor: pointer;
+  text-align: center;
+  width: 10em;
+  margin: 1em;
+  padding: 3px;
+  background-color: #555;
+  border: 1px solid #333;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #666;
+}
+
 .docs {
   position: relative;
   background-color: #3f3f46 !important;
@@ -311,4 +330,8 @@ iframe {
 
 .scrollbar::-webkit-scrollbar-thumb {
   background: #303030;
+}
+
+.about {
+  padding: 0.5em;
 }
