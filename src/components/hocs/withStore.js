@@ -11,11 +11,9 @@ const withStore = WrappedComponent => {
 
     updateContentData = contentData => {
       this.setState({ contentData })
-      console.log(contentData)
     }
 
     render() {
-      console.log(this.state.contentData)
       return (
         <WrappedComponent
           contentData={this.state.contentData}

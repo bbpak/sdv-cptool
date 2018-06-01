@@ -3,6 +3,7 @@ import _ from 'lodash'
 import Divider from './misc/Divider'
 import DropBox from './DropBox'
 import FormBlock from './form/FormBlock'
+import FieldBlock from './form/FieldBlock'
 import FormField from './form/FormField'
 import DataParser from '../data/DataParser'
 import { defaultData, getDefaultsForAction } from '../data/dataConstants'
@@ -75,42 +76,41 @@ class ContentEditor extends Component {
 
     return (
       <div>
-        <pre className="header">Content</pre>
-        <div className="content">
+        <FormBlock>
           <FormField style={lineStyle} field="Format" value="1.3" />
-          <Divider
-            borderStyle={{ border: 'none' }}
-            dividerStyle={{ width: 'calc(100% - 3em)' }}
-          />
-          {/*<FormField field="ConfigSchema" />*/}
+        </FormBlock>
+        <Divider
+          borderStyle={{ border: 'none' }}
+          dividerStyle={{ width: 'calc(100% - 3em)' }}
+        />
+        <FormBlock>
           <FormField style={lineStyle} field="Changes" />
-        </div>
-        {_.map(contentData.Changes, (blockData, i) => {
-          return (
-            <div key={i}>
-              <FormBlock
-                isCollapsible
-                index={i}
-                blockData={blockData}
-                handleBlockDataChange={this.handleBlockDataChange}
-              />
-              <Divider
-                dividerStyle={{ left: '1em', width: 'calc(100% - 4.5em)' }}
-              />
-            </div>
-          )
-        })}
-        <div
-          className="form-block content"
-          style={{ cursor: 'pointer' }}
-          onClick={this.handleAddBlock}
-        >
-          <pre className="line">
-            <i title="new block" className="material-icons field-label add">
+
+          {_.map(contentData.Changes, (blockData, i) => {
+            return (
+              <div key={i}>
+                <FieldBlock
+                  isCollapsible
+                  index={i}
+                  blockData={blockData}
+                  handleBlockDataChange={this.handleBlockDataChange}
+                />
+                <Divider
+                  dividerStyle={{ left: '1em', width: 'calc(100% - 4.5em)' }}
+                />
+              </div>
+            )
+          })}
+          <div
+            className="field-block add-button"
+            style={{ cursor: 'pointer' }}
+            onClick={this.handleAddBlock}
+          >
+            <i title="new block" className="material-icons add">
               {'add'}&emsp;&emsp;
             </i>
-          </pre>
-        </div>
+          </div>
+        </FormBlock>
       </div>
     )
   }

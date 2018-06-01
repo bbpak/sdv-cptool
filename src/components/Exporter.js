@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
-import FormBlock from './form/FormBlock'
-import FormField from './form/FormField'
+import FieldBlock from './form/FieldBlock'
 import withStore from './hocs/withStore'
 import './styles/Forms.css'
 
@@ -32,28 +31,24 @@ class Exporter extends Component {
   }
 
   render() {
-    const left = Math.floor(Math.random() * 101)
-    const top = Math.floor(Math.random() * 101)
     const manifestData = {
-      "Name": "",
-      "Author": "",
-      "Version": "1.0.0",
-      "Description": "",
-      "UniqueID": "",
-      "MinimumApiVersion": "2.0",
-      "UpdateKeys": [],
-      "ContentPackFor": {
-         "UniqueID": "Pathoschild.ContentPatcher", 
-         "MinimumVersion": "1.3.0" 
+      Name: '',
+      Author: '',
+      Version: '1.0.0',
+      Description: '',
+      UniqueID: '',
+      MinimumApiVersion: '2.0',
+      UpdateKeys: [],
+      ContentPackFor: {
+        UniqueID: 'Pathoschild.ContentPatcher',
+        MinimumVersion: '1.3.0'
       }
     }
 
     return (
       <div className="exporter">
         <div className="manifest-form">
-          <pre className="header">Manifest</pre>
-          <FormBlock
-            className="manifest"
+          <FieldBlock
             blockData={manifestData}
             handleBlockDataChange={this.handleBlockDataChange}
           />

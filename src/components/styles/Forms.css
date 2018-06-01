@@ -1,5 +1,3 @@
-
-
 .content-form {
   position: relative;
   margin: 0 auto;
@@ -25,12 +23,18 @@
   border-radius: 5px;
 }
 
-.line,
-.form-block {
+.form-block,
+.field-block {
+  position: relative;
+  margin: 0 1em 0 1em;
+  border-left: 1px solid #454545;
+}
+
+.line {
   box-sizing: border-box;
   position: relative;
   vertical-align: middle;
-  padding: 0 1em 0 1em;
+  padding-left: 1em;
   height: 1.5em;
   line-height: 1.5em;
   width: inherit;
@@ -39,7 +43,6 @@
 pre {
   margin: 0;
   padding: 0;
-  border-left: 1px solid #454545;
 }
 
 .line:hover {
@@ -49,12 +52,7 @@ pre {
 .line:focus-within {
   background-color: #262626;
   border: none;
-  border-left: 1px solid #454545;
   outline: none;
-}
-
-.form-block {
-  height: auto;
 }
 
 .divider {
@@ -72,13 +70,6 @@ pre {
   cursor: pointer;
 }
 
-.block-border {
-  display: inline;
-  max-width: 1em;
-  margin: 0;
-  border-left: 1px solid #454545;
-}
-
 .block-divider {
   position: relative;
   display: inline-block;
@@ -86,10 +77,6 @@ pre {
   height: inherit;
   width: calc(100% - 4em);
   background-color: #181818;
-}
-
-.line:focus > pre {
-  border-left: 1px solid #707070;
 }
 
 input[type],
@@ -130,8 +117,6 @@ select {
 .field-label {
   color: lightskyblue;
   display: inline-block;
-  padding-left: 1em;
-  border-left: 1px solid #454545;
   width: 5.5em;
 }
 
@@ -149,10 +134,9 @@ select {
   width: 6em;
 }
 
-.more {
+.field-block-control {
   position: absolute;
-  bottom: 0.25em;
-  right: 1em;
+  line-height: 1.5em;
   z-index: 2;
   cursor: pointer;
   font-size: 1em;
@@ -160,15 +144,19 @@ select {
   color: white;
 }
 
+.more {
+  bottom: 0em;
+  right: 0.25em;
+}
+
 .remove {
-  position: absolute;
-  top: 0.25em;
-  right: 1em;
-  z-index: 2;
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: bold;
-  color: dimgrey;
+  top: 0em;
+  right: 0.25em;
+  color: dimgray;
+}
+
+.add-button {
+  height: 1.5em;
 }
 
 .add {

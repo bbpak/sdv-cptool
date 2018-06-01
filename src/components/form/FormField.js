@@ -143,10 +143,10 @@ export default class FormField extends Component {
 
     return (
       <span className={className}>
-      <pre title={title} className="line" style={style} tabIndex="0">
-        <div className="field-label">{field}</div>
-        {input}
-      </pre>
+        <pre title={title} className="line" style={style} tabIndex="0">
+          <div className="field-label">{field}</div>
+          {input}
+        </pre>
       </span>
     )
   }
