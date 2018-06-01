@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
+import './styles/Tabs.css'
 
 export default class Tabs extends Component {
   constructor(props) {

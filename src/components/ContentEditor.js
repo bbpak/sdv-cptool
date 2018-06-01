@@ -7,6 +7,8 @@ import FormField from './form/FormField'
 import DataParser from '../data/DataParser'
 import { defaultData, getDefaultsForAction } from '../data/dataConstants'
 import withStore from './hocs/withStore'
+import './styles/ContentEditor.css'
+import './styles/Forms.css'
 
 class ContentEditor extends Component {
   constructor() {
@@ -73,17 +75,21 @@ class ContentEditor extends Component {
 
     return (
       <div>
-        <FormField style={lineStyle} field="Format" value="1.3" />
-        <Divider
-          borderStyle={{ border: 'none' }}
-          dividerStyle={{ width: 'calc(100% - 3em)' }}
-        />
-        {/*<FormField field="ConfigSchema" />*/}
-        <FormField style={lineStyle} field="Changes" />
+        <pre className="header">Content</pre>
+        <div className="content">
+          <FormField style={lineStyle} field="Format" value="1.3" />
+          <Divider
+            borderStyle={{ border: 'none' }}
+            dividerStyle={{ width: 'calc(100% - 3em)' }}
+          />
+          {/*<FormField field="ConfigSchema" />*/}
+          <FormField style={lineStyle} field="Changes" />
+        </div>
         {_.map(contentData.Changes, (blockData, i) => {
           return (
             <div key={i}>
               <FormBlock
+                isCollapsible
                 index={i}
                 blockData={blockData}
                 handleBlockDataChange={this.handleBlockDataChange}
@@ -95,7 +101,7 @@ class ContentEditor extends Component {
           )
         })}
         <div
-          className="form-block"
+          className="form-block content"
           style={{ cursor: 'pointer' }}
           onClick={this.handleAddBlock}
         >

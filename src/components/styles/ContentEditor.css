@@ -1,0 +1,65 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  margin: 0 auto;
+}
+
+.content-editor {
+  flex: 1 1 auto;
+  padding: 1em;
+  font-size: 16px;
+}
+
+.drop-outline {
+  margin: 2em;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border: 0.5em dashed #555555;
+  background-image: url('../../assets/shippingbin_closed.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.drop-outline:hover {
+  cursor: pointer;
+  background-image: url('../../assets/shippingbin_open.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.drop-outline-dragover {
+  background-color: #262627;
+  border: 0.5em dashed #606060;
+  background-image: url('../../assets/shippingbin_open.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.loader {
+  position: fixed;
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  background-image: url('../../assets/junimo.gif');
+  background-repeat: no-repeat;
+  background-size: 10%;
+  background-position: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 10;
+  text-align: center;
+}
+
+.loader > h1 {
+  position: fixed;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Pangolin', cursive;
+}

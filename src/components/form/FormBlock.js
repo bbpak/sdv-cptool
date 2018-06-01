@@ -49,27 +49,29 @@ export default class FormBlock extends Component {
   }
 
   render() {
-    const { style, title, blockData } = this.props
+    const { style, title, blockData, isCollapsible, className} = this.props
     const { isCollapsed, showOptionals } = this.state
 
     return (
-      <div style={style} className="form-block">
-        <pre
-          title={title}
-          className="line collapsible"
-          style={style}
-          tabIndex="0"
-          onClick={this.handleToggleCollapse}
-        >
-          <div className="field-label">
-            <span style={{ color: 'yellowgreen' }}>
-              {`${blockData['Action']}: `}
-            </span>
-            <span style={{ color: '#AC80FF' }}>
-              {`${blockData['Target'] || ''}`}
-            </span>
-          </div>
-        </pre>
+      <div style={style} className={`form-block ${className}`}>
+      {isCollapsible && (
+        <div>
+          <pre
+            title={title}
+            className="line collapsible"
+            style={style}
+            tabIndex="0"
+            onClick={this.handleToggleCollapse}
+          >
+            <div className="field-label">
+              <span style={{ color: 'yellowgreen' }}>
+                {`${blockData['Action']}: `}
+              </span>
+              <span style={{ color: '#AC80FF' }}>
+                {`${blockData['Target'] || ''}`}
+              </span>
+            </div>
+          </pre>
         <i
           title="remove block"
           className="material-icons remove"
@@ -86,6 +88,7 @@ export default class FormBlock extends Component {
             {'more_horiz'}
           </i>
         )}
+        </div>)}
         {!isCollapsed &&
           _.map(_.keys(blockData), (field, i) => {
             if (
@@ -97,6 +100,7 @@ export default class FormBlock extends Component {
             return (
               <FormField
                 key={i}
+                className={className}
                 field={field}
                 value={blockData[field]}
                 handleValueChange={this.handleValueChange}

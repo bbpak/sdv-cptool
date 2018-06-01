@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export const About = () => {
-  return (
+const About = () => (
     <div className="about">
       <p>
         This is a tool intended to make creating/editing Content Packs easier.
@@ -28,7 +27,7 @@ export const About = () => {
         </ul>
       </p>
       <p>
-        Ping me <span style={{ color: 'royalblue' }}>@Bouhm</span>&nbsp;&nbsp;
+        Ping me <span style={{ color: '#6789DA' }}>@Bouhm</span>&nbsp;&nbsp;
         <img
           style={{
             display: 'inline-block',
@@ -37,11 +36,12 @@ export const About = () => {
           src="https://cdn.discordapp.com/emojis/423125623439884290.png?v=1"
           width="25px"
           height="25px"
-        />&nbsp; on Discord for suggestions, complaints, life advice, etc.
+        />&nbsp; on Discord for suggestions, complaints, knock-knock jokes, etc.
       </p>
       <b>
         CURRENT BUILD: <i>0.0.1-ALPHA</i>
       </b>
     </div>
   )
-}
+
+  export default About

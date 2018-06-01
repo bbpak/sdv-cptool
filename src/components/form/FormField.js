@@ -138,14 +138,16 @@ export default class FormField extends Component {
   }
 
   render() {
-    const { title, style, field } = this.props
+    const { title, style, field, className } = this.props
     let input = this.getInputForField()
 
     return (
+      <span className={className}>
       <pre title={title} className="line" style={style} tabIndex="0">
         <div className="field-label">{field}</div>
         {input}
       </pre>
+      </span>
     )
   }
 }
