@@ -41,7 +41,8 @@ class ContentEditor extends Component {
   }
 
   handleFilesDrop = filesData => {
-    let data = defaultData
+    const { contentData } = this.props
+    let data = contentData ? contentData : defaultData
     _.map(filesData, file => {
       data.Changes.push(DataParser.getDataForFile(file))
     })
@@ -116,13 +117,14 @@ class ContentEditor extends Component {
   }
 
   render() {
+    const {hasProcessedFiles} = this.state
+
     return (
-      <div className="editor content-form scrollbar">
-        {this.state.hasProcessedFiles ? (
-          this.renderForm()
-        ) : (
-          <DropBox onDrop={this.handleFilesDrop} />
-        )}
+      <div className="editor">
+        <div className="content-form">
+        <DropBox onDrop={this.handleFilesDrop} isHidden={hasProcessedFiles} />
+        {hasProcessedFiles && this.renderForm()}
+        </div>
       </div>
     )
   }

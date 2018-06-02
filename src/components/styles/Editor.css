@@ -5,20 +5,23 @@
 }
 
 .editor {
-  background-color: #1e1e1e;
-  padding: 1em 0.5em 1em 0.5em;
-  -webkit-box-shadow: inset 0 0 10px #101010;
-  box-shadow: inset 0 0 10px #101010;
-  border-radius: 5px;
+  flex: 1 1 auto;
+}
+
+.dropbox {
+  position: absolute;
+  box-sizing: border-box;
+  top:0;
+  right:0;
+  left:0;
+  bottom:0;
+  padding: 1.5em;
 }
 
 .drop-outline {
-  margin: 2em;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
   border: 0.5em dashed #555555;
   background-image: url('../../assets/shippingbin_closed.png');
   background-repeat: no-repeat;
@@ -38,6 +41,12 @@
   background-image: url('../../assets/shippingbin_open.png');
   background-repeat: no-repeat;
   background-position: center center;
+  z-index: 20;
+}
+
+.hidden {
+  border: none;
+  background: none;
 }
 
 .loader {

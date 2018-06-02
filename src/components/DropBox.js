@@ -95,38 +95,57 @@ export default class DropBox extends Component {
       return
     }
 
-    let hasLoaded
-    this.setState({ isLoading: !hasLoaded })
+    this.setState({ isLoading: true })
     const entry = data[0].webkitGetAsEntry()
 
     this.traverseDirectory(entry).then(() => {
-      hasLoaded = true
+      this.setState({ isLoading: false })
       this.props.onDrop(this.filesData)
     })
 
-    this.setState({ isLoading: !hasLoaded })
+
     // Pass event to removeDragData for cleanup
     this.removeDragData(e)
   }
 
+  handleHideDropbox = () => {
+    this.props.onDrop({})
+  }
+
   render() {
+    const { isHidden } = this.props
+    const { isLoading } = this.state
+
     return (
+      <div className="dropbox">
+      {!isHidden &&
+      <i
+        title="close dropbox"
+        style={{position: 'absolute', top: '0.25em', right: '0.25em', cursor: 'pointer'}}
+        className="material-icons remove"
+        onClick={this.handleHideDropbox}
+      >
+        {'cancel'}
+      </i>
+      }
       <div
-        className="dropbox drop-outline"
-        onClick={this.handleFileUpload}
+        className="drop-outline"
+        style={isHidden ? {border: 'none', background: 'none', cursor: 'default'} : {}}
+        onClick={() => {!isHidden && this.handleFileUpload()}}
         onDrop={this.handleFileDrop}
         onDragOver={this.handleDragOver}
         onDragLeave={this.handleDragLeave}
       >
-        {this.state.isLoading && <Loader messages={["Scanning files...", "Dispatching junimos...", "Loading editor..."]} />}
-        <input
+        {isLoading && <Loader messages={["Scanning files...", "Dispatching junimos...", "Loading editor..."]} />}
+        {!isHidden && <input
           id="upload"
           type="file"
           style={{ display: 'none' }}
           onChange={this.handleFileDrop}
           onClick={this.handleFileUpload}
           multiple
-        />
+        />}
+      </div>
       </div>
     )
   }

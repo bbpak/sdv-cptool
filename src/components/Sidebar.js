@@ -15,7 +15,7 @@ export default class Sidebar extends Component {
     else this.setState({ activePanelIndex: null })
   }
 
-  renderpanels = panels => {
+  renderPanels = panels => {
     const { activePanelIndex } = this.state
     return (
       <div>
@@ -24,8 +24,8 @@ export default class Sidebar extends Component {
             return (
               <div
                 key={i}
-                className="tab"
-                onClick={() => this.handleTabClick(i)}
+                className={`tab ${panel.disabled && 'disabled'}`}
+                onClick={() => {!panel.disabled && this.handleTabClick(i)}}
               >
                 {panel.label}
               </div>
@@ -52,7 +52,7 @@ export default class Sidebar extends Component {
         className="sidebar-container"
         style={activePanelIndex == null ? { flex: 0 } : { flex: '0 1 50%' }}
       >
-        {this.renderpanels(panels)}
+        {this.renderPanels(panels)}
         <div
           style={
             activePanelIndex == null ? { display: 'none' } : { display: 'block' }

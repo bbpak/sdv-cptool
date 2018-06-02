@@ -14,6 +14,11 @@ class App extends Component {
         content: <Docs />
       },
       {
+        label: 'Templates',
+        content: null,
+        disabled: true
+      },
+      {
         label: 'Export',
         content: <Exporter />
       },

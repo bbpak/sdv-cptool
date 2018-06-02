@@ -5,7 +5,7 @@ const About = () => (
     <p>
       This is a tool intended to make creating/editing Content Packs easier.
       While the original goal was to provide a friendlier editor for users who
-      found .json daunting, I plan on making it fully featured to make it useful
+      found <code>JSON</code> daunting, I plan on making it fully featured to make it useful
       for all users.
     </p>
     <p>
@@ -23,10 +23,11 @@ const About = () => (
         <li>Add more stuff to this side panel</li>
         <li>Add a light theme</li>
         <li>Add dark overlay to the light theme so it's dark anyway</li>
+        <li><i>Maybe</i> make Electron desktop app</li>
       </ul>
     </p>
     <p>
-      Ping me <span style={{ color: '#6789DA' }}>@Bouhm</span>&nbsp;&nbsp;
+      Ping me <span style={{ color: '#6D9EFF' }}>@Bouhm</span>&nbsp;&nbsp;
       <img
         style={{
           display: 'inline-block',

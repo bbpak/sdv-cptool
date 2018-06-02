@@ -92,7 +92,7 @@ class Exporter extends Component {
         className="material-icons"
       >
         {'get_app'}
-      </i> Export all
+      </i> Export bundle
     </div>
     </span>
       </div>
