@@ -49,11 +49,12 @@ export default class FieldBlock extends Component {
   }
 
   render() {
-    const { style, title, blockData, isCollapsible, className } = this.props
+    const { style, title, blockData, isCollapsible, className, children } = this.props
     const { isCollapsed, showOptionals } = this.state
 
     return (
-      <div style={style} className={`field-block ${className}`}>
+      <div style={style} className={`field-block ${className ? className : ''}`}>
+        {children}
         {isCollapsible && (
           <div>
             <pre

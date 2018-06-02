@@ -10,12 +10,17 @@
   color: white;
 }
 
+.header {
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
 .button {
   cursor: pointer;
   text-align: center;
-  width: 10em;
-  margin: 1em;
-  padding: 3px;
+  width: 11em;
+  margin: 0.5em 0.5em 0.5em 0;
+  padding: 5px;
   background-color: #555;
   border: 1px solid #333;
   border-radius: 5px;
@@ -38,4 +43,9 @@
 
 .scrollbar::-webkit-scrollbar-thumb {
   background: #303030;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: default !important;
 }

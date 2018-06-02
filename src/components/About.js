@@ -1,7 +1,7 @@
 import React from 'react'
 
 const About = () => (
-  <div className="about">
+  <div className="panel about">
     <p>
       This is a tool intended to make creating/editing Content Packs easier.
       While the original goal was to provide a friendlier editor for users who

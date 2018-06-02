@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import ContentEditor from './components/ContentEditor'
 import Docs from './components/Docs'
 import Exporter from './components/Exporter'
-import Tabs from './components/Tabs'
+import Sidebar from './components/Sidebar'
 import About from './components/About'
 import './App.css'
 
 class App extends Component {
   render() {
-    const tabs = [
+    const panels = [
       {
         label: 'Docs',
         content: <Docs />
@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <div className="app">
         <ContentEditor />
-        <Tabs tabs={tabs} />
+        <Sidebar panels={panels} />
       </div>
     )
   }

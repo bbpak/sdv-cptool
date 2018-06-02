@@ -8,7 +8,7 @@ import FormField from './form/FormField'
 import DataParser from '../data/DataParser'
 import { defaultData, getDefaultsForAction } from '../data/dataConstants'
 import withStore from './hocs/withStore'
-import './styles/ContentEditor.css'
+import './styles/Editor.css'
 import './styles/Forms.css'
 
 class ContentEditor extends Component {
@@ -117,14 +117,12 @@ class ContentEditor extends Component {
 
   render() {
     return (
-      <div className="content-editor">
-        <form className="content-form scrollbar">
-          {this.state.hasProcessedFiles ? (
-            this.renderForm()
-          ) : (
-            <DropBox onDrop={this.handleFilesDrop} />
-          )}
-        </form>
+      <div className="editor content-form scrollbar">
+        {this.state.hasProcessedFiles ? (
+          this.renderForm()
+        ) : (
+          <DropBox onDrop={this.handleFilesDrop} />
+        )}
       </div>
     )
   }

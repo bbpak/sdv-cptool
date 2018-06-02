@@ -1,10 +1,14 @@
 
-.tabs-container {
+.sidebar-container {
   display: block;
   flex: 0 50% auto;
   width: auto;
   height: 100vh;
   background-color: #3f3f46 !important;
+}
+
+.panel {
+  padding: 1em;
 }
 
 .tab {
@@ -50,5 +54,9 @@ iframe {
 }
 
 .about {
+  padding: 1em;
+}
+
+.exporter {
   padding: 1em;
 }

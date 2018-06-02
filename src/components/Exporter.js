@@ -46,16 +46,55 @@ class Exporter extends Component {
     }
 
     return (
-      <div className="exporter">
-        <div className="manifest-form">
-          <FieldBlock
-            blockData={manifestData}
-            handleBlockDataChange={this.handleBlockDataChange}
-          />
-        </div>
-        <div className="button" onClick={this.handleExportData}>
-          Export content.json
-        </div>
+      <div className="panel exporter">
+        <pre className="header disabled">Manifest</pre>
+        <div className="editor manifest-form">
+        <FieldBlock
+          className="disabled"
+          style={{border: 'none', margin: 0}}
+          blockData={manifestData}
+          handleBlockDataChange={this.handleBlockDataChange}
+        />
+      </div>
+      <br />
+      <pre className="header disabled">Config</pre>
+      <div className="editor config-form">
+      <FieldBlock
+        className="disabled"
+        style={{border: 'none', margin: 0}}
+        blockData={{}}
+        handleBlockDataChange={this.handleBlockDataChange}
+      >
+        <div
+        className="field-block add-button"
+        style={{ cursor: 'pointer', border: 'none', margin: 0 }}
+        onClick={this.handleAddBlock}
+      >
+        <i title="new block" className="material-icons add">
+          {'add'}
+        </i>
+      </div>
+    </FieldBlock>
+    </div>
+    <br />
+      <span style={{display: 'flex'}}>
+      <div className="button" onClick={this.handleExportData}>
+      <i
+      style={{verticalAlign: 'middle'}}
+        className="material-icons"
+      >
+        {'get_app'}
+      </i> Export content.json
+    </div>
+      <div className="button disabled" onClick={this.handleExportData}>
+      <i
+      style={{verticalAlign: 'middle'}}
+        className="material-icons"
+      >
+        {'get_app'}
+      </i> Export all
+    </div>
+    </span>
       </div>
     )
   }
