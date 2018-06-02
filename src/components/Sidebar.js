@@ -6,37 +6,37 @@ export default class Sidebar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      activePanelIndex: null
+      activeTabIndex: null
     }
   }
 
   handleTabClick = i => {
-    if (this.state.activePanelIndex == null) this.setState({ activePanelIndex: i })
-    else this.setState({ activePanelIndex: null })
+    if (this.state.activeTabIndex == null) this.setState({ activeTabIndex: i })
+    else this.setState({ activeTabIndex: null })
   }
 
-  renderPanels = panels => {
-    const { activePanelIndex } = this.state
+  renderTabs = tabs => {
+    const { activeTabIndex } = this.state
     return (
       <div>
-        {this.state.activePanelIndex == null ? (
-          _.map(panels, (panel, i) => {
+        {this.state.activeTabIndex == null ? (
+          _.map(tabs, (tab, i) => {
             return (
               <div
                 key={i}
-                className={`tab ${panel.disabled && 'disabled'}`}
-                onClick={() => {!panel.disabled && this.handleTabClick(i)}}
+                className={`tab ${tab.disabled && 'disabled'}`}
+                onClick={() => {!tab.disabled && this.handleTabClick(i)}}
               >
-                {panel.label}
+                {tab.label}
               </div>
             )
           })
         ) : (
           <div
             className="tab tab-active"
-            onClick={() => this.handleTabClick(activePanelIndex)}
+            onClick={() => this.handleTabClick(activeTabIndex)}
           >
-            {panels[activePanelIndex].label}
+            {tabs[activeTabIndex].label}
           </div>
         )}
       </div>
@@ -44,21 +44,21 @@ export default class Sidebar extends Component {
   }
 
   render() {
-    const { panels } = this.props
-    const { activePanelIndex } = this.state
+    const { tabs } = this.props
+    const { activeTabIndex } = this.state
 
     return (
       <div
         className="sidebar-container"
-        style={activePanelIndex == null ? { flex: 0 } : { flex: '0 1 50%' }}
+        style={activeTabIndex == null ? { flex: 0 } : { flex: '0 1 50%' }}
       >
-        {this.renderPanels(panels)}
+        {this.renderTabs(tabs)}
         <div
           style={
-            activePanelIndex == null ? { display: 'none' } : { display: 'block' }
+            activeTabIndex == null ? { display: 'none' } : { display: 'block' }
           }
         >
-          {activePanelIndex !== null && panels[activePanelIndex].content}
+          {activeTabIndex !== null && tabs[activeTabIndex].content}
         </div>
       </div>
     )

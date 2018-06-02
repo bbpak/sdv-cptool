@@ -8,7 +8,7 @@
 }
 
 .panel {
-  padding: 1em;
+  padding: 0em 1em 1em 1em;
 }
 
 .tab {
@@ -51,12 +51,4 @@
 
 iframe {
   border-radius: 5px;
-}
-
-.about {
-  padding: 1em;
-}
-
-.exporter {
-  padding: 1em;
 }

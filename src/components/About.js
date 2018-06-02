@@ -8,7 +8,7 @@ const About = () => (
       found <code>JSON</code> daunting, I plan on making it fully featured to make it useful
       for all users.
     </p>
-    <p>
+    <div>
       <b>Planned features:</b>
       <ul>
         <li>Add minimal image viewer for EditImage for showing Target image</li>
@@ -25,7 +25,7 @@ const About = () => (
         <li>Add dark overlay to the light theme so it's dark anyway</li>
         <li><i>Maybe</i> make Electron desktop app</li>
       </ul>
-    </p>
+    </div>
     <p>
       Ping me <span style={{ color: '#6D9EFF' }}>@Bouhm</span>&nbsp;&nbsp;
       <img
@@ -40,7 +40,7 @@ const About = () => (
       />&nbsp; on Discord for suggestions, complaints, knock-knock jokes, etc.
     </p>
     <b>
-      CURRENT BUILD: <i>0.0.1-ALPHA</i>
+      <pre>CURRENT BUILD: <i>0.0.1-ALPHA</i></pre>
     </b>
   </div>
 )

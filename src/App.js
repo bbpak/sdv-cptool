@@ -8,7 +8,7 @@ import './App.css'
 
 class App extends Component {
   render() {
-    const panels = [
+    const tabs = [
       {
         label: 'Docs',
         content: <Docs />
@@ -31,7 +31,7 @@ class App extends Component {
     return (
       <div className="app">
         <ContentEditor />
-        <Sidebar panels={panels} />
+        <Sidebar tabs={tabs} />
       </div>
     )
   }

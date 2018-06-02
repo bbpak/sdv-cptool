@@ -7,7 +7,7 @@ import './styles/Forms.css'
 class Exporter extends Component {
   handleExportData = () => {
     const data = _.omitBy(
-      this.props.contentData,
+      this.data,
       _.isNull || _.isUndefined || _.isEmpty
     )
 
@@ -53,7 +53,6 @@ class Exporter extends Component {
             className="disabled"
             style={{ border: 'none', margin: 0 }}
             blockData={manifestData}
-            handleBlockDataChange={this.handleBlockDataChange}
           />
         </div>
         <br />
@@ -63,7 +62,6 @@ class Exporter extends Component {
             className="disabled"
             style={{ border: 'none', margin: 0 }}
             blockData={{}}
-            handleBlockDataChange={this.handleBlockDataChange}
           >
             <div
               className="field-block add-button"
@@ -84,7 +82,7 @@ class Exporter extends Component {
             </i>{' '}
             Export content.json
           </div>
-          <div className="button disabled" onClick={this.handleExportData}>
+          <div className="button disabled">
             <i style={{ verticalAlign: 'middle' }} className="material-icons">
               {'get_app'}
             </i>{' '}
