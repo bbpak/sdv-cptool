@@ -1,12 +1,21 @@
 import React from 'react'
+import GitHub from 'github-api'
+import { auth, repo } from '../../keys/api'
 
 const withStore = WrappedComponent => {
-  class FormHOC extends React.Component {
+  class CPToolHOC extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
-        contentData: null
+        manifestData: null,
+        configData: null,
+        contentData: null,
+        contentFiles: null
       }
+    }
+
+    componentDidMount() {
+
     }
 
     updateContentData = contentData => {
@@ -24,6 +33,6 @@ const withStore = WrappedComponent => {
     }
   }
 
-  return FormHOC
+  return CPToolHOC
 }
 export default withStore

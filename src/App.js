@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import ContentEditor from './components/ContentEditor'
-import Docs from './components/Docs'
-import Exporter from './components/Exporter'
 import Sidebar from './components/Sidebar'
-import About from './components/About'
+import Docs from './components/tabs/Docs'
+import Templates from './components/tabs/Templates'
+import Exporter from './components/tabs/Exporter'
+import Image from './components/tabs/Image'
+import About from './components/tabs/About'
 import './App.css'
 
 class App extends Component {
@@ -15,7 +17,12 @@ class App extends Component {
       },
       {
         label: 'Templates',
-        content: null,
+        content: <Templates />,
+        disabled: true
+      },
+      {
+        label: 'Image',
+        content: <Image />,
         disabled: true
       },
       {

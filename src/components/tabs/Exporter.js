@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
-import FieldBlock from './form/FieldBlock'
-import withStore from './hocs/withStore'
-import './styles/Forms.css'
+import FieldBlock from '../form/FieldBlock'
+import withStore from '../hocs/withStore'
+import '../styles/Forms.css'
 
 class Exporter extends Component {
   handleExportData = () => {
