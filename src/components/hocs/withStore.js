@@ -1,6 +1,5 @@
 import React from 'react'
-import GitHub from 'github-api'
-import { auth, repo } from '../../keys/api'
+//import { auth, repo } from '../../keys/api'
 
 const withStore = WrappedComponent => {
   class CPToolHOC extends React.Component {
@@ -14,9 +13,7 @@ const withStore = WrappedComponent => {
       }
     }
 
-    componentDidMount() {
-
-    }
+    componentDidMount() {}
 
     updateContentData = contentData => {
       this.setState({ contentData })
