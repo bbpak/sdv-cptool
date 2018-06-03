@@ -6,14 +6,51 @@ import Templates from './components/tabs/Templates'
 import Exporter from './components/tabs/Exporter'
 import Image from './components/tabs/Image'
 import About from './components/tabs/About'
+import axios from 'axios'
+import marked from 'marked'
+import { auth, repo } from './keys/api'
+import _ from 'lodash'
 import './App.css'
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {docsHtml: null}
+  }
+  
+  componentDidMount() {
+    const docsUrl = "https://github.com/Pathoschild/StardewMods/raw/develop/ContentPatcher"
+    axios
+      .get(repo.DOCS_URL, {
+        token: auth.TOKEN,
+        headers: { accept: 'application/vnd.github.v3.raw' }
+      })
+      .then(response => {
+        const html = `
+          <!DOCTYPE html>
+            <html lang="en">
+            <head>
+              <link rel="stylesheet" type="text/css" href="./github-md.css"></link>
+            </head>
+            <body>
+              <article class="markdown-body entry-content" itemprop="text">
+                ${marked(response.data)}
+                <small>
+                  Sourced from <a href=${docsUrl} target="_blank" >${docsUrl}</a>
+                </small>
+              </article>
+            </body>
+            </html>
+          `
+        this.setState({docsHtml: html})
+      })
+  }
+  
   render() {
     const tabs = [
       {
         label: 'Docs',
-        content: <Docs />
+        content: <Docs html={this.state.docsHtml}/>
       },
       {
         label: 'Templates',
