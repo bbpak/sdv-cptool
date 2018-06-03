@@ -5,6 +5,11 @@ import { auth, repo } from '../../keys/api'
 import _ from 'lodash'
 
 export default class Docs extends Component {
+  constructor() {
+    super()
+    this.baseUrl = "https://github.com/Pathoschild/StardewMods/raw/develop/ContentPatcher"
+  }
+
   componentDidMount() {
     axios
       .get(repo.DOCS_URL, {
@@ -25,7 +30,7 @@ export default class Docs extends Component {
               <article class="markdown-body entry-content" itemprop="text">
                 ${marked(response.data)}
                 <small>
-                  Sourced from <a href="https://github.com/Pathoschild/StardewMods/blob/develop/ContentPatcher" target="_blank" >https://github.com/Pathoschild/StardewMods/tree/develop/ContentPatcher</a>
+                  Sourced from <a href=${this.baseUrl} target="_blank" >${this.baseUrl}</a>
                 </small>
               </article>
             </body>
@@ -51,10 +56,9 @@ export default class Docs extends Component {
     })
 
     const images = iframeDoc.getElementsByTagName('img')
-    const baseImgUrl = 'https://github.com/Pathoschild/StardewMods/raw/develop/ContentPatcher/docs'
     // Correct image links
     _.map(images, img => {
-      img.src = `${baseImgUrl}${img.src.split('/docs').pop()}`
+      img.src = `${this.baseUrl}/docs${img.src.split('/docs').pop()}`
     })
   }
 
