@@ -1,36 +1,25 @@
 import React, { Component } from 'react'
-import GitHub from 'github-api'
-import axios from 'axios'
-import marked from 'marked'
-import { auth, repo } from '../../keys/api'
-import '../styles/docs.css'
+import _ from 'lodash'
 
-// Literally copied the html of the README from
-// Pathoschild's github and displaying it in an iframe
-// Tried to fetch it from URL but github was like no
-export default class Docs extends Component {
-  state = { html: null, hidden: true }
+// Hardcoded HTML from Pathoschild's GitHub README
+// Previous trials with fetching markdown with github API
+// and parsing it into HTML and setting innerHTML 
+// or setting srcDoc with an iframe does not look
+// as clean this method.. So I'm willing to sacrifice
+// lack of maintainability for aesthetics
+const Docs = () => (
+  <div className="docs">
+    <iframe
+      id="docs"
+      title="docs"
+      src="./docs.html"
+      frameBorder="0"
+      width="100%"
+      height="100%"
+    />
+  </div>
+)
+  
 
-  componentDidMount() {
-    const gh = axios.create({
-      baseURL: 'https://api.github.com',
-      token: auth.TOKEN,
-      headers: {'accept': 'application/vnd.github.v3.raw'}
-    });
-    gh.get(repo.DOCS_URL).then(response => {
-      this.setState({html: {__html: marked(response.data)}})
-    })
-  }
 
-  handleLabelClick = () => {
-    this.setState({ hidden: !this.state.hidden })
-  }
-
-  render() {
-    return (
-      <div className="docs">
-        <div className="docs-html" dangerouslySetInnerHTML={this.state.html}/>
-      </div>
-    )
-  }
-}
+export default Docs
