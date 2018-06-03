@@ -24,6 +24,9 @@ export default class Docs extends Component {
             <body>
               <article class="markdown-body entry-content" itemprop="text">
                 ${marked(response.data)}
+                <small>
+                  Sourced from <a href="https://github.com/Pathoschild/StardewMods/blob/develop/ContentPatcher" target="_blank" >https://github.com/Pathoschild/StardewMods/tree/develop/ContentPatcher</a>
+                </small>
               </article>
             </body>
             </html>
@@ -39,31 +42,30 @@ export default class Docs extends Component {
   // Patch the html to handle links and anchors
   // that don't do well in the iframe
   patchHtml = () => {
-    console.log('hi')
     const iframe = document.getElementById('docs')
     const iframeDoc = iframe.contentDocument || iframe.contentWindow.document
     const anchors = iframeDoc.getElementsByTagName('a')
-    const headers = iframeDoc.getElementsByTagName('h3')
     _.map(anchors, anchor => {
       // Open external sites in new tab
       if (!anchor.href.includes('#')) anchor.target = '_blank'
     })
-    // Use name instead of anchor hashtag to prevent page scroll
-    _.map(headers, header => {
-      header.innerHTML = `<a name=${header.id}>${header.innerHTML}</a>`
+
+    const images = iframeDoc.getElementsByTagName('img')
+    const baseImgUrl = 'https://github.com/Pathoschild/StardewMods/raw/develop/ContentPatcher/docs'
+    // Correct image links
+    _.map(images, img => {
+      img.src = `${baseImgUrl}${img.src.split('/docs').pop()}`
     })
   }
 
   render() {
-    window ? (window.scrollTop = 0) : null
-
     return (
       <div className="docs">
         <iframe
           id="docs"
           title="docs"
           frameBorder="0"
-          width="100%"
+          width="50%"
           height="100%"
         />
       </div>

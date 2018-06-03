@@ -49,6 +49,7 @@
 }
 
 iframe {
+  position: fixed;
   border-radius: 5px;
   height: 94vh;
 }
