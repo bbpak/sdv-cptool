@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import axios from 'axios'
+import marked from 'marked'
+import _ from 'lodash'
+
 import ContentEditor from './components/ContentEditor'
 import Sidebar from './components/Sidebar'
 import Docs from './components/tabs/Docs'
@@ -6,10 +10,8 @@ import Templates from './components/tabs/Templates'
 import Exporter from './components/tabs/Exporter'
 import Image from './components/tabs/Image'
 import About from './components/tabs/About'
-import axios from 'axios'
-import marked from 'marked'
-import { auth, repo } from './keys/api'
-import _ from 'lodash'
+import { DOCS_MD_URL, DOCS_BASE_URL } from './constants'
+import { auth } from './keys/api'
 import './App.css'
 
 class App extends Component {
@@ -19,9 +21,8 @@ class App extends Component {
   }
   
   componentDidMount() {
-    const docsUrl = "https://github.com/Pathoschild/StardewMods/raw/develop/ContentPatcher"
     axios
-      .get(repo.DOCS_URL, {
+      .get(DOCS_MD_URL, {
         token: auth.TOKEN,
         headers: { accept: 'application/vnd.github.v3.raw' }
       })
@@ -36,7 +37,7 @@ class App extends Component {
               <article class="markdown-body entry-content" itemprop="text">
                 ${marked(response.data)}
                 <small>
-                  Sourced from <a href=${docsUrl} target="_blank" >${docsUrl}</a>
+                  Sourced from <a href=${DOCS_BASE_URL} target="_blank" >${DOCS_BASE_URL}</a>
                 </small>
               </article>
             </body>
