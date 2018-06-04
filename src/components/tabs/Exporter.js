@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import FieldBlock from '../form/FieldBlock'
-import withStore from '../hocs/withStore'
+import { defaultManifest } from '../../data/dataConstants'
 import '../styles/Forms.css'
 
-class Exporter extends Component {
+export default class Exporter extends Component {
   handleExportData = () => {
     const data = _.omitBy(
-      this.data,
+      this.props.contentData,
       _.isNull || _.isUndefined || _.isEmpty
     )
 
@@ -31,20 +31,7 @@ class Exporter extends Component {
   }
 
   render() {
-    const manifestData = {
-      Name: '',
-      Author: '',
-      Version: '1.0.0',
-      Description: '',
-      UniqueID: '',
-      MinimumApiVersion: '2.0',
-      UpdateKeys: [],
-      ContentPackFor: {
-        UniqueID: 'Pathoschild.ContentPatcher',
-        MinimumVersion: '1.3.0'
-      }
-    }
-
+    console.log(this.props.contentData)
     return (
       <div className="panel exporter">
         <pre className="header disabled">Manifest</pre>
@@ -52,7 +39,7 @@ class Exporter extends Component {
           <FieldBlock
             className="disabled"
             style={{ border: 'none', margin: 0 }}
-            blockData={manifestData}
+            blockData={defaultManifest}
           />
         </div>
         <br />
@@ -93,6 +80,3 @@ class Exporter extends Component {
     )
   }
 }
-
-const WrappedComponent = withStore(Exporter)
-export default WrappedComponent

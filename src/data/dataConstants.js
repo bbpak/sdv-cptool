@@ -114,3 +114,17 @@ export const optionalFields = [
   'Fields',
   'Entries'
 ]
+
+export const defaultManifest = {
+  Name: '',
+  Author: '',
+  Version: '1.0.0',
+  Description: '',
+  UniqueID: '',
+  MinimumApiVersion: '2.0',
+  UpdateKeys: [],
+  ContentPackFor: {
+    UniqueID: 'Pathoschild.ContentPatcher',
+    MinimumVersion: '1.3.0'
+  }
+}

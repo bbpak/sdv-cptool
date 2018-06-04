@@ -18,9 +18,9 @@
 .button {
   cursor: pointer;
   text-align: center;
-  width: 11em;
+  width: 12em;
   margin: 0.5em 0.5em 0.5em 0;
-  padding: 5px;
+  padding: 5px 8px 5px 5px;
   background-color: #555;
   border: 1px solid #333;
   border-radius: 5px;
