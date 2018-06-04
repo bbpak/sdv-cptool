@@ -25,7 +25,9 @@ export default class Sidebar extends Component {
               <div
                 key={i}
                 className={`tab ${tab.disabled && 'disabled'}`}
-                onClick={() => {!tab.disabled && this.handleTabClick(i)}}
+                onClick={() => {
+                  !tab.disabled && this.handleTabClick(i)
+                }}
               >
                 {tab.label}
               </div>
@@ -37,11 +39,14 @@ export default class Sidebar extends Component {
             onClick={() => this.handleTabClick(activeTabIndex)}
           >
             {tabs[activeTabIndex].label}
-            {activeTabIndex !== null && 
-              <i style={{ verticalAlign: 'middle', float: 'right' }} className="material-icons">
+            {activeTabIndex !== null && (
+              <i
+                style={{ verticalAlign: 'middle', float: 'right' }}
+                className="material-icons"
+              >
                 {'reply'}
               </i>
-            }
+            )}
           </div>
         )}
       </div>
@@ -58,11 +63,7 @@ export default class Sidebar extends Component {
         style={activeTabIndex == null ? { flex: 0 } : { flex: '0 1 50%' }}
       >
         {this.renderTabs(tabs)}
-        {activeTabIndex !== null &&
-
-            tabs[activeTabIndex].content
-  
-          }
+        {activeTabIndex !== null && tabs[activeTabIndex].content}
       </div>
     )
   }

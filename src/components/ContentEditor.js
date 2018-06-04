@@ -9,7 +9,6 @@ import DataParser from '../data/DataParser'
 import { defaultData, getDefaultsForAction } from '../data/dataConstants'
 import withStore from './hocs/withStore'
 import './styles/Editor.css'
-import './styles/Forms.css'
 
 class ContentEditor extends Component {
   constructor() {
@@ -41,12 +40,14 @@ class ContentEditor extends Component {
   }
 
   handleFilesDrop = filesData => {
-    const { contentData } = this.props
+    const { contentData, updateContentData } = this.props
     let data = contentData ? contentData : defaultData
+
     _.map(filesData, file => {
       data.Changes.push(DataParser.getDataForFile(file))
     })
-    this.props.updateContentData(data)
+
+    updateContentData(data)
     this.setState({ hasProcessedFiles: true })
   }
 
@@ -54,6 +55,7 @@ class ContentEditor extends Component {
   handleBlockDataChange = (blockData, i) => {
     const { contentData, updateContentData } = this.props
     let newData = contentData
+
     if (blockData) newData.Changes[i] = blockData
     else newData.Changes.splice(i, 1)
 
@@ -63,8 +65,6 @@ class ContentEditor extends Component {
   handleAddBlock = () => {
     const { contentData, updateContentData } = this.props
     let newData = contentData
-
-    // Use EditImage by default
     const newBlock = getDefaultsForAction('EditImage')
 
     newData.Changes.push(newBlock)

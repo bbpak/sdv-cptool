@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import FieldBlock from '../form/FieldBlock'
 import { defaultManifest } from '../../data/dataConstants'
+import withStore from '../hocs/withStore'
 import '../styles/Forms.css'
 
-export default class Exporter extends Component {
+class Exporter extends Component {
   handleExportData = () => {
     const data = _.omitBy(
       this.props.contentData,
@@ -31,7 +32,6 @@ export default class Exporter extends Component {
   }
 
   render() {
-    console.log(this.props.contentData)
     return (
       <div className="panel exporter">
         <pre className="header disabled">Manifest</pre>
@@ -80,3 +80,6 @@ export default class Exporter extends Component {
     )
   }
 }
+
+const WrappedComponent = withStore(Exporter)
+export default WrappedComponent

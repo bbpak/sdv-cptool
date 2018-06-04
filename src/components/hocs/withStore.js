@@ -5,21 +5,19 @@ const withStore = WrappedComponent => {
   class CPToolHOC extends React.Component {
     constructor(props) {
       super(props)
-      this.state = {
-        manifestData: null,
-        configData: null,
-        contentData: null,
-        contentFiles: null
-      }
+      this.state = {}
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+      console.log('sup')
+    }
 
     updateContentData = contentData => {
       this.setState({ contentData })
     }
 
     render() {
+      console.log(this.state.contentData)
       return (
         <WrappedComponent
           contentData={this.state.contentData}
