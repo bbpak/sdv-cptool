@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import marked from 'marked'
-import _ from 'lodash'
 
 import ContentEditor from './components/ContentEditor'
 import Sidebar from './components/Sidebar'
@@ -17,10 +16,15 @@ import './App.css'
 class App extends Component {
   constructor() {
     super()
-    this.state = {docsHtml: null}
+    this.state = { docsHtml: null }
   }
-  
+
   componentDidMount() {
+    this.getDocs()
+  }
+
+  // Fetch docs from GitHub
+  getDocs = () => {
     axios
       .get(DOCS_MD_URL, {
         token: auth.TOKEN,
@@ -43,15 +47,15 @@ class App extends Component {
             </body>
             </html>
           `
-        this.setState({docsHtml: html})
+        this.setState({ docsHtml: html })
       })
   }
-  
+
   render() {
     const tabs = [
       {
         label: 'Docs',
-        content: <Docs html={this.state.docsHtml}/>
+        content: <Docs html={this.state.docsHtml} />
       },
       {
         label: 'Templates',

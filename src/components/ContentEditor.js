@@ -117,13 +117,13 @@ class ContentEditor extends Component {
   }
 
   render() {
-    const {hasProcessedFiles} = this.state
+    const { hasProcessedFiles } = this.state
 
     return (
       <div className="editor">
         <div className="content-form">
-        <DropBox onDrop={this.handleFilesDrop} isHidden={hasProcessedFiles} />
-        {hasProcessedFiles && this.renderForm()}
+          <DropBox onDrop={this.handleFilesDrop} isHidden={hasProcessedFiles} />
+          {hasProcessedFiles && this.renderForm()}
         </div>
       </div>
     )

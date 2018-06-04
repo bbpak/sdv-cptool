@@ -8,6 +8,10 @@ export default class FormField extends Component {
     }
   }
 
+  static getDerivedStateFromProps(props, state) {
+    return { value: props.value }
+  }
+
   handleInputChange = e => {
     const { field, value, handleValueChange } = this.props
     let newValue
