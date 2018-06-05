@@ -10,8 +10,6 @@ export default class DropBox extends Component {
     this.filesData = []
   }
 
-  componentWillUnmount() {}
-
   handleFileUpload = () => {
     const fileSelector = document.getElementById('upload')
     fileSelector.setAttribute('webkitdirectory', 'webkitdirectory')
@@ -103,7 +101,6 @@ export default class DropBox extends Component {
       this.props.onDrop(this.filesData)
     })
 
-
     // Pass event to removeDragData for cleanup
     this.removeDragData(e)
   }
@@ -118,34 +115,55 @@ export default class DropBox extends Component {
 
     return (
       <div className="dropbox">
-      {!isHidden &&
-      <i
-        title="close dropbox"
-        style={{position: 'absolute', top: '0.25em', right: '0.25em', cursor: 'pointer'}}
-        className="material-icons remove"
-        onClick={this.handleHideDropbox}
-      >
-        {'cancel'}
-      </i>
-      }
-      <div
-        className="drop-outline"
-        style={isHidden ? {border: 'none', background: 'none', cursor: 'default'} : {}}
-        onClick={() => {!isHidden && this.handleFileUpload()}}
-        onDrop={this.handleFileDrop}
-        onDragOver={this.handleDragOver}
-        onDragLeave={this.handleDragLeave}
-      >
-        {isLoading && <Loader messages={["Scanning files...", "Dispatching junimos...", "Loading editor..."]} />}
-        {!isHidden && <input
+        {!isHidden && (
+          <i
+            title="close dropbox"
+            style={{
+              position: 'absolute',
+              top: '0.25em',
+              right: '0.25em',
+              cursor: 'pointer'
+            }}
+            className="material-icons remove"
+            onClick={this.handleHideDropbox}
+          >
+            {'cancel'}
+          </i>
+        )}
+        <div
+          className="drop-outline"
+          style={
+            isHidden
+              ? { border: 'none', background: 'none', cursor: 'default' }
+              : {}
+          }
+          onClick={() => {
+            !isHidden && this.handleFileUpload()
+          }}
+          onDrop={this.handleFileDrop}
+          onDragOver={this.handleDragOver}
+          onDragLeave={this.handleDragLeave}
+        >
+          {isLoading && (
+            <Loader
+              messages={[
+                'Scanning files...',
+                'Dispatching junimos...',
+                'Loading editor...'
+              ]}
+            />
+          )}
+          {/*
+          !isHidden && <input
           id="upload"
           type="file"
           style={{ display: 'none' }}
           onChange={this.handleFileDrop}
           onClick={this.handleFileUpload}
           multiple
-        />}
-      </div>
+        />
+        */}
+        </div>
       </div>
     )
   }

@@ -11,10 +11,10 @@
 .dropbox {
   position: absolute;
   box-sizing: border-box;
-  top:0;
-  right:0;
-  left:0;
-  bottom:0;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   padding: 1.5em;
 }
 
@@ -23,14 +23,14 @@
   height: 100%;
   width: 100%;
   border: 0.5em dashed #555555;
-  background-image: url('../../assets/shippingbin_closed.png');
+  background-image: url('../../static/shippingbin_closed.png');
   background-repeat: no-repeat;
   background-position: center center;
 }
 
 .drop-outline:hover {
   cursor: pointer;
-  background-image: url('../../assets/shippingbin_open.png');
+  background-image: url('../../static/shippingbin_open.png');
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -38,7 +38,7 @@
 .drop-outline-dragover {
   background-color: #262627;
   border: 0.5em dashed #606060;
-  background-image: url('../../assets/shippingbin_open.png');
+  background-image: url('../../static/shippingbin_open.png');
   background-repeat: no-repeat;
   background-position: center center;
   z-index: 20;
@@ -54,7 +54,7 @@
   image-rendering: auto;
   image-rendering: crisp-edges;
   image-rendering: pixelated;
-  background-image: url('../../assets/junimo.gif');
+  background-image: url('../../static/junimo.gif');
   background-repeat: no-repeat;
   background-size: 10%;
   background-position: center;

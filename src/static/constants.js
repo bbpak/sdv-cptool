@@ -11,9 +11,6 @@ export const getDocsHtml = (markdown, baseUrl) => {
   return `
   <!DOCTYPE html>
     <html lang="en">
-    <head>
-      <link rel="stylesheet" type="text/css" href="./github-md.css"></link>
-    </head>
     <body>
       <article class="markdown-body entry-content" itemprop="text">
         ${markdown}
@@ -31,4 +28,4 @@ export const GAME_REF =
 
 // These are mostly static, maybe use CDN?
 export const GAME_CONTENT =
-  'https://api.github.com/repos/Pathoschild/StardewValley/trees'
+  'https://api.github.com/repos/Pathoschild/StardewValley/git/trees'

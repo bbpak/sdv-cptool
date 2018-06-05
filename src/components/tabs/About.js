@@ -23,6 +23,7 @@ const About = () => (
         <li>Add more stuff to this side panel</li>
         <li>Add a light theme</li>
         <li>Add dark overlay to the light theme so it's dark anyway</li>
+        <li>Make desktop Electron app</li>
       </ul>
     </div>
     <p>

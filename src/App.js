@@ -18,7 +18,7 @@ import {
   getDocsHtml,
   GAME_CONTENT,
   GAME_REF
-} from './constants'
+} from './static/constants'
 import { auth } from './keys/api'
 import './App.css'
 
@@ -42,7 +42,7 @@ class App extends Component {
     const config = {
       headers: {
         Authorization: `token ${auth.PAT}`,
-        Accept: 'application/vnd.github.v3.raw'
+        Accept: 'application/vnd.github.v3+raw'
       }
     }
 
@@ -52,7 +52,9 @@ class App extends Component {
     })
   }
 
-  // Fetch docs from repo
+  _updateGists = () => {}
+
+  // Fetch docs from gist
   _getDocs = () => {
     axios
       .get(DOCS_MD_URL, {
@@ -68,7 +70,7 @@ class App extends Component {
       })
   }
 
-  // Fetch content files data from repo
+  // Fetch content files data from gist
   _getGameFilesData = (contentSha, config) => {
     axios
       .get(`${GAME_CONTENT}/${contentSha}?recursive=1`, config)
