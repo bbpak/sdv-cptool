@@ -4,6 +4,10 @@
   width: auto;
   height: 100vh;
   background-color: #3f3f46 !important;
+  border-left: 2px solid #36363b;
+  -moz-box-shadow:    3px 3px 5px 8px #222;
+  -webkit-box-shadow: 3px 3px 5px 8px #222;
+  box-shadow:         3px 3px 5px 8px #222;
 }
 
 .panel {
