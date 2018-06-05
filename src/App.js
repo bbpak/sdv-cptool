@@ -13,7 +13,6 @@ import About from './components/tabs/About'
 import {
   DOCS_MD_URL,
   DOCS_BASE_URL,
-  DOCS_REF,
   getDocsHtml,
   GAME_CONTENT,
   GAME_REF
@@ -28,31 +27,24 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const headers = {
+    const config = {
       headers: {
-        Authorization: `token ${auth.TOKEN}`,
+        Authorization: `token ${auth.PAT}`,
         Accept: 'application/vnd.github.v3.raw'
       }
     }
 
-    _.debounce(() => {
-      axios.get(DOCS_REF, headers).then(response => {
-        this._getDocs(response.data.object.sha)
-      })
-    }, 15000)
-
-    _.debounce(() => {
-      axios.get(GAME_REF, headers).then(response => {
-        this._getGameContentData(response.data.object.sha)
-      })
-    }, 15000)
+    this._getDocs()
+    axios.get(GAME_REF, config).then(response => {
+      this._getGameContentData(response.data.object.sha, config)
+    })
   }
 
   // Fetch docs from repo
   _getDocs = () => {
     axios
       .get(DOCS_MD_URL, {
-        headers: { Accept: 'application/vnd.github.v3.raw' }
+        Accept: 'application/vnd.github.v3.raw'
       })
       .then(response => {
         // Html for iframe
@@ -65,9 +57,9 @@ class App extends Component {
   }
 
   // Fetch content files data from repo
-  _getGameContentData = (contentSha, headers) => {
+  _getGameContentData = (contentSha, config) => {
     axios
-      .get(`${GAME_CONTENT}/${contentSha}?recursive=1`, headers)
+      .get(`${GAME_CONTENT}/${contentSha}?recursive=1`, config)
       .then(response => {
         const gameContentData = _.filter(response.data.tree, o => {
           return _.startsWith(o.path, 'Content/')
