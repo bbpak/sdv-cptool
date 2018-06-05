@@ -7,10 +7,9 @@ import FieldBlock from './form/FieldBlock'
 import FormField from './form/FormField'
 import DataParser from '../data/DataParser'
 import { defaultData, getDefaultsForAction } from '../data/dataConstants'
-import withStore from './hocs/withStore'
 import './styles/Editor.css'
 
-class ContentEditor extends Component {
+export default class ContentEditor extends Component {
   constructor() {
     super()
     this.state = {
@@ -129,6 +128,3 @@ class ContentEditor extends Component {
     )
   }
 }
-
-const WrappedComponent = withStore(ContentEditor)
-export default WrappedComponent

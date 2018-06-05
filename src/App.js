@@ -10,6 +10,8 @@ import Templates from './components/tabs/Templates'
 import Exporter from './components/tabs/Exporter'
 import Image from './components/tabs/Image'
 import About from './components/tabs/About'
+import { ContentDataContext } from './data/DataContext'
+
 import {
   DOCS_MD_URL,
   DOCS_BASE_URL,
@@ -23,7 +25,17 @@ import './App.css'
 class App extends Component {
   constructor() {
     super()
-    this.state = { docsHtml: null, gameContentData: null }
+
+    this.updateContentData = contentData => {
+      this.setState({ contentData })
+    }
+
+    this.state = {
+      docsHtml: null,
+      gameFilesData: null,
+      contentData: null,
+      updateContentData: this.updateContentData
+    }
   }
 
   componentDidMount() {
@@ -36,7 +48,7 @@ class App extends Component {
 
     this._getDocs()
     axios.get(GAME_REF, config).then(response => {
-      this._getGameContentData(response.data.object.sha, config)
+      this._getGameFilesData(response.data.object.sha, config)
     })
   }
 
@@ -57,14 +69,14 @@ class App extends Component {
   }
 
   // Fetch content files data from repo
-  _getGameContentData = (contentSha, config) => {
+  _getGameFilesData = (contentSha, config) => {
     axios
       .get(`${GAME_CONTENT}/${contentSha}?recursive=1`, config)
       .then(response => {
-        const gameContentData = _.filter(response.data.tree, o => {
+        const gameFilesData = _.filter(response.data.tree, o => {
           return _.startsWith(o.path, 'Content/')
         })
-        this.setState({ gameContentData })
+        this.setState({ gameFilesData })
       })
       .catch(err => {
         console.log(`Unable to fetch game content; ${err.message}`)
@@ -72,27 +84,41 @@ class App extends Component {
   }
 
   render() {
-    const { docsHtml, gameContentData } = this.state
+    const {
+      docsHtml,
+      gameFilesData,
+      contentData,
+      updateContentData
+    } = this.state
 
     const tabs = [
       {
         label: 'Docs',
         content: <Docs html={docsHtml} />,
-        disable: !docsHtml
+        disabled: !docsHtml
       },
       {
         label: 'Templates',
         content: <Templates />,
-        disabled: !gameContentData || true
+        disabled: !gameFilesData || true
       },
       {
         label: 'Image',
         content: <Image />,
-        disabled: !gameContentData || true
+        disabled: !gameFilesData || true
       },
       {
         label: 'Export',
-        content: <Exporter />
+        content: (
+          <ContentDataContext.Consumer>
+            {() => (
+              <Exporter
+                contentData={contentData}
+                updateContentData={updateContentData}
+              />
+            )}
+          </ContentDataContext.Consumer>
+        )
       },
       {
         label: 'About',
@@ -102,8 +128,17 @@ class App extends Component {
 
     return (
       <div className="app">
-        <ContentEditor />
-        <Sidebar tabs={tabs} />
+        <ContentDataContext.Provider value={{ contentData, updateContentData }}>
+          <ContentDataContext.Consumer>
+            {() => (
+              <ContentEditor
+                contentData={contentData}
+                updateContentData={updateContentData}
+              />
+            )}
+          </ContentDataContext.Consumer>
+          <Sidebar tabs={tabs} />
+        </ContentDataContext.Provider>
       </div>
     )
   }

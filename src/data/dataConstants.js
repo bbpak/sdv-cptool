@@ -1,8 +1,6 @@
 import _ from 'lodash'
 
-// Hardcoded stuff because
-// 1. Dictionary look-ups are fast
-// 2. Content is unlikely to change
+// TODO: Parse most of this from the repo instead of hardcoding
 
 // Guess the filetype when .xnb files are provided
 // Old .xnb mods will most likely provide a 'Content'
