@@ -10,8 +10,15 @@ import Templates from './components/tabs/Templates'
 import Exporter from './components/tabs/Exporter'
 import Image from './components/tabs/Image'
 import About from './components/tabs/About'
-import { DOCS_MD_URL, DOCS_BASE_URL, DOCS_REF, getDocsHtml } from './constants'
-import { auth, GAME_CONTENT, GAME_REF } from './keys/api'
+import {
+  DOCS_MD_URL,
+  DOCS_BASE_URL,
+  DOCS_REF,
+  getDocsHtml,
+  GAME_CONTENT,
+  GAME_REF
+} from './constants'
+import { auth } from './keys/api'
 import './App.css'
 
 class App extends Component {
@@ -21,56 +28,28 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this._getUpdates()
-      .then(() => {
-        const { docsHtml, gameContentData } = localStorage
-        this.setState({
-          docsHtml,
-          gameContentData: JSON.parse(gameContentData)
-        })
-      })
-      .catch(err => {
-        console.log(
-          `Unable to fetch updates for Docs & Game Content; ${err.message}`
-        )
-      })
-  }
-
-  _getUpdates = () => {
-    return new Promise((resolve, reject) => {
-      const headers = {
-        headers: {
-          Authorization: `token ${auth.TOKEN}`,
-          Accept: 'application/vnd.github.v3.raw'
-        }
+    const headers = {
+      headers: {
+        Authorization: `token ${auth.TOKEN}`,
+        Accept: 'application/vnd.github.v3.raw'
       }
-      let newDocsSha
-      let newContentSha
+    }
 
-      // Check repos for updates
+    _.debounce(() => {
       axios.get(DOCS_REF, headers).then(response => {
-        newDocsSha = response.data.object.sha
+        this._getDocs(response.data.object.sha)
       })
+    }, 15000)
 
+    _.debounce(() => {
       axios.get(GAME_REF, headers).then(response => {
-        newContentSha = response.data.object.sha
+        this._getGameContentData(response.data.object.sha)
       })
-
-      if (
-        !localStorage.getItem('docsSha') ||
-        !localStorage.getItem('docsSha') !== newDocsSha
-      )
-        resolve(this._getDocs(headers))
-      if (
-        !localStorage.getItem('contentSha') ||
-        !localStorage.getItem('contentSha') !== newContentSha
-      )
-        resolve(this._getGameContentData(newContentSha, headers))
-    })
+    }, 15000)
   }
 
   // Fetch docs from repo
-  _getDocs = headers => {
+  _getDocs = () => {
     axios
       .get(DOCS_MD_URL, {
         headers: { Accept: 'application/vnd.github.v3.raw' }
@@ -78,22 +57,22 @@ class App extends Component {
       .then(response => {
         // Html for iframe
         const docsHtml = getDocsHtml(marked(response.data), DOCS_BASE_URL)
-        localStorage.setItem('docsHtml', docsHtml)
+        this.setState({ docsHtml })
       })
       .catch(err => {
         console.log(`Unable to fetch docs; ${err.message}`)
       })
   }
 
-  // Fetch content data from repo
-  _getGameContentData = (newContentSha, headers) => {
+  // Fetch content files data from repo
+  _getGameContentData = (contentSha, headers) => {
     axios
-      .get(`${GAME_CONTENT}/${newContentSha}?recursive=1`, headers)
+      .get(`${GAME_CONTENT}/${contentSha}?recursive=1`, headers)
       .then(response => {
         const gameContentData = _.filter(response.data.tree, o => {
           return _.startsWith(o.path, 'Content/')
         })
-        localStorage.setItem('gameContentData', JSON.stringify(gameContentData))
+        this.setState({ gameContentData })
       })
       .catch(err => {
         console.log(`Unable to fetch game content; ${err.message}`)
