@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import axios from 'axios'
-import { auth } from '../../keys/api'
 import { CONTENT_RAW_SRC } from '../../static/constants'
 import DataParser from '../../data/DataParser'
 
@@ -39,7 +38,7 @@ export default class Image extends Component {
       ) {
         const config = {
           headers: {
-            Authorization: `token ${auth.PAT}`,
+            Authorization: `token ${process.env.PAT}`,
             Accept: 'application/vnd.github.v3+json'
           }
         }

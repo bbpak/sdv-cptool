@@ -13,7 +13,13 @@ import { auth } from '../keys/api'
 
 const config = {
   headers: {
-    Authorization: `token ${auth.PAT}`,
+    Accept: 'application/vnd.github.v3.raw'
+  }
+}
+
+const authConfig = {
+  headers: {
+    Authorization: `token ${process.env.PAT}`,
     Accept: 'application/vnd.github.v3.raw'
   }
 }
@@ -81,7 +87,7 @@ export const updateGists = () => {
 // Fetch docs from repo source
 const getDocsSource = () => {
   axios
-    .get(DOCS_MD_SRC, config)
+    .get(DOCS_MD_SRC, authConfig)
     .then(response => {
       // Html for iframe
       const docsHtml = getDocsHtml(marked(response.data))
@@ -95,7 +101,7 @@ const getDocsSource = () => {
 // Fetch content files data from repo source
 const getContentTreesSource = (contentSha, config) => {
   axios
-    .get(`${CONTENT_TREES_SRC}/${contentSha}?recursive=1`, config)
+    .get(`${CONTENT_TREES_SRC}/${contentSha}?recursive=1`, authConfig)
     .then(response => {
       const contentTrees = _.filter(response.data.tree, o => {
         return _.startsWith(o.path, 'Content/')
