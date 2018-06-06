@@ -38,7 +38,7 @@ export default class Image extends Component {
       ) {
         const config = {
           headers: {
-            Authorization: `token ${process.env.PAT}`,
+            Authorization: `token ${process.env.REACT_APP_PAT}`,
             Accept: 'application/vnd.github.v3+json'
           }
         }

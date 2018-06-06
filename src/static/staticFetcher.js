@@ -18,7 +18,7 @@ const config = {
 
 const authConfig = {
   headers: {
-    Authorization: `token ${process.env.PAT}`,
+    Authorization: `token ${process.env.REACT_APP_PAT}`,
     Accept: 'application/vnd.github.v3.raw'
   }
 }
