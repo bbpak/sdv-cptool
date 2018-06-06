@@ -1,10 +1,12 @@
-export const DOCS_MD_URL =
+export const STATIC_REF = 'https://api.github.com/users/Bouhm/gists'
+
+export const DOCS_MD_SRC =
   'https://raw.githubusercontent.com/Pathoschild/StardewMods/develop/ContentPatcher/README.md'
 
-export const DOCS_BASE_URL =
+export const DOCS_SRC_BASE =
   'https://github.com/Pathoschild/StardewMods/raw/develop/ContentPatcher'
 
-export const DOCS_REF =
+export const DOCS_SRC_REF =
   'https://api.github.com/repos/Pathoschild/StardewMods/git/refs/heads/develop'
 
 export const getDocsHtml = (markdown, baseUrl) => {
@@ -23,9 +25,8 @@ export const getDocsHtml = (markdown, baseUrl) => {
   `
 }
 
-export const GAME_REF =
+export const CONTENT_TREES_SRC_REF =
   'https://api.github.com/repos/Pathoschild/StardewValley/git/refs/heads/fixed'
 
-// These are mostly static, maybe use CDN?
-export const GAME_CONTENT =
+export const CONTENT_TREES_SRC =
   'https://api.github.com/repos/Pathoschild/StardewValley/git/trees'

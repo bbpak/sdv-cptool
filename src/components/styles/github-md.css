@@ -710,10 +710,10 @@ body {
   padding: 0 1em 1em 1em;
 }
 
-table,
-tr,
-td,
-pre {
+.markdown-body table,
+.markdown-body tr,
+.markdown-body td,
+.markdown-body pre {
   background-color: #282828 !important;
 }
 

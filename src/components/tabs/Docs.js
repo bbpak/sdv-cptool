@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
-import { DOCS_BASE_URL } from '../../static/constants'
+import { DOCS_SRC_BASE } from '../../static/constants'
 import '../styles/github-md.css'
 
 export default class Docs extends Component {
@@ -20,7 +20,7 @@ export default class Docs extends Component {
     const images = docs.getElementsByTagName('img')
     // Correct image links
     _.map(images, img => {
-      img.src = `${DOCS_BASE_URL}/docs${img.src.split('/docs').pop()}`
+      img.src = `${DOCS_SRC_BASE}/docs${img.src.split('/docs').pop()}`
     })
   }
 
