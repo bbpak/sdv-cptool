@@ -7,5 +7,6 @@ const defaultContentData = {
 }
 export const ContentDataContext = React.createContext({
   contentData: defaultContentData,
-  updateContentData: () => {}
+  updateContentData: () => {},
+  getFocusedField: () => {}
 })

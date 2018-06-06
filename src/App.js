@@ -19,15 +19,29 @@ class App extends Component {
       this.setState({ contentData })
     }
 
+    this.getFocusedField = () => {
+      const focusedField =
+        document.activeElement.lastChild || document.activeElement
+
+      if (focusedField && focusedField.getAttribute('name') === 'Target') {
+        this.setState({ targetPath: focusedField.getAttribute('value') })
+      } else {
+        this.setState({ targetPath: null })
+      }
+    }
+
     this.state = {
       docs: null,
       contentTrees: null,
       contentData: null,
-      updateContentData: this.updateContentData
+      updateContentData: this.updateContentData,
+      targetPath: '',
+      getFocusedField: this.getFocusedField
     }
   }
 
   componentDidMount() {
+    // Fetch docs html and game content trees
     getStaticContent().then(content => {
       this.setState({
         docs: content.docs,
@@ -37,7 +51,14 @@ class App extends Component {
   }
 
   render() {
-    const { docs, contentTrees, contentData, updateContentData } = this.state
+    const {
+      docs,
+      contentTrees,
+      contentData,
+      updateContentData,
+      targetPath,
+      getFocusedField
+    } = this.state
 
     const tabs = [
       {
@@ -52,8 +73,18 @@ class App extends Component {
       },
       {
         label: 'Image',
-        content: <Image />,
-        disabled: !contentTrees || true
+        content: (
+          <ContentDataContext.Consumer>
+            {() => (
+              <Image
+                contentTrees={contentTrees}
+                getFocusedField={getFocusedField}
+                targetPath={targetPath}
+              />
+            )}
+          </ContentDataContext.Consumer>
+        ),
+        disabled: !contentTrees
       },
       {
         label: 'Export',
@@ -76,7 +107,7 @@ class App extends Component {
 
     return (
       <div className="app">
-        <ContentDataContext.Provider value={{ contentData, updateContentData }}>
+        <ContentDataContext.Provider value={this.state}>
           <ContentDataContext.Consumer>
             {() => (
               <ContentEditor

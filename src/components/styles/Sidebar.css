@@ -59,3 +59,23 @@
   width: 50%;
   height: 95%;
 }
+
+.image {
+  text-align: center;
+  padding: 1em;
+  height: 95vh;
+  overflow: auto;
+}
+
+.image img {
+  max-width: 50%;
+  max-height: 50%;
+  border-radius: 3px;
+  -moz-transform: scale(2);
+  -webkit-transform: scale(2);
+  transform: scale(2);
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  background-color: white;
+}

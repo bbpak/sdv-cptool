@@ -131,6 +131,8 @@ const _removeKeys = (obj, keys) => {
             this.removeKeys(obj[prop], keys)
           }
           break
+        default:
+          break
       }
     }
   }

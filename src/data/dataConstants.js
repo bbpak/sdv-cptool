@@ -102,6 +102,38 @@ export const validFileTypes = ['xnb', 'tbin', 'png']
 
 export const defaultData = { Format: '1.3', ConfigSchema: null, Changes: [] }
 
+// Prechecks to avoid iterating the whole content tree ¯\_(ツ)_/¯
+export const validPaths = [
+  '',
+  'Animals/',
+  'Buildings/',
+  'Characters/Dialogue/',
+  'Characters/Farmer/',
+  'Characters/Monsters/',
+  'Characters/schedules/beforePathfinding/',
+  'Characters/schedules/newSchedules/',
+  'Characters/schedules/spring/',
+  'Characters/schedules/',
+  'Characters/',
+  'Data/Events/',
+  'Data/Festivals/',
+  'Data/TV/',
+  'Data/',
+  'Fonts/',
+  'LooseSprites/Lighting/',
+  'LooseSprites/',
+  'Maps/Mines/',
+  'Maps/',
+  'Minigames/',
+  'Portraits/',
+  'Strings/schedules/spring/',
+  'Strings/schedules/',
+  'Strings/',
+  'TerrainFeatures/',
+  'TileSheets/',
+  'mines/'
+]
+
 export const optionalFields = [
   'FromArea',
   'ToArea',

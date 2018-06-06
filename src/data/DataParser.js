@@ -1,4 +1,8 @@
-import { inferredFileTypes, getDefaultsForAction } from './dataConstants'
+import {
+  inferredFileTypes,
+  getDefaultsForAction,
+  validPaths
+} from './dataConstants'
 import _ from 'lodash'
 
 const DataParser = {
@@ -49,6 +53,28 @@ const DataParser = {
     let dataForAction = getDefaultsForAction(action, target, filePath)
 
     return dataForAction
+  },
+
+  isValidContentPath(path, contentTrees, fileExt, callback = null) {
+    let hasValidPath = false
+
+    for (let i = 0; i < validPaths.length; i++) {
+      if (_.startsWith(path, 'Content/' + validPaths[i])) {
+        hasValidPath = true
+        break
+      }
+    }
+
+    if (!hasValidPath) return false
+
+    // Iterate the content tree now...
+    for (let i = 0, len = contentTrees.length; i < len; i++) {
+      if (path === _.replace(contentTrees[i].path, fileExt, '')) {
+        callback && callback(contentTrees[i].path)
+        return true
+      }
+    }
+    return false
   }
 }
 

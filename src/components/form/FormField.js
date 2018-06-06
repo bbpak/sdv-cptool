@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { ContentDataContext } from '../../data/DataContext'
 
 export default class FormField extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export default class FormField extends Component {
     }
 
     // Handle object values
-    if (e.target.name) {
+    if (e.target.name !== field) {
       newValue = value
       newValue[e.target.name] = e.target.value
     } else newValue = e.target.value
@@ -41,6 +42,7 @@ export default class FormField extends Component {
       case 'Action':
         input = (
           <select
+            name={field}
             className="field-input"
             value={value}
             onChange={this.handleInputChange}
@@ -54,6 +56,7 @@ export default class FormField extends Component {
       case 'PatchMode':
         input = (
           <select
+            name={field}
             className="field-input"
             value={value}
             onChange={this.handleInputChange}
@@ -66,6 +69,7 @@ export default class FormField extends Component {
       case 'Enabled':
         input = (
           <select
+            name={field}
             className="field-input"
             value={value}
             onChange={this.handleInputChange}
@@ -126,6 +130,7 @@ export default class FormField extends Component {
       case 'Format':
         input = (
           <input
+            name={field}
             className="field-input"
             type="text"
             value={value}
@@ -147,10 +152,20 @@ export default class FormField extends Component {
 
     return (
       <span className={className}>
-        <pre title={title} className="line" style={style} tabIndex="0">
-          <div className="field-label">{field}</div>
-          {input}
-        </pre>
+        <ContentDataContext.Consumer>
+          {context => (
+            <pre
+              onClick={context.getFocusedField}
+              title={title}
+              className="line"
+              style={style}
+              tabIndex="0"
+            >
+              <div className="field-label">{field}</div>
+              {input}
+            </pre>
+          )}
+        </ContentDataContext.Consumer>
       </span>
     )
   }

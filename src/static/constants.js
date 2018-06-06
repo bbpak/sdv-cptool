@@ -30,3 +30,6 @@ export const CONTENT_TREES_SRC_REF =
 
 export const CONTENT_TREES_SRC =
   'https://api.github.com/repos/Pathoschild/StardewValley/git/trees'
+
+export const CONTENT_RAW_SRC =
+  'https://api.github.com/repos/Pathoschild/StardewValley/contents'
