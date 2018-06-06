@@ -7,10 +7,10 @@ import '../styles/Forms.css'
 
 export default class Exporter extends Component {
   handleExportData = () => {
-    const data = _.omitBy(this.props.contentData, _.isNil || _.isEmpty)
-    let bruh = DataParser.fixJson(data)
+    let data = _.omitBy(this.props.contentData, _.isNil || _.isEmpty)
+    data = DataParser.fixJson(data)
 
-    var file = new Blob([JSON.stringify(bruh, null, 2)], {
+    var file = new Blob([JSON.stringify(data, null, 2)], {
       type: 'text'
     })
     if (window.navigator.msSaveOrOpenBlob)

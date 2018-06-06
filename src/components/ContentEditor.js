@@ -7,6 +7,7 @@ import FieldBlock from './form/FieldBlock'
 import FormField from './form/FormField'
 import DataParser from '../data/DataParser'
 import { defaultData, getDefaultsForAction } from '../data/dataConstants'
+import { ContentDataContext } from '../data/DataContext'
 import './styles/Editor.css'
 
 export default class ContentEditor extends Component {
@@ -95,12 +96,18 @@ export default class ContentEditor extends Component {
           {_.map(contentData.Changes, (blockData, i) => {
             return (
               <div key={i}>
-                <FieldBlock
-                  isCollapsible
-                  index={i}
-                  blockData={blockData}
-                  handleBlockDataChange={this.handleBlockDataChange}
-                />
+                <ContentDataContext.Consumer>
+                  {context => (
+                    <FieldBlock
+                      isCollapsible
+                      index={i}
+                      contentTrees={context.contentTrees}
+                      getFocusedField={context.getFocusedField}
+                      blockData={blockData}
+                      handleBlockDataChange={this.handleBlockDataChange}
+                    />
+                  )}
+                </ContentDataContext.Consumer>
                 <Divider
                   dividerStyle={{ left: '1em', width: 'calc(100% - 4.5em)' }}
                 />

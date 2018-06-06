@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import FormField from './FormField'
 import { optionalFields, getDefaultsForAction } from '../../data/dataConstants'
+import DataParser from '../../data/DataParser'
+
 import _ from 'lodash'
 
 export default class FieldBlock extends Component {
@@ -55,9 +57,17 @@ export default class FieldBlock extends Component {
       blockData,
       isCollapsible,
       className,
-      children
+      children,
+      getFocusedField,
+      contentTrees
     } = this.props
     const { isCollapsed, showOptionals } = this.state
+
+    let isTargetValid = true
+    if (blockData.Target) {
+      isTargetValid = blockData.Target === '' || true
+      //DataParser.validateContentPath(blockData.Target, contentTrees)
+    }
 
     return (
       <div
@@ -107,12 +117,17 @@ export default class FieldBlock extends Component {
               _.includes(optionalFields, field) &&
               this._isEmpty(blockData[field]) &&
               !showOptionals
-            )
+            ) {
               return
+            }
             return (
               <FormField
                 key={i}
-                className={className}
+                getFocusedField={getFocusedField}
+                className={`${className ? className : ''} ${field ===
+                  'Target' &&
+                  !isTargetValid &&
+                  'invalid'}`}
                 field={field}
                 value={blockData[field]}
                 handleValueChange={this.handleValueChange}

@@ -181,3 +181,11 @@ select {
 .add:hover {
   background-color: #333333;
 }
+
+.invalid {
+  background-color: #3d1919 !important;
+}
+
+.invalid .line:hover {
+  background-color: #441919 !important;
+}

@@ -28,7 +28,7 @@ export default class Image extends Component {
     } else {
       let imgPath
       if (
-        DataParser.isValidContentPath(
+        DataParser.validateContentPath(
           targetPath,
           contentTrees,
           '.png',

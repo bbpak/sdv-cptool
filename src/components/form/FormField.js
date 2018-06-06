@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { ContentDataContext } from '../../data/DataContext'
 
 export default class FormField extends Component {
   constructor(props) {
@@ -147,26 +146,22 @@ export default class FormField extends Component {
   }
 
   render() {
-    const { title, style, field, className } = this.props
+    const { title, style, field, className, getFocusedField } = this.props
     let input = this.getInputForField()
 
     return (
-      <span className={className}>
-        <ContentDataContext.Consumer>
-          {context => (
-            <pre
-              onClick={context.getFocusedField}
-              title={title}
-              className="line"
-              style={style}
-              tabIndex="0"
-            >
-              <div className="field-label">{field}</div>
-              {input}
-            </pre>
-          )}
-        </ContentDataContext.Consumer>
-      </span>
+      <div className={className}>
+        <pre
+          onClick={getFocusedField}
+          title={title}
+          className="line"
+          style={style}
+          tabIndex="0"
+        >
+          <div className="field-label">{field}</div>
+          {input}
+        </pre>
+      </div>
     )
   }
 }
