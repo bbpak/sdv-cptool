@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import FormField from './FormField'
 import { optionalFields, getDefaultsForAction } from '../../data/dataConstants'
-import DataParser from '../../data/DataParser'
+import ContentParser from '../../data/ContentParser'
 
 import _ from 'lodash'
 
@@ -66,7 +66,7 @@ export default class FieldBlock extends Component {
     let isTargetValid = true
     if (blockData.Target) {
       isTargetValid = blockData.Target === '' || true
-      //DataParser.validateContentPath(blockData.Target, contentTrees)
+      //ContentParser.validateContentPath(blockData.Target, contentTrees)
     }
 
     return (

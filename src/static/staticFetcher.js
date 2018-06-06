@@ -59,26 +59,9 @@ export const getStaticContent = () => {
   })
 }
 
-// Fetch content files data from gist
-export const getContentTrees = (contentSha, config) => {
-  axios
-    .get(`${CONTENT_TREES_SRC}/${contentSha}?recursive=1`, config)
-    .then(response => {
-      const gameFilesData = _.filter(response.data.tree, o => {
-        return _.startsWith(o.path, 'Content/')
-      })
-      // Only want path and size
-      this._removeKeys(gameFilesData, ['sha', 'mode', 'url', 'type'])
-      return gameFilesData
-    })
-    .catch(err => {
-      console.log(`Unable to fetch game content; ${err.message}`)
-    })
-}
-
 export const updateGists = () => {
   this.getDocsSource()
-  axios.get(CONTENT_TREES_SRC_REF, config).then(response => {
+  axios.get(CONTENT_TREES_SRC_REF, authConfig).then(response => {
     this.getContentTreesSource(response.data.object.sha, config)
   })
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import axios from 'axios'
 import { CONTENT_RAW_SRC } from '../../static/constants'
-import DataParser from '../../data/DataParser'
+import ContentParser from '../../data/ContentParser'
 
 export default class Image extends Component {
   state = { imgSrc: null }
@@ -27,7 +27,7 @@ export default class Image extends Component {
     } else {
       let imgPath
       if (
-        DataParser.validateContentPath(
+        ContentParser.validateContentPath(
           targetPath,
           contentTrees,
           '.png',

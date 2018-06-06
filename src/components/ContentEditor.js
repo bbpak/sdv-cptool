@@ -5,7 +5,7 @@ import DropBox from './DropBox'
 import FormBlock from './form/FormBlock'
 import FieldBlock from './form/FieldBlock'
 import FormField from './form/FormField'
-import DataParser from '../data/DataParser'
+import ContentParser from '../data/ContentParser'
 import { defaultData, getDefaultsForAction } from '../data/dataConstants'
 import { ContentDataContext } from '../data/DataContext'
 import './styles/Editor.css'
@@ -50,7 +50,7 @@ export default class ContentEditor extends Component {
     let data = contentData ? contentData : defaultData
 
     _.map(filesData, file => {
-      data.Changes.push(DataParser.getDataForFile(file))
+      data.Changes.push(ContentParser.getDataForFile(file))
     })
 
     updateContentData(data)

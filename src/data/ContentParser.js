@@ -5,7 +5,7 @@ import {
 } from './dataConstants'
 import _ from 'lodash'
 
-const DataParser = {
+const ContentParser = {
   _getActionFromFileType(type) {
     // Tile map
     if (type === 'tbin') return 'Load'
@@ -55,7 +55,7 @@ const DataParser = {
     return dataForAction
   },
 
-  isValidContentPath(path, contentTrees, fileExt, callback = null) {
+  validateContentPath(path, contentTrees, fileExt = '', callback = null) {
     let hasValidPath = false
 
     for (let i = 0; i < validPaths.length; i++) {
@@ -78,4 +78,4 @@ const DataParser = {
   }
 }
 
-export default DataParser
+export default ContentParser

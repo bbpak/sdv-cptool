@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import FieldBlock from '../form/FieldBlock'
 import { defaultManifest } from '../../data/dataConstants'
-import DataParser from '../../data/DataParser'
+import ContentParser from '../../data/ContentParser'
 import '../styles/Forms.css'
 
 export default class Exporter extends Component {
   handleExportData = () => {
     let data = _.omitBy(this.props.contentData, _.isNil || _.isEmpty)
-    data = DataParser.fixJson(data)
+    data = ContentParser.fixJson(data)
 
     var file = new Blob([JSON.stringify(data, null, 2)], {
       type: 'text'
