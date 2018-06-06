@@ -84,7 +84,7 @@ const getDocsSource = () => {
     .get(DOCS_MD_SRC, config)
     .then(response => {
       // Html for iframe
-      const docsHtml = getDocsHtml(marked(response.data), DOCS_SRC_BASE)
+      const docsHtml = getDocsHtml(marked(response.data))
       return docsHtml
     })
     .catch(err => {

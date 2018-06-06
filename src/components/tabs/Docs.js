@@ -15,6 +15,11 @@ export default class Docs extends Component {
     _.map(anchors, anchor => {
       // Open external sites in new tab
       if (!anchor.href.includes('#')) anchor.target = '_blank'
+      if (anchor.href.includes('.md'))
+        anchor.href = `${DOCS_SRC_BASE.replace(
+          'raw',
+          'tree'
+        )}/${anchor.href.split('/').pop()}`
     })
 
     const images = docs.getElementsByTagName('img')

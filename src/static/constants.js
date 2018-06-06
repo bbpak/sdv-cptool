@@ -9,7 +9,7 @@ export const DOCS_SRC_BASE =
 export const DOCS_SRC_REF =
   'https://api.github.com/repos/Pathoschild/StardewMods/git/refs/heads/develop'
 
-export const getDocsHtml = (markdown, baseUrl) => {
+export const getDocsHtml = markdown => {
   return `
   <!DOCTYPE html>
     <html lang="en">
@@ -17,7 +17,7 @@ export const getDocsHtml = (markdown, baseUrl) => {
       <article class="markdown-body entry-content" itemprop="text">
         ${markdown}
         <small>
-          Sourced from <a href=${baseUrl} target="_blank" >${baseUrl}</a>
+          Sourced from <a href=${DOCS_SRC_BASE} target="_blank" >${DOCS_SRC_BASE}</a>
         </small>
       </article>
     </body>
