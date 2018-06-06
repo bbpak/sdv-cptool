@@ -9,7 +9,6 @@ import {
   CONTENT_TREES_SRC,
   CONTENT_TREES_SRC_REF
 } from './constants'
-import { auth } from '../keys/api'
 
 const config = {
   headers: {
