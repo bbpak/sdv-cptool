@@ -6,11 +6,12 @@ import '../styles/Forms.css'
 
 export default class Exporter extends Component {
   handleExportData = () => {
-    const data = _.omitBy(this.props.contentData, val => {
-      return val === '' || _.isUndefined || _.isEmpty
-    })
+    const data = _.omitBy(this.props.contentData, _.isNil || _.isEmpty)
+    let bruh = this._fixJson(data)
 
-    var file = new Blob([JSON.stringify(data, null, 2)], { type: 'text' })
+    var file = new Blob([JSON.stringify(bruh, null, 2)], {
+      type: 'text'
+    })
     if (window.navigator.msSaveOrOpenBlob)
       // IE10+
       window.navigator.msSaveOrOpenBlob(file, 'content.json')
@@ -29,10 +30,30 @@ export default class Exporter extends Component {
     }
   }
 
-  _fixJson = obj => {
-    _.map(obj, field => {
-      // Fix numbers
+  _fixJson = data => {
+    let obj = data
+    // Parse numbers
+    _.map(obj.Changes, fields => {
+      if (fields.FromArea) {
+        _.map(fields.FromArea, (value, key) => {
+          if (value) fields.FromArea[key] = parseInt(value)
+          else fields.FromArea[key] = 0
+        })
+      }
+      if (fields.ToArea) {
+        _.map(fields.ToArea, (value, key) => {
+          if (value) fields.ToArea[key] = parseInt(value)
+          else fields.ToArea[key] = 0
+        })
+      }
     })
+
+    // Parse boolean
+    _.map(obj.Changes, fields => {
+      if (fields.Enabled) fields.Enabled = fields.Enabled === 'true'
+    })
+
+    return obj
   }
 
   render() {

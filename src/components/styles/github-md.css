@@ -593,7 +593,6 @@
 .markdown-body img {
   max-width: 100%;
   box-sizing: content-box;
-  background-color: #fff;
 }
 
 .markdown-body img[align='right'] {
@@ -710,9 +709,9 @@ body {
   padding: 0 1em 1em 1em;
 }
 
-.markdown-body table,
-.markdown-body tr,
-.markdown-body td,
+table,
+tr,
+td,
 .markdown-body pre {
   background-color: #282828 !important;
 }

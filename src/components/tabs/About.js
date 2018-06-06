@@ -1,7 +1,8 @@
 import React from 'react'
+import '../styles/github-md.css'
 
 const About = () => (
-  <div className="panel about">
+  <div className="markdown-body panel about">
     <p>
       This is a tool intended to make creating/editing Content Packs easier.
       While the original goal was to provide a friendlier editor for users who
@@ -31,7 +32,8 @@ const About = () => (
       <img
         style={{
           display: 'inline-block',
-          verticalAlign: 'middle'
+          verticalAlign: 'middle',
+          backgroundColor: 'none !important'
         }}
         alt=":SDVPufferPing:"
         src="https://cdn.discordapp.com/emojis/423125623439884290.png?v=1"
@@ -40,9 +42,9 @@ const About = () => (
       />&nbsp; on Discord for suggestions, complaints, knock-knock jokes, etc.
     </p>
     <b>
-      <pre>
+      <small>
         CURRENT BUILD: <i>0.0.1-ALPHA</i>
-      </pre>
+      </small>
     </b>
   </div>
 )

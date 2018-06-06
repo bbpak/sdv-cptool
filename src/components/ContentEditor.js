@@ -25,6 +25,12 @@ export default class ContentEditor extends Component {
       console.log('Please use Chrome for optimal 𝒜 𝐸 𝒮 𝒯 𝐻 𝐸 𝒯 𝐼 𝒞 𝒮')
 
     document.addEventListener('keydown', this.handleKeyPress)
+    /*
+    if (localStorage.contentData) {
+      this.setState({ hasProcessedFiles: true })
+      this.props.updateContentData(localStorage.contentData)
+    }
+    */
   }
 
   handleKeyPress = event => {
