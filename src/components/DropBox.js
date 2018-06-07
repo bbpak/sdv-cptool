@@ -140,9 +140,11 @@ export default class DropBox extends Component {
               ? { border: 'none', background: 'none', cursor: 'default' }
               : {}
           }
+          /*
           onClick={() => {
             !isHidden && this.handleFileUpload()
           }}
+          */
           onDrop={this.handleFileDrop}
           onDragOver={this.handleDragOver}
           onDragLeave={this.handleDragLeave}
