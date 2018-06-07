@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import axios from 'axios'
 import { CONTENT_RAW_SRC } from '../../static/constants'
-import ContentParser from '../../data/ContentParser'
+import { validContentPath } from '../../data/contentParser'
 
 export default class Image extends Component {
   state = { imgSrc: null }
@@ -27,13 +27,14 @@ export default class Image extends Component {
     } else {
       let imgPath
       if (
-        ContentParser.validateContentPath(
+        validContentPath(
           targetPath,
           contentTrees,
-          '.png',
+          false,
           contentPath => {
             imgPath = contentPath
-          }
+          },
+          '.png'
         )
       ) {
         const config = {
@@ -58,8 +59,8 @@ export default class Image extends Component {
     const { imgSrc } = this.state
     const blank = (
       <div>
-        Click on a <code>Target</code> field with a valid target path to see the
-        image.
+        Click on the <code>Target</code> line of an <code>EditImage</code> block
+        with a valid target path to see the image.
       </div>
     )
 

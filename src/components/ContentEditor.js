@@ -5,7 +5,7 @@ import DropBox from './DropBox'
 import FormBlock from './form/FormBlock'
 import FieldBlock from './form/FieldBlock'
 import FormField from './form/FormField'
-import ContentParser from '../data/ContentParser'
+import { getDataForFile, validContentPath } from '../data/contentParser'
 import { defaultData, getDefaultsForAction } from '../data/dataConstants'
 import { ContentDataContext } from '../data/DataContext'
 import './styles/Editor.css'
@@ -46,11 +46,15 @@ export default class ContentEditor extends Component {
   }
 
   handleFilesDrop = filesData => {
-    const { contentData, updateContentData } = this.props
+    const { contentData, updateContentData, contentTrees } = this.props
     let data = contentData ? contentData : defaultData
 
     _.map(filesData, file => {
-      data.Changes.push(ContentParser.getDataForFile(file))
+      let target
+      validContentPath(file.fullPath, contentTrees, true, targetPath => {
+        target = targetPath
+      })
+      data.Changes.push(getDataForFile(file, { target }))
     })
 
     updateContentData(data)

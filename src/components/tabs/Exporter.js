@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import FieldBlock from '../form/FieldBlock'
 import { defaultManifest } from '../../data/dataConstants'
-import ContentParser from '../../data/ContentParser'
 import '../styles/Forms.css'
 
 export default class Exporter extends Component {

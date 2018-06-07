@@ -43,10 +43,13 @@ class App extends Component {
   componentDidMount() {
     // Fetch docs html and game content trees
     getStaticContent().then(content => {
-      this.setState({
-        docs: content.docs,
-        contentTrees: content.contentTrees
-      })
+      this.setState(
+        {
+          docs: content.docs,
+          contentTrees: content.contentTrees
+        },
+        console.log('loaded docs and content tree data')
+      )
     })
   }
 
@@ -111,6 +114,7 @@ class App extends Component {
           <ContentDataContext.Consumer>
             {() => (
               <ContentEditor
+                contentTrees={contentTrees}
                 contentData={contentData}
                 updateContentData={updateContentData}
               />
