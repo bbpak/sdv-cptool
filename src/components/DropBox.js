@@ -88,7 +88,10 @@ export default class DropBox extends Component {
 
     const data = e.dataTransfer.items
 
-    if (!data[0].webkitGetAsEntry().isDirectory) {
+    if (
+      !data[0].webkitGetAsEntry() ||
+      !data[0].webkitGetAsEntry().isDirectory
+    ) {
       alert('You must drop a single folder.')
       return
     }

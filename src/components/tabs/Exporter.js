@@ -8,7 +8,7 @@ import '../styles/Forms.css'
 export default class Exporter extends Component {
   handleExportData = () => {
     let data = _.omitBy(this.props.contentData, _.isNil || _.isEmpty)
-    data = ContentParser.fixJson(data)
+    data = this._fixJson(data)
 
     var file = new Blob([JSON.stringify(data, null, 2)], {
       type: 'text'
@@ -29,6 +29,32 @@ export default class Exporter extends Component {
         window.URL.revokeObjectURL(url)
       }, 0)
     }
+  }
+
+  _fixJson = data => {
+    let obj = data
+    // Parse numbers
+    _.map(obj.Changes, fields => {
+      if (fields.FromArea) {
+        _.map(fields.FromArea, (value, key) => {
+          if (value) fields.FromArea[key] = parseInt(value)
+          else fields.FromArea[key] = 0
+        })
+      }
+      if (fields.ToArea) {
+        _.map(fields.ToArea, (value, key) => {
+          if (value) fields.ToArea[key] = parseInt(value)
+          else fields.ToArea[key] = 0
+        })
+      }
+    })
+
+    // Parse boolean
+    _.map(obj.Changes, fields => {
+      if (fields.Enabled) fields.Enabled = fields.Enabled === 'true'
+    })
+
+    return obj
   }
 
   render() {
