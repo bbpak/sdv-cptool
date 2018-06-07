@@ -74,3 +74,9 @@
   transform: translateX(-50%);
   font-family: 'Pangolin', cursive;
 }
+
+@media (max-width: 1024px) {
+  .editor {
+    flex: 1;
+  }
+}

@@ -56,11 +56,18 @@ export default class Sidebar extends Component {
   render() {
     const { tabs } = this.props
     const { activeTabIndex } = this.state
+    const fullSpan = window.matchMedia('(max-device-width: 1024px)').matches
 
     return (
       <div
         className="sidebar-container"
-        style={activeTabIndex == null ? { flex: 0 } : { flex: '0 1 50%' }}
+        style={
+          activeTabIndex == null
+            ? { flex: 0 }
+            : fullSpan
+              ? { flex: '1 1 auto' }
+              : { flex: '0 1 50%' }
+        }
       >
         {this.renderTabs(tabs)}
         {activeTabIndex !== null && tabs[activeTabIndex].content}

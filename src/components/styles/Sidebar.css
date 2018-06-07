@@ -1,5 +1,6 @@
 .sidebar-container {
   display: block;
+  z-index: 10;
   flex: 0 50% auto;
   width: auto;
   height: 100vh;
@@ -78,4 +79,10 @@
   image-rendering: crisp-edges;
   image-rendering: pixelated;
   background-color: white;
+}
+
+@media (max-width: 1024px) {
+  .sidebar-container {
+    flex: 1;
+  }
 }
