@@ -54,3 +54,21 @@
 .disabled div {
   cursor: default !important;
 }
+
+.no-mobile {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  text-align: center;
+  font-family: 'Pangolin', cursive;
+  height: 100vh;
+  overflow: hidden;
+  background-image: url('https://cdn.discordapp.com/emojis/280083536558555157.png?v=1');
+  background-repeat: no-repeat;
+  background-size: 50%;
+  opacity: 0.75;
+  background-position: center;
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}

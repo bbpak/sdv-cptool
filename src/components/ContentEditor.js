@@ -85,6 +85,8 @@ export default class ContentEditor extends Component {
     const { contentData } = this.props
     const lineStyle = { borderLeft: 0 }
 
+    const data = contentData ? contentData : defaultData
+
     return (
       <div>
         <FormBlock>
@@ -97,7 +99,7 @@ export default class ContentEditor extends Component {
         <FormBlock>
           <FormField style={lineStyle} field="Changes" />
 
-          {_.map(contentData.Changes, (blockData, i) => {
+          {_.map(data.Changes, (blockData, i) => {
             return (
               <div key={i}>
                 <ContentDataContext.Consumer>
@@ -112,9 +114,7 @@ export default class ContentEditor extends Component {
                     />
                   )}
                 </ContentDataContext.Consumer>
-                <Divider
-                  dividerStyle={{ left: '1em', width: 'calc(100% - 4.5em)' }}
-                />
+                <Divider dividerStyle={{ width: 'calc(100% - 4em)' }} />
               </div>
             )
           })}
@@ -134,12 +134,16 @@ export default class ContentEditor extends Component {
 
   render() {
     const { hasProcessedFiles } = this.state
+    const isTablet = /Mobi|Android/i.test(navigator.userAgent)
 
     return (
       <div className="editor">
         <div className="content-form">
-          <DropBox onDrop={this.handleFilesDrop} isHidden={hasProcessedFiles} />
-          {hasProcessedFiles && this.renderForm()}
+          <DropBox
+            onDrop={this.handleFilesDrop}
+            isHidden={hasProcessedFiles || isTablet}
+          />
+          {(hasProcessedFiles || isTablet) && this.renderForm()}
         </div>
       </div>
     )

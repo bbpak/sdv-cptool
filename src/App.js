@@ -6,6 +6,7 @@ import Templates from './components/tabs/Templates'
 import Exporter from './components/tabs/Exporter'
 import Image from './components/tabs/Image'
 import About from './components/tabs/About'
+import NoMobile from './components/NoMobile'
 import { getStaticContent } from './static/staticFetcher'
 import { ContentDataContext } from './data/DataContext'
 
@@ -54,6 +55,13 @@ class App extends Component {
   }
 
   render() {
+    if (
+      /Mobi|Android/i.test(navigator.userAgent) &&
+      window.matchMedia('(max-device-width: 600px)').matches
+    ) {
+      return <NoMobile />
+    }
+
     const {
       docs,
       contentTrees,
