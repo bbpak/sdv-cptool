@@ -6,8 +6,7 @@ import '../styles/Forms.css'
 
 export default class Exporter extends Component {
   handleExportData = () => {
-    let data = _.omitBy(this.props.contentData, _.isNil || _.isEmpty)
-    data = this._fixJson(data)
+    const data = this._fixJson(this.props.contentData)
 
     var file = new Blob([JSON.stringify(data, null, 2)], {
       type: 'text'
@@ -32,6 +31,7 @@ export default class Exporter extends Component {
 
   _fixJson = data => {
     let obj = data
+
     // Parse numbers
     _.map(obj.Changes, fields => {
       if (fields.FromArea) {
@@ -53,6 +53,18 @@ export default class Exporter extends Component {
       if (fields.Enabled) fields.Enabled = fields.Enabled === 'true'
     })
 
+    obj = this._removeEmpty(obj)
+    return obj
+  }
+
+  _removeEmpty = obj => {
+    Object.entries(obj).forEach(
+      ([key, val]) =>
+        key !== 'Target' &&
+        key !== 'FromFile' &&
+        ((val && typeof val === 'object' && this._removeEmpty(val)) ||
+          ((val === null || val === '') && delete obj[key]))
+    )
     return obj
   }
 

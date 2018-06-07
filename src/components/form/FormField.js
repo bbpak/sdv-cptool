@@ -60,6 +60,9 @@ export default class FormField extends Component {
             value={value}
             onChange={this.handleInputChange}
           >
+            <option value="" disabled selected>
+              -- select --
+            </option>
             <option>Replace</option>
             <option>Overlay</option>
           </select>
@@ -73,6 +76,9 @@ export default class FormField extends Component {
             value={value}
             onChange={this.handleInputChange}
           >
+            <option value="" disabled selected>
+              -- select --
+            </option>
             <option>true</option>
             <option>false</option>
           </select>
