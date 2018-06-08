@@ -10,6 +10,14 @@ import {
   CONTENT_TREES_SRC_REF
 } from './constants'
 
+// These are API calls to fetch data for the Content Patcher docs
+// as well as the trees for the game's Content files. To avoid
+// potentially exceeding the API rate limits, I will be fetching
+// static data through BitBucket's API (less strict on API rate)
+
+// For updates, the static data will be fetched from the source (Pathoschild's Repos)
+// And the updates will be pushed to the static data in BitBucket.
+
 const config = {
   headers: {
     Accept: 'application/vnd.github.v3.raw'
@@ -58,6 +66,8 @@ export const getStaticContent = () => {
       )
   })
 }
+
+// ------------ USED FOR UPDATING THE GISTS --------------------
 
 export const updateGists = () => {
   this.getDocsSource()

@@ -46,15 +46,6 @@ const About = () => (
         CURRENT BUILD: <i>0.0.1-ALPHA</i>
       </small>
     </b>
-    <hr />
-    <span>
-      <code>
-        This site uses Google Analytics to monitor traffic. I'm only interested
-        in seeing how many people come and go throughout an average day so that
-        I know if I have to dish out more money to support more concurrent users
-        or perform maintenance/updates without blocking users.
-      </code>
-    </span>
   </div>
 )
 

@@ -56,7 +56,7 @@ class App extends Component {
 
   render() {
     if (
-      /Mobi|Android/i.test(navigator.userAgent) &&
+      /Mobi|Android/i.test(navigator.userAgent) ||
       window.matchMedia('(max-device-width: 600px)').matches
     ) {
       return <NoMobile />
