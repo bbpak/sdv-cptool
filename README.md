@@ -3,6 +3,8 @@
 An online editor to make editing JSON more approachable, intended for creating Content Packs for 
 [Content Patcher](https://github.com/Pathoschild/StardewMods/tree/develop/ContentPatcher). Content Pack Tool also expedites the process of creating a `content.json`
 
+![demo](https://giant.gfycat.com/FrenchDampHoki.gif)
+
 # Built with
 
 - React
@@ -19,3 +21,5 @@ To add a change, click on the '+' button. You can select the type of change you 
 ## Using the sidebar tools
 
 The sidebar contains various tools to help with using the editor. There is a provided documentation for Content Patcher on creating Content Packs, an image viewer to show any image assets being referenced in the editor, and an exporter to save the contents of the editor as `content.json` once you are done editing.
+
+![image-demo](https://i.imgur.com/57xzxdY.png)
