@@ -2,7 +2,7 @@
 
 *No longer maintained. Superseded by https://github.com/Bouhm/json-editor, a much more general implementation.*
 
-An online editor to make editing JSON more approachable, intended for creating Content Packs for 
+An online editor intended for creating Content Packs for 
 [Content Patcher](https://github.com/Pathoschild/StardewMods/tree/develop/ContentPatcher). Content Pack Tool also expedites the process of creating a `content.json`
 
 ![demo](https://giant.gfycat.com/FrenchDampHoki.gif)
